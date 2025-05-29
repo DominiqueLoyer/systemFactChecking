@@ -1,6 +1,8 @@
-# systemFactChecking
+# Hybrid System for Verifying the Credibility of Information (Rules-based and AI-based)
 
 ## Please use these citation keys if you use the code
+\
+\
 
 
 
@@ -8,8 +10,8 @@
 
 
 
-\author Loyer, D. (2025)
-\title *Modeling an Hybrid System (predicate-logic-based & ML/AI) for Verifying the Credibility of Information Sources*
+\author Loyer, D. (2025) \
+\title *Modeling an Hybrid System (predicate-logic-based & ML/AI) for Verifying the Credibility of Information Sources* \
 \affil Université du Québec à Montréal (UQAM)].
 
 
@@ -23,8 +25,8 @@
 ### The code in Turtle for the ontology
 
 
-\author Loyer, D. (2025).
-\title *Hybrid System for Verifying the Credibility of Information Sources: An Ontology*
+\author Loyer, D. (2025). \
+\title *Hybrid System for Verifying the Credibility of Information Sources: An Ontology* \
 \affil Université du Québec à Montréal (UQAM)].
 
 
