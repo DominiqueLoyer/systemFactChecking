@@ -1,6 +1,6 @@
 # Hybrid System for Verifying the Credibility of Information (Rules-based and AI-based)
 
-## Please use these citation keys if you use the code \
+## Please use these citation keys if you use the code  
 
 
 
