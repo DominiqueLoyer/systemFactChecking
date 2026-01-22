@@ -1,34 +1,3 @@
----
-Date: "20260121"
-tags:
-  - obsidian
-  - uqam
-  - UQAM25
-  - DIC-9401
-  - DIC-9411
-  - DIC-9500
-  - 1.0_UQAM
-  - obsidian1
-  - uqam2
-  - UQAM25_1
-  - DIC-9401_1
-  - DIC-9411_1
-  - DIC-9500_1
-  - 1.0_UQAM_1
-authors: Dominique Loyer
-affiliations: UQAM
-title: "2026-01-21"
-labels: "20260121-2026-01-21"
-BackLinks: "[[_1.0 UQAM(2)/15.0 fichiers bk_161125/1.0 UQAM]]"
-MOC: "[[MOC Générale]]"
-color: var(--mk-color-base-10)
----
-
-#uqam #1-0-UQAM #1-0-UQAM2025 #uqam-1-0 #uqam-2025 #uqam/2025 #uqam-1-0 #université #academic #DIC9401 #dic9411 #dic9500 
-
-[[_1.0 UQAM(2)/15.0 fichiers bk_161125/1.0 UQAM]] [[1.0.0.0.1 HIVER_2025]]
-
-
 # documentation sysCRED
 
 # 🔬 SysCRED - Documentation Complète
