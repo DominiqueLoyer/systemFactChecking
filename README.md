@@ -1,6 +1,6 @@
 # Fact Checking System: Information Credibility Verification
 
-[![DOI](https://zenodo.org/badge/992891582.svg)](https://doi.org/10.5281/zenodo.17943226)]
+[![DOI](https://zenodo.org/badge/992891582.svg)]([https://doi.org/10.5281/zenodo.17943226](https://doi.org/10.5281/zenodo.17943227))
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/v2_syscred/syscred_colab.ipynb)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/DominiqueLoyer/systemFactChecking/blob/main/v2_syscred/syscred_kaggle.ipynb)
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dominiqueloyer)
