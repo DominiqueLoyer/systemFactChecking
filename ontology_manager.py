@@ -300,6 +300,89 @@ class OntologyManager:
         
         return stats
     
+    def get_graph_json(self) -> Dict[str, List]:
+        """
+        Convert ontology data into D3.js JSON format (Nodes & Links).
+        """
+        nodes = []
+        links = []
+        added_nodes = set()
+        
+        # Get the latest report ID
+        latest_query = """
+        PREFIX cred: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#>
+        SELECT ?report ?timestamp WHERE {
+            ?report a cred:RapportEvaluation .
+            ?report cred:completionTimestamp ?timestamp .
+        }
+        ORDER BY DESC(?timestamp)
+        LIMIT 1
+        """
+        latest_report = None
+        try:
+            for row in self.data_graph.query(latest_query):
+                latest_report = row.report
+        except:
+            pass
+            
+        if not latest_report:
+            return {'nodes': [], 'links': []}
+            
+        # Helper to add node if unique
+        def add_node(uri, label, type_class, group):
+            if str(uri) not in added_nodes:
+                nodes.append({
+                    'id': str(uri),
+                    'name': str(label),
+                    'group': group,
+                    'type': str(type_class).split('#')[-1]
+                })
+                added_nodes.add(str(uri))
+        
+        # Add Central Node (Report)
+        add_node(latest_report, "Latest Report", "cred:RapportEvaluation", 1)
+        
+        # Query triples related to this report
+        related_query = """
+        PREFIX cred: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#>
+        SELECT ?p ?o ?oType ?oLabel WHERE {
+            <%s> ?p ?o .
+            OPTIONAL { ?o a ?oType } .
+            OPTIONAL { ?o cred:evidenceSnippet ?oLabel } .
+            OPTIONAL { ?o cred:sourceAnalyzedReputation ?oLabel } .
+        }
+        """ % str(latest_report)
+        
+        try:
+            for row in self.data_graph.query(related_query):
+                p = row.p
+                o = row.o
+                
+                if str(p) == str(RDF.type): continue # Skip type definition edges
+                if 'Literal' in str(type(o)): continue # Skip basic literals
+                
+                # Determine Group/Color
+                o_type = str(row.oType) if row.oType else "Unknown"
+                group = 2 # Default gray
+                if 'High' in o_type or 'Supporting' in o_type: group = 3 # Green
+                if 'Low' in o_type or 'Refuting' in o_type: group = 4 # Red
+                if 'Rapport' in o_type: group = 1 # Purple
+                
+                # Add Target Node
+                o_label = row.oLabel if row.oLabel else str(o).split('#')[-1]
+                add_node(o, o_label, o_type, group)
+                
+                # Add Link
+                links.append({
+                    'source': str(latest_report),
+                    'target': str(o),
+                    'value': 1
+                })
+        except Exception as e:
+            print(f"Graph query error: {e}")
+            
+        return {'nodes': nodes, 'links': links}
+    
     def export_to_ttl(self, output_path: str, include_base: bool = False) -> bool:
         """
         Export the ontology to a TTL file.

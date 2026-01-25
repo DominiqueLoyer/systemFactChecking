@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysCRED - Vérification de Crédibilité</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/static/js/d3.min.js"></script>
+    <style>
+        .graph-container {
+            width: 100%;
+            height: 500px;
+            min-height: 500px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            display: block;
+            /* Force display */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0d0d1f 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #8b8ba7;
+            font-size: 1.1rem;
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+
+        input[type="text"]::placeholder {
+            color: #6b6b8a;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .score-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-value {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .score-high {
+            color: #22c55e;
+        }
+
+        .score-medium {
+            color: #eab308;
+        }
+
+        .score-low {
+            color: #ef4444;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            color: #8b8ba7;
+            margin-bottom: 1rem;
+        }
+
+        .credibility-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-high {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .badge-medium {
+            background: rgba(234, 179, 8, 0.2);
+            color: #eab308;
+            border: 1px solid #eab308;
+        }
+
+        .badge-low {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: #8b8ba7;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .summary-box {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #a855f7;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+
+        .loading.visible {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(124, 58, 237, 0.2);
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: #ef4444;
+            display: none;
+        }
+
+        .error.visible {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #6b6b8a;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #7c3aed;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 SysCRED</h1>
+            <p class="subtitle">Système Neuro-Symbolique de Vérification de Crédibilité</p>
+        </header>
+
+        <div class="search-box">
+            <div class="input-group">
+                <input type="text" id="urlInput" placeholder="Entrez une URL à analyser (ex: https://www.lemonde.fr)"
+                    autofocus>
+                <button id="analyzeBtn" onclick="analyzeUrl()">
+                    🔍 Analyser
+                </button>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyse en cours...</p>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <div class="results" id="results">
+            <div class="score-card">
+                <div class="score-label">Score de Crédibilité</div>
+                <div class="score-value" id="scoreValue">0.00</div>
+                <div class="credibility-badge" id="credibilityBadge">-</div>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-title">📋 Résumé de l'analyse</div>
+                <p id="summary">-</p>
+            </div>
+
+            <div class="details-grid" id="detailsGrid"></div>
+
+            <div class="graph-section" style="margin-top: 3rem;">
+                <div class="summary-title" style="margin-bottom: 2rem; color: #60a5fa;">🕸️ Réseau Neuro-Symbolique
+                    (Ontologie)</div>
+                <!-- Debug link -->
+                <small style="color: #666; cursor: pointer;"
+                    onclick="alert('D3 Loaded: ' + (typeof d3 !== 'undefined'))">Debug: Vérifier D3</small>
+
+                <div id="cy" class="graph-container"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>SysCRED v2.0 - Prototype de recherche doctorale</p>
+            <p>© Dominique S. Loyer - UQAM | <a href="https://doi.org/10.5281/zenodo.17943226" target="_blank">DOI:
+                    10.5281/zenodo.17943226</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5001';
+
+        async function analyzeUrl() {
+            const urlInput = document.getElementById('urlInput');
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            const error = document.getElementById('error');
+            const btn = document.getElementById('analyzeBtn');
+
+            const inputData = urlInput.value.trim();
+
+            if (!inputData) {
+                alert('Veuillez entrer une URL');
+                return;
+            }
+
+            // Reset UI
+            results.classList.remove('visible');
+            error.classList.remove('visible');
+            loading.classList.add('visible');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_URL}/api/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        input_data: inputData,
+                        include_seo: true,
+                        include_pagerank: true
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Erreur lors de l\'analyse');
+                }
+
+                displayResults(data);
+
+            } catch (err) {
+                error.textContent = `❌ Erreur: ${err.message}`;
+                error.classList.add('visible');
+            } finally {
+                loading.classList.remove('visible');
+                btn.disabled = false;
+            }
+        }
+
+        function displayResults(data) {
+            const results = document.getElementById('results');
+            const scoreValue = document.getElementById('scoreValue');
+            const credibilityBadge = document.getElementById('credibilityBadge');
+            const summary = document.getElementById('summary');
+            const detailsGrid = document.getElementById('detailsGrid');
+
+            // Score
+            const score = data.scoreCredibilite || 0;
+            scoreValue.textContent = score.toFixed(2);
+
+            // Conditional Display: Hide Score Card if TEXT input, show if URL
+            const isUrl = data.informationEntree && data.informationEntree.startsWith('http');
+            const scoreCard = document.querySelector('.score-card');
+
+            if (isUrl) {
+                scoreCard.style.display = 'block';
+                // Color based on score
+                scoreValue.className = 'score-value';
+                credibilityBadge.className = 'credibility-badge';
+
+                if (score >= 0.7) {
+                    scoreValue.classList.add('score-high');
+                    credibilityBadge.classList.add('badge-high');
+                    credibilityBadge.textContent = '✓ Crédibilité Élevée';
+                } else if (score >= 0.4) {
+                    scoreValue.classList.add('score-medium');
+                    credibilityBadge.classList.add('badge-medium');
+                    credibilityBadge.textContent = '⚠ Crédibilité Moyenne';
+                } else {
+                    scoreValue.classList.add('score-low');
+                    credibilityBadge.classList.add('badge-low');
+                    credibilityBadge.textContent = '✗ Crédibilité Faible';
+                }
+            } else {
+                // Hide score card for text queries as requested
+                scoreCard.style.display = 'none';
+            }
+
+            // Summary
+            summary.textContent = data.resumeAnalyse || 'Aucun résumé disponible';
+
+            // Build details HTML
+            let detailsHTML = '';
+
+            // Source reputation from rule analysis
+            const ruleResults = data.reglesAppliquees || {};
+            const sourceAnalysis = ruleResults.source_analysis || {};
+
+            if (sourceAnalysis.reputation) {
+                const repColor = sourceAnalysis.reputation === 'High' ? '#22c55e' :
+                    sourceAnalysis.reputation === 'Low' ? '#ef4444' : '#eab308';
+                detailsHTML += `
+                    <div class="detail-card">
+                        <div class="detail-label">🏛️ Réputation Source</div>
+                        <div class="detail-value" style="color: ${repColor}">${sourceAnalysis.reputation}</div>
+                    </div>
+                `;
+            }
+
+            if (sourceAnalysis.domain_age_days) {
+                const years = (sourceAnalysis.domain_age_days / 365).toFixed(1);
+                detailsHTML += `
+                    <div class="detail-card">
+                        <div class="detail-label">📅 Âge du Domaine</div>
+                        <div class="detail-value">${years} ans</div>
+                    </div>
+                `;
+            }
+
+            // NLP analysis
+            const nlpAnalysis = data.analyseNLP || {};
+
+            if (nlpAnalysis.sentiment) {
+                detailsHTML += `
+                    <div class="detail-card">
+                        <div class="detail-label">💭 Sentiment</div>
+                        <div class="detail-value">${nlpAnalysis.sentiment.label} (${(nlpAnalysis.sentiment.score * 100).toFixed(0)}%)</div>
+                    </div>
+                `;
+            }
+
+            if (nlpAnalysis.coherence_score !== null && nlpAnalysis.coherence_score !== undefined) {
+                detailsHTML += `
+                    <div class="detail-card">
+                        <div class="detail-label">📊 Cohérence</div>
+                        <div class="detail-value">${(nlpAnalysis.coherence_score * 100).toFixed(0)}%</div>
+                    </div>
+                `;
+            }
+
+            // Add PageRank if available
+            if (data.pageRankEstimation && data.pageRankEstimation.estimatedPR) {
+                detailsHTML += `
+                    <div class="detail-card">
+                        <div class="detail-label">📈 PageRank Estimé</div>
+                        <div class="detail-value">${data.pageRankEstimation.estimatedPR.toFixed(3)}</div>
+                    </div>
+                `;
+            }
+
+            // Add SEO score if available
+            if (data.seoAnalysis && data.seoAnalysis.seoScore) {
+                detailsHTML += `
+                    <div class="detail-card">
+                        <div class="detail-label">🔍 Score SEO</div>
+                        <div class="detail-value">${data.seoAnalysis.seoScore}</div>
+                    </div>
+                `;
+            }
+
+            // Fact checks
+            const factChecks = ruleResults.fact_checking || [];
+            if (factChecks.length > 0) {
+                // Add a header for fact checks
+                detailsHTML += `
+                    <div style="grid-column: 1 / -1; margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 600; color: #f472b6;">
+                        🕵️ Fact-Checks Trouvés (${factChecks.length})
+                    </div>
+                `;
+
+                factChecks.forEach(fc => {
+                    detailsHTML += `
+                        <div class="detail-card" style="grid-column: 1 / -1; border-color: rgba(244, 114, 182, 0.3);">
+                            <div class="detail-label">🔍 ${fc.publisher || 'Source inconnue'}</div>
+                            <div class="detail-value" style="font-size: 1rem; margin-bottom: 0.5rem;">"${fc.claim}"</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: #f472b6; font-weight: 700;">Verdict: ${fc.rating}</span>
+                                <a href="${fc.url}" target="_blank" style="color: #a855f7; text-decoration: none; font-size: 0.9rem;">Lire le rapport →</a>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            detailsGrid.innerHTML = detailsHTML;
+
+            results.classList.add('visible');
+
+            // Fetch and render graph with slight delay to ensure DOM is ready
+            requestAnimationFrame(() => {
+                renderD3Graph();
+            });
+        }
+
+        async function renderD3Graph() {
+            logDebug("Starting renderD3Graph...");
+            const container = document.getElementById('cy');
+
+            // Check if D3 is loaded
+            if (typeof d3 === 'undefined') {
+                container.innerHTML = '<p class="error visible">Erreur: D3.js n\'a pas pu être chargé.</p>';
+                logDebug("ERROR: D3 undefined");
+                return;
+            }
+
+            try {
+                container.innerHTML = '<div class="spinner"></div>'; // Loading state
+                logDebug("Fetching graph data...");
+
+                const response = await fetch(`${API_URL}/api/ontology/graph`);
+                const data = await response.json();
+
+                container.innerHTML = ''; // Clear loading
+                logDebug(`Data received. Nodes: ${data.nodes ? data.nodes.length : 0}, Links: ${data.links ? data.links.length : 0}`);
+
+                if (!data.nodes || data.nodes.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; padding:2rem; color:#6b6b8a; width:100%; display:flex; justify-content:center; align-items:center; height:100%;">Ayçune donnée ontologique disponible.</p>';
+                    return;
+                }
+
+                // Get dimensions
+                const width = container.clientWidth || 800;
+                const height = container.clientHeight || 500;
+                logDebug(`Container size: ${width}x${height}`);
+
+                const svg = d3.select(container).append("svg")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("viewBox", [-width / 2, -height / 2, width, height])
+                    .style("background-color", "rgba(0,0,0,0.2)"); // Visible background
+
+                logDebug("SVG created. Starting simulation...");
+
+                // Colors: 1=Purple(Report), 2=Gray(Unknown), 3=Green(Good), 4=Red(Bad)
+                const color = d3.scaleOrdinal()
+                    .domain([1, 2, 3, 4])
+                    .range(["#8b5cf6", "#94a3b8", "#22c55e", "#ef4444"]);
+
+                const simulation = d3.forceSimulation(data.nodes)
+                    .force("link", d3.forceLink(data.links).id(d => d.id).distance(120))
+                    .force("charge", d3.forceManyBody().strength(-400))
+                    .force("center", d3.forceCenter(0, 0));
+
+                // Arrow marker
+                svg.append("defs").selectAll("marker")
+                    .data(["end"])
+                    .join("marker")
+                    .attr("id", "arrow")
+                    .attr("viewBox", "0 -5 10 10")
+                    .attr("refX", 22)
+                    .attr("refY", 0)
+                    .attr("markerWidth", 6)
+                    .attr("markerHeight", 6)
+                    .attr("orient", "auto")
+                    .append("path")
+                    .attr("fill", "#64748b")
+                    .attr("d", "M0,-5L10,0L0,5");
+
+                const link = svg.append("g")
+                    .selectAll("line")
+                    .data(data.links)
+                    .join("line")
+                    .attr("stroke", "#475569")
+                    .attr("stroke-opacity", 0.6)
+                    .attr("stroke-width", 2)
+                    .attr("marker-end", "url(#arrow)");
+
+                const node = svg.append("g")
+                    .selectAll("circle")
+                    .data(data.nodes)
+                    .join("circle")
+                    .attr("r", d => d.group === 1 ? 18 : 8)
+                    .attr("fill", d => color(d.group))
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 1.5)
+                    .style("cursor", "pointer")
+                    .call(drag(simulation));
+
+                // Labels
+                const text = svg.append("g")
+                    .selectAll("text")
+                    .data(data.nodes)
+                    .join("text")
+                    .text(d => d.name.length > 20 ? d.name.substring(0, 20) + "..." : d.name)
+                    .attr("font-size", "11px")
+                    .attr("fill", "#e0e0e0")
+                    .attr("dx", 12)
+                    .attr("dy", 4)
+                    .style("pointer-events", "none")
+                    .style("text-shadow", "0 1px 2px black");
+
+                // Tooltip
+                node.append("title").text(d => `${d.name}\n(${d.type})`);
+
+                simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y);
+
+                    text
+                        .attr("x", d => d.x)
+                        .attr("y", d => d.y);
+                });
+
+                // Zoom
+                svg.call(d3.zoom().scaleExtent([0.1, 4]).on("zoom", (e) => {
+                    svg.selectAll('g').attr('transform', e.transform);
+                }));
+
+                logDebug("Graph rendered successfully.");
+
+            } catch (err) {
+                console.error("D3 Graph error:", err);
+                const container = document.getElementById('cy');
+                if (container) container.innerHTML = `<p class="error visible">Erreur graphique: ${err.message}</p>`;
+                logDebug(`ERROR EXCEPTION: ${err.message}`);
+            }
+        }
+
+        function testD3() {
+            logDebug("Starting Static Test...");
+            const container = document.getElementById('cy');
+            container.innerHTML = '';
+
+            const width = container.clientWidth || 800;
+            const height = container.clientHeight || 500;
+
+            logDebug(`Container: ${width}x${height}`);
+
+            try {
+                const svg = d3.select(container).append("svg")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("viewBox", [-width / 2, -height / 2, width, height])
+                    .style("background-color", "#222");
+
+                svg.append("circle")
+                    .attr("r", 50)
+                    .attr("fill", "red")
+                    .attr("cx", 0)
+                    .attr("cy", 0);
+
+                svg.append("text")
+                    .text("D3 WORKS")
+                    .attr("fill", "white")
+                    .attr("x", 0)
+                    .attr("y", 5)
+                    .attr("text-anchor", "middle");
+
+                logDebug("Static Test Complete. You should see a red circle.");
+            } catch (e) {
+                logDebug("Static Test ERROR: " + e.message);
+                alert("Static Test Failed: " + e.message);
+            }
+        }
+
+        // Allow Enter key to trigger analysis
+        document.getElementById('urlInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                analyzeUrl();
+            }
+        });
+    </script>
+</body>
+
+</html>

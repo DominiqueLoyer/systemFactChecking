@@ -26,6 +26,13 @@ except ImportError:
     HAS_ML = False
     print("Warning: ML libraries not fully installed. Run: pip install transformers torch lime numpy")
 
+try:
+    from sentence_transformers import SentenceTransformer, util
+    HAS_SBERT = True
+except ImportError:
+    HAS_SBERT = False
+    print("Warning: sentence-transformers not installed. Semantic coherence will use heuristics.")
+
 # Local imports
 from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
 from syscred.ontology_manager import OntologyManager
@@ -82,6 +89,7 @@ class CredibilityVerificationSystem:
         self.ner_pipeline = None
         self.bias_tokenizer = None
         self.bias_model = None
+        self.coherence_model = None
         self.explainer = None
         
         if load_ml_models and HAS_ML:
@@ -122,12 +130,22 @@ class CredibilityVerificationSystem:
             print(f"[SysCRED] ✗ NER model failed: {e}")
         
         try:
-            # Bias detection (placeholder - using generic BERT)
-            self.bias_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-            self.bias_model = AutoModelForSequenceClassification.from_pretrained("bert-base-uncased")
-            print("[SysCRED] ✓ Bias model loaded (placeholder)")
+            # Bias detection - Specialized model
+            # Using 'd4data/bias-detection-model' or fallback to generic
+            bias_model_name = "d4data/bias-detection-model"
+            self.bias_tokenizer = AutoTokenizer.from_pretrained(bias_model_name)
+            self.bias_model = AutoModelForSequenceClassification.from_pretrained(bias_model_name)
+            print("[SysCRED] ✓ Bias model loaded (d4data)")
         except Exception as e:
-            print(f"[SysCRED] ✗ Bias model failed: {e}")
+            print(f"[SysCRED] ✗ Bias model failed: {e}. Using heuristics.")
+
+        try:
+            # Semantic Coherence
+            if HAS_SBERT:
+                self.coherence_model = SentenceTransformer('all-MiniLM-L6-v2')
+                print("[SysCRED] ✓ Coherence model loaded (SBERT)")
+        except Exception as e:
+            print(f"[SysCRED] ✗ Coherence model failed: {e}")
         
         try:
             # LIME explainer
@@ -245,7 +263,7 @@ class CredibilityVerificationSystem:
             'coherence_score': None
         }
         
-        if not text or not HAS_ML:
+        if not text:
             results['sentiment'] = {'label': 'Neutral', 'score': 0.5}
             return results
         
@@ -276,29 +294,8 @@ class CredibilityVerificationSystem:
                 print(f"[NLP] Sentiment error: {e}")
                 results['sentiment'] = {'label': 'Error', 'score': 0.0}
         
-        # 2. Bias analysis (placeholder using generic classification)
-        if self.bias_model and self.bias_tokenizer:
-            try:
-                inputs = self.bias_tokenizer(
-                    text[:512], return_tensors="pt", 
-                    truncation=True, max_length=512, padding=True
-                )
-                with torch.no_grad():
-                    logits = self.bias_model(**inputs).logits
-                score = torch.softmax(logits, dim=1)[0][0].item()
-                
-                if score > 0.7:
-                    results['bias_analysis'] = {
-                        'score': score, 
-                        'label': 'Potential Bias Flagged (Simulated)'
-                    }
-                else:
-                    results['bias_analysis'] = {
-                        'score': score, 
-                        'label': 'Low Bias Detected (Simulated)'
-                    }
-            except Exception as e:
-                print(f"[NLP] Bias error: {e}")
+        # 2. Bias analysis
+        results['bias_analysis'] = self._analyze_bias(text)
         
         # 3. Named Entity Recognition
         if self.ner_pipeline:
@@ -308,22 +305,74 @@ class CredibilityVerificationSystem:
             except Exception as e:
                 print(f"[NLP] NER error: {e}")
         
-        # 4. Coherence (placeholder - could use more sophisticated methods)
-        word_count = len(text.split())
-        sentence_count = len(re.split(r'[.!?]+', text))
-        if sentence_count > 0:
-            avg_sentence_length = word_count / sentence_count
-            # Normalize: very short or very long sentences reduce coherence
-            if 10 <= avg_sentence_length <= 25:
-                results['coherence_score'] = 0.8
-            elif 5 <= avg_sentence_length <= 35:
-                results['coherence_score'] = 0.6
-            else:
-                results['coherence_score'] = 0.4
-        else:
-            results['coherence_score'] = 0.5
+        # 4. Semantic Coherence
+        results['coherence_score'] = self._calculate_coherence(text)
         
         return results
+
+    def _analyze_bias(self, text: str) -> Dict[str, Any]:
+        """Analyze text for bias using ML or heuristics."""
+        # Method 1: ML Model
+        if self.bias_model and self.bias_tokenizer:
+            try:
+                inputs = self.bias_tokenizer(
+                    text[:512], return_tensors="pt", 
+                    truncation=True, max_length=512, padding=True
+                )
+                with torch.no_grad():
+                    logits = self.bias_model(**inputs).logits
+                probs = torch.softmax(logits, dim=1)[0]
+                # Label mapping depends on model, usually [Non-biased, Biased]
+                bias_score = probs[1].item() 
+                
+                label = " biased" if bias_score > 0.5 else "Non-biased"
+                return {'score': bias_score, 'label': label, 'method': 'ML (d4data)'}
+            except Exception as e:
+                print(f"[NLP] ML Bias error: {e}")
+        
+        # Method 2: Heuristics
+        biased_words = [
+            'radical', 'extremist', 'disgraceful', 'shameful', 'corrupt', 
+            'insane', 'idiot', 'disaster', 'propaganda', 'dictator',
+            'puppet', 'regime', 'tyrant', 'treason', 'traitor'
+        ]
+        text_lower = text.lower()
+        count = sum(1 for w in biased_words if w in text_lower)
+        score = min(1.0, count * 0.15)
+        label = "Potentially Biased" if score > 0.3 else "Neutral"
+        return {'score': score, 'label': label, 'method': 'Heuristic'}
+
+    def _calculate_coherence(self, text: str) -> float:
+        """Calculate semantic coherence score."""
+        sentences = re.split(r'[.!?]+', text)
+        sentences = [s.strip() for s in sentences if len(s.split()) > 3]
+        
+        if len(sentences) < 2:
+            return 1.0
+            
+        # Method 1: SBERT Semantic Similarity
+        if self.coherence_model and HAS_SBERT:
+            try:
+                embeddings = self.coherence_model.encode(sentences[:10]) # Limit to 10
+                sims = []
+                for i in range(len(embeddings) - 1):
+                    sim = util.pytorch_cos_sim(embeddings[i], embeddings[i+1])
+                    sims.append(sim.item())
+                return sum(sims) / len(sims) if sims else 0.5
+            except Exception as e:
+                print(f"[NLP] SBERT error: {e}")
+        
+        # Method 2: Heuristic (Sentence Length Variance & Repetition)
+        lengths = [len(s.split()) for s in sentences]
+        avg_len = sum(lengths) / len(lengths)
+        variance = sum((l - avg_len) ** 2 for l in lengths) / len(lengths)
+        
+        # High variance suggests simpler/choppier writing usually
+        score = 0.8
+        if variance > 100: score -= 0.2
+        if avg_len < 5: score -= 0.2
+        
+        return max(0.0, score)
     
     def calculate_overall_score(
         self, 
@@ -435,19 +484,26 @@ class CredibilityVerificationSystem:
                 'bias_analysis': nlp_results.get('bias_analysis'),
                 'named_entities_count': len(nlp_results.get('named_entities', [])),
                 'coherence_score': nlp_results.get('coherence_score'),
-                'sentiment_explanation_preview': nlp_results.get('sentiment_explanation', [])[:3]
+                'sentiment_explanation_preview': (nlp_results.get('sentiment_explanation') or [])[:3]
             },
             'metadonnees': {}
         }
         
         # Add web content metadata if available
-        if web_content and web_content.success:
-            report['metadonnees']['page_title'] = web_content.title
-            report['metadonnees']['meta_description'] = web_content.meta_description
-            report['metadonnees']['links_count'] = len(web_content.links)
-        
+        if web_content:
+            if web_content.success:
+                report['metadonnees']['page_title'] = web_content.title
+                report['metadonnees']['meta_description'] = web_content.meta_description
+                report['metadonnees']['links_count'] = len(web_content.links)
+            else:
+                report['metadonnees']['warning'] = f"Content scrape failed: {web_content.error}"
+
         # Generate summary
         summary_parts = []
+        
+        if web_content and not web_content.success:
+            summary_parts.append(f"⚠️ ATTENTION: Impossible de lire le texte de la page ({web_content.error}). Analyse basée uniquement sur la réputation du domaine.")
+        
         if overall_score > 0.75:
             summary_parts.append("L'analyse suggère une crédibilité ÉLEVÉE.")
         elif overall_score > 0.55:
@@ -545,20 +601,34 @@ class CredibilityVerificationSystem:
                 text_to_analyze = web_content.text_content
                 print(f"[SysCRED] ✓ Content fetched: {len(text_to_analyze)} chars")
             else:
-                print(f"[SysCRED] ✗ Fetch failed: {web_content.error}")
-                return {"error": f"Impossible de récupérer le contenu: {web_content.error}"}
+                print(f"[SysCRED] ⚠ Fetch failed: {web_content.error}")
+                print("[SysCRED] Proceeding with Domain/Metadata analysis only.")
+                text_to_analyze = ""
+                # We don't return error anymore, we proceed!
         else:
             text_to_analyze = input_data
         
         # 2. Preprocess text
         cleaned_text = self.preprocess(text_to_analyze)
-        if not cleaned_text:
+        
+        # Only error on empty text if it wasn't a failed web fetch
+        # If web fetch failed, we proceed with empty text to give metadata analysis
+        if not cleaned_text and not (is_url and web_content and not web_content.success):
             return {"error": "Le texte est vide après prétraitement."}
         print(f"[SysCRED] Preprocessed text: {len(cleaned_text)} chars")
         
+        # Determine best query for Fact Checking
+        fact_check_query = input_data
+        if text_to_analyze and len(text_to_analyze) > 10:
+             # Use start of text if available
+            fact_check_query = text_to_analyze[:200]
+        elif is_url and web_content and web_content.title:
+            # Fallback to page title if text is missing (e.g. 403)
+            fact_check_query = web_content.title
+        
         # 3. Fetch external data
-        print("[SysCRED] Fetching external data...")
-        external_data = self.api_clients.fetch_external_data(input_data)
+        print(f"[SysCRED] Fetching external data (Query: {fact_check_query[:50]}...)...")
+        external_data = self.api_clients.fetch_external_data(input_data, fc_query=fact_check_query)
         print(f"[SysCRED] ✓ Reputation: {external_data.source_reputation}, Age: {external_data.domain_age_days} days")
         
         # 4. Rule-based analysis

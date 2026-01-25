@@ -9,6 +9,7 @@ Endpoints:
 - POST /api/seo - Get SEO analysis only
 - GET /api/ontology/stats - Get ontology statistics
 - GET /api/health - Health check
+- GET /api/config - View current configuration
 
 (c) Dominique S. Loyer - PhD Thesis Prototype
 """
@@ -16,7 +17,7 @@ Endpoints:
 import sys
 import os
 import traceback
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 # Add syscred package to path
@@ -27,21 +28,22 @@ try:
     from syscred.verification_system import CredibilityVerificationSystem
     from syscred.seo_analyzer import SEOAnalyzer
     from syscred.ontology_manager import OntologyManager
+    from syscred.config import config, Config
     SYSCRED_AVAILABLE = True
     print("[SysCRED Backend] Modules imported successfully")
 except ImportError as e:
     SYSCRED_AVAILABLE = False
     print(f"[SysCRED Backend] Warning: Could not import modules: {e}")
-
-# --- Configuration ---
-ONTOLOGY_BASE_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "sysCRED_onto26avrtil.ttl"
-)
-ONTOLOGY_DATA_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "ontology", "sysCRED_data.ttl"
-)
+    # Fallback config
+    class Config:
+        HOST = "0.0.0.0"
+        PORT = 5000
+        DEBUG = True
+        ONTOLOGY_BASE_PATH = None
+        ONTOLOGY_DATA_PATH = None
+        LOAD_ML_MODELS = True
+        GOOGLE_FACT_CHECK_API_KEY = None
+    config = Config()
 
 # --- Initialize Flask App ---
 app = Flask(__name__)
@@ -66,10 +68,13 @@ def initialize_system():
         
         # Initialize full system (may take time to load ML models)
         print("[SysCRED Backend] Initializing credibility system (loading ML models)...")
+        ontology_base = str(config.ONTOLOGY_BASE_PATH) if config.ONTOLOGY_BASE_PATH else None
+        ontology_data = str(config.ONTOLOGY_DATA_PATH) if config.ONTOLOGY_DATA_PATH else None
         credibility_system = CredibilityVerificationSystem(
-            ontology_base_path=ONTOLOGY_BASE_PATH if os.path.exists(ONTOLOGY_BASE_PATH) else None,
-            ontology_data_path=ONTOLOGY_DATA_PATH,
-            load_ml_models=True
+            ontology_base_path=ontology_base if ontology_base and os.path.exists(ontology_base) else None,
+            ontology_data_path=ontology_data,
+            load_ml_models=config.LOAD_ML_MODELS,
+            google_api_key=config.GOOGLE_FACT_CHECK_API_KEY
         )
         print("[SysCRED Backend] System initialized successfully!")
         return True
@@ -79,8 +84,13 @@ def initialize_system():
         traceback.print_exc()
         return False
 
-
 # --- API Routes ---
+
+@app.route('/')
+def index():
+    """Serve the frontend."""
+    return send_from_directory('static', 'index.html')
+
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
@@ -310,4 +320,4 @@ if __name__ == '__main__':
     print("  - GET  /api/health     - Health check")
     print()
     
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
