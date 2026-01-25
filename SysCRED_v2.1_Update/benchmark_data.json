@@ -1,0 +1,92 @@
+[
+    {
+        "url": "https://www.lemonde.fr",
+        "label": "High",
+        "expected_score_range": [
+            0.7,
+            1.0
+        ],
+        "category": "News (General)"
+    },
+    {
+        "url": "https://www.bbc.com",
+        "label": "High",
+        "expected_score_range": [
+            0.7,
+            1.0
+        ],
+        "category": "News (International)"
+    },
+    {
+        "url": "https://www.nature.com",
+        "label": "High",
+        "expected_score_range": [
+            0.8,
+            1.0
+        ],
+        "category": "Science"
+    },
+    {
+        "url": "https://www.who.int",
+        "label": "High",
+        "expected_score_range": [
+            0.8,
+            1.0
+        ],
+        "category": "Health/Institution"
+    },
+    {
+        "url": "https://www.reuters.com",
+        "label": "High",
+        "expected_score_range": [
+            0.7,
+            1.0
+        ],
+        "category": "News (Agency)"
+    },
+    {
+        "url": "https://www.infowars.com",
+        "label": "Low",
+        "expected_score_range": [
+            0.0,
+            0.4
+        ],
+        "category": "Conspiracy"
+    },
+    {
+        "url": "https://www.naturalnews.com",
+        "label": "Low",
+        "expected_score_range": [
+            0.0,
+            0.4
+        ],
+        "category": "Pseudoscience"
+    },
+    {
+        "url": "https://truthsocial.com",
+        "label": "Low",
+        "expected_score_range": [
+            0.0,
+            0.5
+        ],
+        "category": "Social/Biased"
+    },
+    {
+        "url": "https://www.theflatearthsociety.org",
+        "label": "Low",
+        "expected_score_range": [
+            0.0,
+            0.4
+        ],
+        "category": "Conspiracy"
+    },
+    {
+        "url": "https://beforeitsnews.com",
+        "label": "Low",
+        "expected_score_range": [
+            0.0,
+            0.4
+        ],
+        "category": "Fake News"
+    }
+]
