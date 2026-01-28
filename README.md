@@ -1,8 +1,8 @@
 # Fact Checking System: Information Credibility Verification
 
-[![DOI](https://zenodo.org/badge/992891582.svg)]([https://doi.org/10.5281/zenodo.18364541](https://doi.org/110.5281/zenodo.18364541)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/v2_syscred/syscred_colab.ipynb)
-[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/DominiqueLoyer/systemFactChecking/blob/main/v2_syscred/syscred_kaggle.ipynb)
+[![DOI](https://zenodo.org/badge/992891582.svg)](https://zenodo.org/badge/latestdoi/992891582)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_colab.ipynb)
+[![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_kaggle.ipynb)
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dominiqueloyer)
 [![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-DominiqueLoyer-EA4AAA?logo=github-sponsors)](https://github.com/sponsors/DominiqueLoyer)
 
@@ -36,7 +36,7 @@ The system provides explainable credibility scores (High/Medium/Low) with detail
 ```bash
 # Clone the repository
 git clone https://github.com/DominiqueLoyer/systemFactChecking.git
-cd systemFactChecking/v2_syscred
+cd systemFactChecking/02_Code/v2_syscred
 
 # Install dependencies
 pip install -r requirements.txt
@@ -106,32 +106,22 @@ curl -X POST http://localhost:5000/api/verify \
 ```
 systemFactChecking/
 ├── README.md                    # This file
-├── v2_syscred/                  # ⭐ VERSION 2.0 (January 2026)
-│   ├── verification_system.py  # Main verification pipeline
-│   ├── api_clients.py          # External API integrations
-│   ├── ontology_manager.py     # RDF/OWL ontology management
-│   ├── seo_analyzer.py         # SEO & PageRank analysis
-│   ├── ir_engine.py            # Information Retrieval engine
-│   ├── eval_metrics.py         # Evaluation metrics (MAP, NDCG, P@K)
-│   ├── config.py               # Centralized configuration
-│   ├── backend_app.py          # Flask REST API server
-│   ├── syscred_kaggle.ipynb    # Kaggle notebook
-│   ├── syscred_colab.ipynb     # Colab notebook
-│   └── requirements.txt        # Dependencies
-│
-├── # Legacy v1.0 files (April 2025)
-├── sys-cred-Python-27avril2025.py
-├── backend_flask.py
-├── interface806.html
-├── projetFinal_sysCred_Onto_28avril.ttl
-└── *.pdf                        # Documentation papers
+├── 01_Presentations/            # Presentations (.pdf, .tex)
+├── 02_Code/                     # Source Code
+│   ├── v2_syscred/              # ⭐ VERSION 2.0 (January 2026)
+│   │   ├── verification_system.py
+│   │   ├── ...
+│   │   └── requirements.txt
+│   └── src/                     # Source files
+├── 03_Docs/                     # Documentation (.pdf)
+└── 04_Bibliography/             # References (.bib, .pdf)
 ```
 
 ---
 
 ## 🔧 Configuration
 
-Set environment variables or edit `v2_syscred/config.py`:
+Set environment variables or edit `02_Code/v2_syscred/config.py`:
 
 ```bash
 # Optional: Google Fact Check API key
@@ -168,9 +158,9 @@ The system uses weighted factors to calculate credibility:
 
 ## 📚 Documentation & Papers
 
-- [Modeling and Hybrid System for Verification of Sources Credibility (PDF)](Modeling%20and%20Hybrid%20System%20for%20Verification%20of%20sources%20credibility.pdf)
-- [Ontology of a Verification System (PDF)](Ontology_of_a_verification_system_for_liability_of_the_information_may15_2025.pdf)
-- [Beamer Presentation - DIC9335 (PDF)](VF_Beamer_30avril25Système_d_évaluation_de_crédibilité_d_information__Une_Ontologie_projetfinal_dic9335.pdf)
+- [Modeling and Hybrid System for Verification of Sources Credibility (PDF)](03_Docs/Modeling%20and%20Hybrid%20System%20for%20Verification%20of%20sources%20credibility.pdf)
+- [Ontology of a Verification System (PDF)](03_Docs/Ontology_of_a_verification_system_for_liability_of_the_information_may15_2025.pdf)
+- [Beamer Presentation - DIC9335 (PDF)](01_Presentations/syscred_presentation.pdf)
 
 ---
 
