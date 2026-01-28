@@ -69,9 +69,9 @@ def initialize_system():
         # Initialize full system (may take time to load ML models)
         print("[SysCRED Backend] Initializing credibility system (loading ML models)...")
         credibility_system = CredibilityVerificationSystem(
-            ontology_base_path=ONTOLOGY_BASE_PATH if os.path.exists(ONTOLOGY_BASE_PATH) else None,
-            ontology_data_path=ONTOLOGY_DATA_PATH,
-            load_ml_models=True
+            ontology_base_path=config.ONTOLOGY_BASE_PATH if config.ONTOLOGY_BASE_PATH and os.path.exists(config.ONTOLOGY_BASE_PATH) else None,
+            ontology_data_path=config.ONTOLOGY_DATA_PATH,
+            load_ml_models=config.LOAD_ML_MODELS
         )
         print("[SysCRED Backend] System initialized successfully!")
         return True
