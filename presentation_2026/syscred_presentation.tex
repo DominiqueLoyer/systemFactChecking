@@ -163,6 +163,45 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{Ontologie de Crédibilité (Classes Principales)}
+  % Diagramme généré en TikZ pour remplacer Mermaid (plus robuste pour LaTeX)
+  \begin{center}
+  \resizebox{0.95\textwidth}{!}{
+  \begin{tikzpicture}[
+    node distance=1.5cm,
+    entity/.style={rectangle, draw=blue!50, fill=blue!10, rounded corners, align=center, minimum height=1cm, minimum width=2.5cm, font=\bfseries\small},
+    evidence/.style={rectangle, draw=green!50!black, fill=green!10, dashed, align=center, minimum height=0.8cm, minimum width=2.5cm, font=\small},
+    relation/.style={->, >=stealth, thick, color=black!70, font=\tiny}
+  ]
+
+    % Nodes
+    \node[entity] (info) {Information};
+    \node[entity, below left=of info] (source) {Source};
+    \node[entity, below right=of info] (eval) {Evaluation};
+    
+    \node[evidence, below=of eval] (evid) {Evidence};
+    \node[evidence, below left=0.5cm and -0.5cm of evid] (supp) {Supporting\\Evidence};
+    \node[evidence, below right=0.5cm and -0.5cm of evid] (refut) {Refuting\\Evidence};
+
+    % Edges
+    \draw[relation] (info) -- node[above, sloped] {hasSource} (source);
+    \draw[relation] (info) -- node[above, sloped] {hasEvaluation} (eval);
+    \draw[relation] (eval) -- node[right] {basedOn} (evid);
+    \draw[relation] (source) -- node[below, sloped] {hasReputation} (eval);
+    
+    % Inheritance
+    \draw[-, dashed, color=gray] (evid) -- (supp);
+    \draw[-, dashed, color=gray] (evid) -- (refut);
+
+  \end{tikzpicture}
+  }
+  \end{center}
+  \begin{itemize}
+      \item \textbf{Modèle en étoile} centré sur l'Evaluation.
+      \item \textbf{Polymorphisme} des preuves (Positives vs Négatives).
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{IA de Confiance (Trustworthy AI)}
   SysCRED s'inscrit dans le paradigme de l'\textbf{AI Assurance} \citep{Sarker2023Trustworthy} :
   \begin{itemize}
