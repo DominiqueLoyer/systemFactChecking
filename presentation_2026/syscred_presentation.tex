@@ -143,12 +143,31 @@
 % --- Section 4: État de l'Art ---
 \section{État de l'Art (2024-2025)}
 
-\begin{frame}{Architectures Neuro-Symboliques (NeSy)}
-  \begin{enumerate}
-    \item \textbf{Pipeline} : Neuronal $\rightarrow$ Symbolique (Choix pour sysCRED pour l'explicabilité).
-    \item \textbf{Co-Learning} : Contraintes logiques dans la \textit{loss function} (Logic Tensor Networks).
-    \item \textbf{Agentic} : LLM + Outils externes (Translate-Infer-Compile).
-  \end{enumerate}
+\begin{frame}{Positionnement : La 3ème Vague (NeSy)}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      Trois grandes familles d'architectures \citep{Garcez2023ThirdWave} :
+      \begin{enumerate}
+        \item \textbf{Hybride Lâche (Pipeline)} : Modules séquentiels.
+        \item \textbf{Intégration Différentiable} : Logique dans la loss function (ex: Logic Tensor Networks).
+        \item \textbf{Programmation NeSy} : Induction de programmes neuronaux.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \begin{alertblock}{Choix sysCRED}
+        Famille \textbf{Pipeline} : Seule approche garantissant une \textbf{auditabilité totale} (Zero Trust) nécessaire pour la lutte contre la désinformation.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{IA de Confiance (Trustworthy AI)}
+  SysCRED s'inscrit dans le paradigme de l'\textbf{AI Assurance} \citep{Sarker2023Trustworthy} :
+  \begin{itemize}
+    \item \textbf{Vérifiabilité} : Chaque décision possède une preuve dans le graphe.
+    \item \textbf{Robustesse} : Résistance aux attaques adverses via le filtrage symbolique.
+    \item \textbf{Interprétabilité} : Explications causales vs corrélations statistiques.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{GraphRAG et Zero Trust}
