@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Antigravity"
+		},
+		{
+			"path": "../Analyse de mon code"
+		},
+		{
+			"path": "../../documents041025/My Papiers and Code (Complete Nov25)_160126"
+		},
+		{
+			"path": "../../documents041025/MonCode"
+		},
+		{
+			"path": "../../terminal-history-backups"
+		},
+		{
+			"path": "../../documents041025/4_Informatique_Projets"
+		},
+		{
+			"path": "../REFONTE_page_PAPer_2026"
+		},
+		{
+			"path": "../../documents041025/mes papiers finaux UQAM"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

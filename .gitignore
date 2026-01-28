@@ -1,0 +1,22 @@
+
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.fdb_latexmk
+*.pdf
+
+# System
+.DS_Store
+
+# IDE
+.vscode/
+
+# Project specific
+*.zip
+*.log
