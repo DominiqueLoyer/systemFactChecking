@@ -1,0 +1,21 @@
+[MANUAL DOWNLOAD NEEDED]
+
+Certains fichiers sont protégés ou inaccessibles directement par script. Veuillez les télécharger manuellement et les placer dans ce dossier (`04_Bibliography/Revue_de_litterature`) :
+
+1. Pan_2025_LLM_KG.pdf
+   - URL: https://arxiv.org/html/2504.07640v1 (Peut être HTML seulement ?)
+   
+2. Wang_2025_IntegratingKGLLM.pdf
+   - Source: AAAI 2025 Proceedings
+   - Action: Rechercher sur Google Scholar ou le site AAAI.
+
+3. Hevner_2004_DesignScience.pdf
+   - URL: https://misq.umn.edu/ (Paywall probable)
+   - Alternative: https://vsdesign.org/publications/pdf/Hevner_March_Park_Ram_MISQ_2004.pdf
+
+4. Peffers_2007_DSRM.pdf
+   - URL: https://scholarworks.gsu.edu/cgi/viewcontent.cgi?article=1028&context=cis_facpub (Le script n'a pas pu contourner la protection)
+
+5. UQAM_2024_GuidePresentation.pdf
+   - URL: https://guidemt.uqam.ca/
+   - Note: C'est un site web interactif maintenant. Il existe un gabarit Word téléchargeable.
