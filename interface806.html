@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation de Crédibilité</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/dist/lucide.min.js"></script>
+    <style>
+        /* Style personnalisé pour la jauge */
+        .gauge-container {
+            width: 200px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 100px 100px 0 0;
+        }
+        .gauge-background {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #ef4444, #eab308, #22c55e); /* Red-Yellow-Green */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .gauge-mask {
+            width: 100%;
+            height: 100%;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: bottom center;
+            /* La rotation sera ajustée par JS */
+            transition: transform 0.5s ease-in-out;
+        }
+        .gauge-center {
+            width: 160px;
+            height: 80px;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            border-radius: 80px 80px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 5px;
+        }
+        .gauge-score {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold;
+        }
+        .gauge-label {
+            font-size: 0.75rem; /* text-xs */
+            color: #6b7280; /* text-gray-500 */
+        }
+        /* Style pour surligner les mots (explication LIME) */
+        .highlight-positive { background-color: rgba(34, 197, 94, 0.3); padding: 0 2px; border-radius: 3px; }
+        .highlight-negative { background-color: rgba(239, 68, 68, 0.3); padding: 0 2px; border-radius: 3px; }
+
+        /* Style pour les barres simples */
+        .bar-container {
+            height: 10px;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            border-radius: 5px;
+            overflow: hidden;
+            width: 100px; /* Ajuster si nécessaire */
+        }
+        .bar {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans p-4 md:p-8">
+
+    <div class="container mx-auto max-w-3xl bg-white shadow-lg rounded-lg p-6 md:p-8">
+
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6">
+            Système d'Évaluation de la Crédibilité de l'Information
+        </h1>
+
+        <div class="mb-6">
+            <label for="inputData" class="block text-sm font-medium text-gray-700 mb-2">
+                Entrez une URL ou collez du texte :
+            </label>
+            <textarea id="inputData" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out" placeholder="Ex: https://www.example.com ou 'Ce texte semble suspect...'"></textarea>
+            <button id="verifyButton" class="mt-3 w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out disabled:opacity-50">
+                <i data-lucide="search" class="mr-2 h-5 w-5"></i> Vérifier la Crédibilité
+            </button>
+        </div>
+
+        <div id="reportSection" class="hidden mt-8 border-t border-gray-200 pt-6">
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4 text-center">Rapport d'Analyse</h2>
+
+            <div class="flex flex-col items-center mb-6 p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-lg font-medium text-gray-700 mb-2">Score de Crédibilité Global</h3>
+                <div class="gauge-container mb-2">
+                    <div class="gauge-background"></div>
+                    <div id="gaugeMask" class="gauge-mask"></div>
+                    <div class="gauge-center">
+                        <span id="gaugeScore" class="gauge-score">--</span>
+                        <span class="gauge-label">0 = Faible, 1 = Élevé</span>
+                    </div>
+                </div>
+                <p id="reportSummary" class="text-center text-gray-600 text-sm italic"></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <h4 class="font-semibold text-gray-700 mb-3 border-b pb-2 flex items-center">
+                        <i data-lucide="clipboard-list" class="mr-2 h-5 w-5 text-blue-600"></i> Analyse Basée sur les Règles
+                    </h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 flex items-center"><i data-lucide="shield-check" class="mr-1.5 h-4 w-4 text-gray-400"></i>Réputation Source :</span>
+                            <span id="repSource" class="font-medium text-gray-800 px-2 py-0.5 rounded">Inconnue</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 flex items-center"><i data-lucide="calendar-days" class="mr-1.5 h-4 w-4 text-gray-400"></i>Âge Domaine :</span>
+                            <span id="ageDomain" class="font-medium text-gray-800">N/A</span>
+                        </div>
+                        <div class="pt-2">
+                            <p class="text-gray-600 mb-1 font-medium">Marqueurs Linguistiques :</p>
+                            <div class="flex justify-between items-center pl-4">
+                                <span class="text-gray-500 flex items-center"><i data-lucide="megaphone" class="mr-1.5 h-4 w-4 text-yellow-500"></i>Sensationnalisme :</span>
+                                <span id="lingSens" class="font-medium text-gray-800">0</span>
+                            </div>
+                            <div class="flex justify-between items-center pl-4">
+                                <span class="text-gray-500 flex items-center"><i data-lucide="check-circle" class="mr-1.5 h-4 w-4 text-green-500"></i>Certitude :</span>
+                                <span id="lingCert" class="font-medium text-gray-800">0</span>
+                            </div>
+                            <div class="flex justify-between items-center pl-4">
+                                <span class="text-gray-500 flex items-center"><i data-lucide="alert-circle" class="mr-1.5 h-4 w-4 text-red-500"></i>Doute :</span>
+                                <span id="lingDoubt" class="font-medium text-gray-800">0</span>
+                            </div>
+                        </div>
+                         <div class="pt-2">
+                            <p class="text-gray-600 mb-1 font-medium flex items-center">
+                               <i data-lucide="search-check" class="mr-1.5 h-4 w-4 text-blue-500"></i> Vérifications Externes (Fact-Checks) :
+                            </p>
+                            <ul id="factChecksList" class="list-disc list-inside pl-4 text-gray-500">
+                                <li>Aucune trouvée.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <h4 class="font-semibold text-gray-700 mb-3 border-b pb-2 flex items-center">
+                        <i data-lucide="brain-circuit" class="mr-2 h-5 w-5 text-purple-600"></i> Analyse par IA (NLP)
+                    </h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 flex items-center"><i data-lucide="smile" class="mr-1.5 h-4 w-4 text-gray-400"></i>Sentiment :</span>
+                            <div>
+                                <span id="sentimentLabel" class="font-medium text-gray-800 px-2 py-0.5 rounded">Neutre</span>
+                                (<span id="sentimentScore" class="text-gray-500">--</span>)
+                            </div>
+                        </div>
+                         <div class="pt-1">
+                             <p class="text-gray-600 mb-1 font-medium flex items-center">
+                                <i data-lucide="highlighter" class="mr-1.5 h-4 w-4 text-gray-400"></i> Mots Clés (Sentiment) :
+                            </p>
+                            <p id="sentimentExplanation" class="text-gray-500 pl-4 text-xs italic">
+                               (Explication non disponible)
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 flex items-center"><i data-lucide="swords" class="mr-1.5 h-4 w-4 text-gray-400"></i>Biais Potentiel :</span>
+                             <div>
+                                <span id="biasLabel" class="font-medium text-gray-800 px-2 py-0.5 rounded">Non Détecté</span>
+                                (<span id="biasScore" class="text-gray-500">--</span>)
+                             </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 flex items-center"><i data-lucide="puzzle" class="mr-1.5 h-4 w-4 text-gray-400"></i>Cohérence (Sim.) :</span>
+                            <div class="bar-container">
+                                <div id="coherenceBar" class="bar bg-blue-500"></div>
+                            </div>
+                         </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 flex items-center"><i data-lucide="tags" class="mr-1.5 h-4 w-4 text-gray-400"></i>Entités Reconnues :</span>
+                            <span id="nerCount" class="font-medium text-gray-800">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="mt-6 bg-gray-50 p-4 rounded-lg shadow-sm">
+                 <h4 class="font-semibold text-gray-700 mb-2 text-sm flex items-center">
+                    <i data-lucide="file-text" class="mr-2 h-4 w-4 text-gray-500"></i> Texte Analysé (Extrait)
+                 </h4>
+                 <p id="originalTextPreview" class="text-xs text-gray-500 italic max-h-20 overflow-y-auto bg-white p-2 rounded border border-gray-200"></p>
+            </div>
+
+        </div> 
+        
+        <div id="loadingIndicator" class="hidden text-center mt-6">
+             <div class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-indigo-700 bg-white transition ease-in-out duration-150 cursor-not-allowed">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Analyse en cours...
+            </div>
+        </div>
+
+         <div id="errorSection" class="hidden mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+             <h4 class="font-bold flex items-center"><i data-lucide="alert-triangle" class="mr-2 h-5 w-5"></i> Erreur</h4>
+             <p id="errorMessage" class="text-sm"></p>
+         </div>
+
+    </div>
+
+    <script>
+        // FIX: Wrap all JavaScript code in DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Éléments DOM ---
+            const inputDataEl = document.getElementById('inputData');
+            const verifyButton = document.getElementById('verifyButton');
+            const reportSection = document.getElementById('reportSection');
+            const errorSection = document.getElementById('errorSection');
+            const errorMessageEl = document.getElementById('errorMessage');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            // Éléments du rapport
+            const gaugeScoreEl = document.getElementById('gaugeScore');
+            const gaugeMaskEl = document.getElementById('gaugeMask');
+            const reportSummaryEl = document.getElementById('reportSummary');
+            const repSourceEl = document.getElementById('repSource');
+            const ageDomainEl = document.getElementById('ageDomain');
+            const lingSensEl = document.getElementById('lingSens');
+            const lingCertEl = document.getElementById('lingCert');
+            const lingDoubtEl = document.getElementById('lingDoubt');
+            const factChecksListEl = document.getElementById('factChecksList');
+            const sentimentLabelEl = document.getElementById('sentimentLabel');
+            const sentimentScoreEl = document.getElementById('sentimentScore');
+            const sentimentExplanationEl = document.getElementById('sentimentExplanation');
+            const biasLabelEl = document.getElementById('biasLabel');
+            const biasScoreEl = document.getElementById('biasScore');
+            const coherenceBarEl = document.getElementById('coherenceBar');
+            const nerCountEl = document.getElementById('nerCount');
+            const originalTextPreviewEl = document.getElementById('originalTextPreview');
+
+            // Initialiser Lucide Icons
+            lucide.createIcons();
+
+            // --- Logique ---
+            verifyButton.addEventListener('click', handleVerificationRequest);
+
+            async function handleVerificationRequest() {
+                const inputText = inputDataEl.value.trim();
+                if (!inputText) {
+                    showError("Veuillez entrer une URL ou du texte.");
+                    return;
+                }
+
+                loadingIndicator.classList.remove('hidden');
+                reportSection.classList.add('hidden');
+                errorSection.classList.add('hidden');
+                verifyButton.disabled = true;
+
+                try {
+                    // *** APPEL RÉEL AU BACKEND ***
+                    const response = await fetch('http://localhost:5000/api/verify', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ input_data: inputText })
+                    });
+                    
+                    const reportData = await response.json(); // Toujours essayer de lire le JSON
+
+                    if (!response.ok) {
+                        // Si la réponse n'est pas OK, lancer une erreur avec le message du serveur
+                        throw new Error(reportData.error || `Erreur serveur: ${response.status}`);
+                    }
+
+                    displayReport(reportData);
+                    reportSection.classList.remove('hidden');
+
+                } catch (error) {
+                    console.error("Erreur lors de la vérification:", error);
+                    showError(error.message || "Une erreur de communication avec le serveur est survenue.");
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    verifyButton.disabled = false;
+                }
+            }
+
+            function displayReport(report) {
+                const score = report.scoreCredibilite;
+                gaugeScoreEl.textContent = score.toFixed(2);
+                const rotation = Math.max(0, Math.min(180, (1 - score) * 180));
+                gaugeMaskEl.style.transform = `rotate(${rotation}deg)`;
+                reportSummaryEl.textContent = report.resumeAnalyse || "Résumé non disponible.";
+
+                const rules = report.reglesAppliquees;
+                const sourceAnalysis = rules.source_analysis || {};
+                const linguisticMarkers = rules.linguistic_markers || {};
+
+                const reputation = sourceAnalysis.reputation || 'Inconnue';
+                repSourceEl.textContent = reputation;
+                repSourceEl.className = `font-medium px-2 py-0.5 rounded ${getReputationColor(reputation)}`;
+
+                const age = sourceAnalysis.domain_age_days;
+                ageDomainEl.textContent = age !== null ? `${age} jours` : 'N/A';
+
+                lingSensEl.textContent = linguisticMarkers.sensationalism || 0;
+                lingCertEl.textContent = linguisticMarkers.certainty || 0;
+                lingDoubtEl.textContent = linguisticMarkers.doubt || 0;
+
+                const factChecks = rules.fact_checking || [];
+                factChecksListEl.innerHTML = '';
+                if (factChecks.length > 0) {
+                    factChecks.forEach(fc => {
+                        const li = document.createElement('li');
+                        const ratingIcon = fc.rating === 'True' ? '<i data-lucide="check-circle-2" class="inline-block h-3 w-3 text-green-500 mr-1"></i>' :
+                                           fc.rating === 'False' ? '<i data-lucide="x-circle" class="inline-block h-3 w-3 text-red-500 mr-1"></i>' :
+                                           '<i data-lucide="help-circle" class="inline-block h-3 w-3 text-gray-400 mr-1"></i>';
+                        li.innerHTML = `${ratingIcon} ${fc.claim || 'Affirmation inconnue'} (${fc.rating || 'Note inconnue'})`;
+                        factChecksListEl.appendChild(li);
+                    });
+                     lucide.createIcons();
+                } else {
+                    factChecksListEl.innerHTML = '<li>Aucun trouvé.</li>';
+                }
+
+                const nlp = report.analyseNLP || {};
+
+                const sentiment = nlp.sentiment || { label: 'Neutral', score: 0.5 };
+                sentimentLabelEl.textContent = sentiment.label || 'Inconnu';
+                sentimentScoreEl.textContent = sentiment.score !== undefined ? sentiment.score.toFixed(2) : '--';
+                sentimentLabelEl.className = `font-medium px-2 py-0.5 rounded ${getSentimentColor(sentiment.label)}`;
+
+                const explanation = nlp.sentiment_explanation_preview || [];
+                if (explanation.length > 0) {
+                    sentimentExplanationEl.innerHTML = explanation.map(item =>
+                        `<span class="${item[1] > 0 ? 'highlight-positive' : 'highlight-negative'}">${item[0]} (${item[1].toFixed(2)})</span>`
+                    ).join(', ');
+                } else {
+                    sentimentExplanationEl.textContent = "(Explication non disponible)";
+                }
+
+                const bias = nlp.bias_analysis || { label: 'Non Détecté', score: null };
+                biasLabelEl.textContent = bias.label || 'Inconnu';
+                biasScoreEl.textContent = bias.score !== null ? bias.score.toFixed(2) : '--';
+                biasLabelEl.className = `font-medium px-2 py-0.5 rounded ${getBiasColor(bias.label)}`;
+
+                const coherence = nlp.coherence_score;
+                if (coherence !== null && coherence !== undefined) {
+                    coherenceBarEl.style.width = `${Math.max(0, Math.min(100, coherence * 100))}%`;
+                } else {
+                     coherenceBarEl.style.width = '0%';
+                }
+
+                nerCountEl.textContent = nlp.named_entities_count !== undefined ? nlp.named_entities_count : 0;
+                
+                const originalText = report.reglesAppliquees?.original_text_preview || report.informationEntree;
+                originalTextPreviewEl.textContent = originalText.substring(0, 300) + (originalText.length > 300 ? '...' : '');
+            }
+
+            function getReputationColor(reputation) {
+                switch (reputation?.toLowerCase()) {
+                    case 'high': return 'bg-green-100 text-green-800';
+                    case 'medium': return 'bg-yellow-100 text-yellow-800';
+                    case 'low': return 'bg-red-100 text-red-800';
+                    default: return 'bg-gray-100 text-gray-800';
+                }
+            }
+
+            function getSentimentColor(label) {
+                 switch (label?.toUpperCase()) {
+                    case 'POSITIVE': return 'bg-green-100 text-green-800';
+                    case 'NEGATIVE': return 'bg-red-100 text-red-800';
+                    default: return 'bg-gray-100 text-gray-800';
+                }
+            }
+
+            function getBiasColor(label) {
+                 if (label?.toLowerCase().includes('flagged') || label?.toLowerCase().includes('potential')) {
+                     return 'bg-yellow-100 text-yellow-800';
+                 } else if (label?.toLowerCase().includes('low') || label?.toLowerCase().includes('non détecté')) {
+                     return 'bg-green-100 text-green-800';
+                 } else {
+                      return 'bg-gray-100 text-gray-800';
+                 }
+            }
+
+            function showError(message) {
+                errorMessageEl.textContent = message;
+                errorSection.classList.remove('hidden');
+                reportSection.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
