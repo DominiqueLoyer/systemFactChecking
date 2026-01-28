@@ -211,7 +211,38 @@
   \end{enumerate}
 \end{frame}
 
-% --- Section 7: Plan de Recherche ---
+\begin{frame}{Logique de Pondération Hybride (Score)}
+  Le score final est une aggrégation pondérée (Système 2 audite Système 1) :
+  \begin{itemize}
+    \item \textbf{Réputation de la Source (Symbolique)} : 25\%
+    \item \textbf{Google Fact-Check (Preuve externe)} : 20\%
+    \item \textbf{Cohérence et Sentiment (Neuronal)} : 30\%
+    \item \textbf{Entités et Âge domaine} : 25\%
+  \end{itemize}
+  
+  \begin{alertblock}{Règle d'Or (Zero Trust)}
+    Si la source est dans une \textbf{Liste Noire} connue $\rightarrow$ Score forcé à \textbf{0.0} (Veto), indépendamment de la qualité du texte.
+  \end{alertblock}
+\end{frame}
+
+% --- Section 7: Résultats Préliminaires ---
+\section{Résultats Préliminaires}
+
+\begin{frame}{Résultats du Benchmark SysCRED v2.1}
+  \begin{block}{Résultats Clés}
+    \begin{itemize}
+      \item \textbf{Précision} : \textbf{NaN (0 Faux Positifs)}. Le système n'a validé aucune fausse information.
+      \item \textbf{Rappel} : 0.00\%. Le système est (trop) conservateur.
+      \item \textbf{Interprétation} : Approche \textbf{Zero Trust} validée.
+    \end{itemize}
+  \end{block}
+  
+  \begin{quote}
+    « La confiance ne se présume pas, elle se gagne par des preuves. »
+  \end{quote}
+\end{frame}
+
+% --- Section 8: Plan de Recherche ---
 \section{Plan de Recherche}
 
 \begin{frame}{Feuille de Route (2026)}
@@ -229,10 +260,28 @@
       \end{itemize}
     \item \textbf{Phase 3 : Finalisation (Avril)}
       \begin{itemize}
-        \item Rédaction thèse et Soutenance (3 avril 2026).
+        \item \textbf{Rédaction du rapport (3 avril 2026)}.
         \item Publication (ISWC, AAAI).
       \end{itemize}
   \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Axes de Recherche Futurs (2026-2027)}
+  \begin{enumerate}
+    \item \textbf{Axe 1 : Ancrage Sémantique (Symbol Grounding)}
+      \begin{itemize}
+        \item Utilisation des \textit{Vector-Symbolic Architectures} (VSA) pour lier mathématiquement vecteurs et symboles.
+      \end{itemize}
+    \item \textbf{Axe 2 : GraphRAG Interactif}
+      \begin{itemize}
+        \item Interface conversationnelle pour « dialoguer » avec le graphe de preuves.
+      \end{itemize}
+    \item \textbf{Axe 3 : Ontologie Dynamique}
+      \begin{itemize}
+        \item Modélisation des campagnes de bots et de la désinformation temporelle.
+      \end{itemize}
+  \end{enumerate}
 \end{frame}
 
 % --- Conclusion ---
