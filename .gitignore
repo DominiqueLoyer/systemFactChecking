@@ -20,3 +20,8 @@
 # Project specific
 *.zip
 *.log
+# Credentials and Keys
+*.key
+*.txt
+.env
+cle*

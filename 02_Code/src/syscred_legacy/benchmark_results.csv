@@ -1,0 +1,11 @@
+url,expected,score,system_verdict,match,time,error
+https://www.lemonde.fr,High,0.5,Low,False,4.741739988327026,
+https://www.bbc.com,High,0.5,Low,False,7.404201984405518,
+https://www.nature.com,High,0.5,Low,False,24.967319011688232,
+https://www.who.int,High,0.5,Low,False,1.9551670551300049,
+https://www.reuters.com,High,0.5,Low,False,2.334050178527832,
+https://www.infowars.com,Low,0.5,Low,True,1.8556349277496338,
+https://www.naturalnews.com,Low,0.5,Low,True,2.246854066848755,
+https://truthsocial.com,Low,0.5,Low,True,1.8757588863372803,
+https://www.theflatearthsociety.org,Low,0.5,Low,True,11.88864016532898,
+https://beforeitsnews.com,Low,0.5,Low,True,2.1257901191711426,
