@@ -342,7 +342,7 @@ class OntologyManager:
         # Add Central Node (Report)
         add_node(latest_report, "Latest Report", "cred:RapportEvaluation", 1)
         
-        # Query triples related to this report
+        # Query triples related to this report (Level 1)
         related_query = """
         PREFIX cred: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#>
         SELECT ?p ?o ?oType ?oLabel WHERE {
@@ -354,6 +354,7 @@ class OntologyManager:
         """ % str(latest_report)
         
         try:
+            # Level 1: Report -> Components
             for row in self.data_graph.query(related_query):
                 p = row.p
                 o = row.o
@@ -364,20 +365,46 @@ class OntologyManager:
                 # Determine Group/Color
                 o_type = str(row.oType) if row.oType else "Unknown"
                 group = 2 # Default gray
-                if 'High' in o_type or 'Supporting' in o_type: group = 3 # Green
-                if 'Low' in o_type or 'Refuting' in o_type: group = 4 # Red
-                if 'Rapport' in o_type: group = 1 # Purple
+                if 'High' in o_type or 'Supporting' in o_type: group = 3 # Green (Positive)
+                if 'Low' in o_type or 'Refuting' in o_type: group = 4 # Red (Negative)
+                if 'Rapport' in o_type: group = 1 # Purple (Hub)
+                if 'SourceAnalysis' in o_type: group = 5 # Blue (Source)
                 
-                # Add Target Node
+                # Add Target Node (Level 1)
                 o_label = row.oLabel if row.oLabel else str(o).split('#')[-1]
                 add_node(o, o_label, o_type, group)
                 
-                # Add Link
+                # Add Link L1
                 links.append({
                     'source': str(latest_report),
                     'target': str(o),
-                    'value': 1
+                    'value': 2,
+                    'type': 'primary'
                 })
+                
+                # Level 2: Component -> Details (Recursive enrich)
+                # Specifically for SourceAnalysis and Evidence
+                l2_query = """
+                SELECT ?p2 ?o2 ?o2Type WHERE {
+                    <%s> ?p2 ?o2 .
+                    OPTIONAL { ?o2 a ?o2Type } .
+                    FILTER(isURI(?o2))
+                }""" % str(o)
+                
+                for row2 in self.data_graph.query(l2_query):
+                     o2 = row2.o2
+                     if str(row2.p2) == str(RDF.type): continue
+                     
+                     o2_label = str(o2).split('#')[-1]
+                     add_node(o2, o2_label, "Detail", 6) # Group 6 for leaf nodes
+                     
+                     links.append({
+                        'source': str(o),
+                        'target': str(o2),
+                        'value': 1,
+                        'type': 'secondary'
+                     })
+
         except Exception as e:
             print(f"Graph query error: {e}")
             
