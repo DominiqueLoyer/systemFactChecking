@@ -283,6 +283,20 @@ def seo_endpoint():
         return jsonify({'error': str(e)}), 500
 
 
+
+@app.route('/api/ontology/graph', methods=['GET'])
+def ontology_graph():
+    """Get ontology graph data for D3.js."""
+    global credibility_system
+    
+    if credibility_system and credibility_system.ontology_manager:
+        graph_data = credibility_system.ontology_manager.get_graph_json()
+        return jsonify(graph_data), 200
+    else:
+        # Return empty graph rather than 400 to avoid breaking frontend
+        return jsonify({'nodes': [], 'links': []}), 200
+
+
 @app.route('/api/ontology/stats', methods=['GET'])
 def ontology_stats():
     """Get ontology statistics."""
