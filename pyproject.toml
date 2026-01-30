@@ -1,0 +1,114 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "syscred"
+version = "2.2.1"
+authors = [
+  { name="Dominique S. Loyer", email="loyer.dominique@uqam.ca" },
+]
+description = "A Neuro-Symbolic AI System for Information Credibility Verification"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+]
+keywords = [
+    "fact-checking",
+    "credibility",
+    "information-verification",
+    "neuro-symbolic-ai",
+    "ontology",
+    "nlp",
+    "explainable-ai",
+]
+
+# Core dependencies (minimal - fonctionnalités de base)
+dependencies = [
+    "requests>=2.28.0",
+    "beautifulsoup4>=4.11.0",
+    "python-whois>=0.8.0",
+    "rdflib>=6.0.0",
+    "flask>=2.3.0",
+    "flask-cors>=4.0.0",
+    "python-dotenv>=1.0.0",
+    "pandas>=2.0.0",
+]
+
+[project.optional-dependencies]
+# Machine Learning features (heavy dependencies)
+ml = [
+    "torch>=2.0.0",
+    "transformers>=4.30.0",
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.24.0",
+    "lime>=0.2.0",
+]
+
+# Production deployment
+production = [
+    "gunicorn>=20.1.0",
+    "psycopg2-binary>=2.9.0",
+    "flask-sqlalchemy>=3.0.0",
+]
+
+# Development and testing
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+# All optional dependencies
+all = [
+    "syscred[ml]",
+    "syscred[production]",
+    "syscred[dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/DominiqueLoyer/systemFactChecking"
+Repository = "https://github.com/DominiqueLoyer/systemFactChecking"
+Documentation = "https://github.com/DominiqueLoyer/systemFactChecking/tree/main/03_Docs"
+"Bug Tracker" = "https://github.com/DominiqueLoyer/systemFactChecking/issues"
+Zenodo = "https://doi.org/10.5281/zenodo.17943226"
+"Sponsor" = "https://github.com/sponsors/DominiqueLoyer"
+
+[project.scripts]
+syscred-verify = "syscred.cli:verify_command"
+syscred-server = "syscred.backend_app:main"
+
+[tool.setuptools]
+packages = ["syscred"]
+
+[tool.setuptools.package-dir]
+syscred = "src/syscred"
+
+[tool.setuptools.package-data]
+syscred = ["*.ttl", "*.rdf", "*.owl", "data/*"]
+
+# Black configuration (code formatter)
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+# Pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=syscred --cov-report=html --cov-report=term"

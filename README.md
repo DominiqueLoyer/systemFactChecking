@@ -1,6 +1,9 @@
 # Fact Checking System: Information Credibility Verification
 
-[![DOI](https://zenodo.org/badge/992891582.svg)](https://zenodo.org/badge/latestdoi/992891582)
+[![PyPI version](https://badge.fury.io/py/syscred.svg)](https://badge.fury.io/py/syscred)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17943226.svg)](https://doi.org/10.5281/zenodo.17943226)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_colab.ipynb)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_kaggle.ipynb)
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dominiqueloyer)
@@ -29,15 +32,41 @@ The system provides explainable credibility scores (High/Medium/Low) with detail
 
 ---
 
-## 🚀 Quick Start (v2.0 - January 2026)
+## 🚀 Quick Start (v2.2 - January 2026)
 
-### Option 1: Run on Kaggle/Colab (Recommended)
+### Installation via PyPI (Recommended)
+
+#### Option 1: Minimal Installation (Lightweight, ~100 MB)
+
+Perfect for exploring the code, basic credibility checking without ML features:
+
+```bash
+pip install syscred
+```
+
+#### Option 2: With Machine Learning (Complete, ~2.5 GB)
+
+Includes PyTorch, Transformers, and all ML models for full credibility analysis:
+
+```bash
+pip install syscred[ml]
+```
+
+#### Option 3: Full Installation (All features)
+
+Includes ML, production tools, and development dependencies:
+
+```bash
+pip install syscred[all]
+```
+
+### Alternative: Run on Kaggle/Colab
 
 1. Click the **Kaggle** or **Colab** badge above
 2. Enable GPU runtime
 3. Run All cells
 
-### Option 2: Local Installation (Docker / Recommended)
+### Alternative: Local Installation with Docker
 
 ```bash
 # Clone the repository
@@ -49,18 +78,10 @@ cd systemFactChecking/02_Code
 # Access at http://localhost:5001
 ```
 
-### Option 3: Manual Python Run
-
-```bash
-cd systemFactChecking/02_Code
-pip install -r syscred/requirements.txt
-python syscred/backend_app.py
-```
-
-### Option 3: Python API
+### Python API Usage
 
 ```python
-from v2_syscred.verification_system import CredibilityVerificationSystem
+from syscred import CredibilityVerificationSystem
 
 # Initialize
 system = CredibilityVerificationSystem()
