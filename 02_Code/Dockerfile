@@ -1,5 +1,6 @@
 # Use an official Python runtime as a parent image
 FROM python:3.10-slim
+# Fix: Ensure build context is correct (v2.2)
 
 # Set the working directory in the container
 WORKDIR /app
@@ -15,14 +16,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file into the container
-COPY 02_Code/syscred/requirements.txt /app/requirements.txt
+COPY syscred/requirements.txt /app/requirements.txt
 
 # Install python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn psycopg2-binary flask_sqlalchemy
 
-# Copy the code directory contents into the container at /app
-COPY 02_Code /app
+# Copy the current directory contents into the container at /app
+COPY . /app
 
 # Expose port
 EXPOSE 5000
