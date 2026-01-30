@@ -2,7 +2,6 @@
 
 [![PyPI version](https://badge.fury.io/py/syscred.svg)](https://badge.fury.io/py/syscred)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18436691.svg)](https://doi.org/10.5281/zenodo.18436691)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17943226.svg)](https://doi.org/10.5281/zenodo.17943226)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_colab.ipynb)
