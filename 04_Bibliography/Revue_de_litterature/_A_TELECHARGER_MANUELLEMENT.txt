@@ -13,6 +13,19 @@ Certains fichiers sont protégés ou inaccessibles directement par script. Veuil
    - URL: https://misq.umn.edu/ (Paywall probable)
    - Alternative: https://vsdesign.org/publications/pdf/Hevner_March_Park_Ram_MISQ_2004.pdf
 
+
+@article{article,
+author = {Hevner, Alan and R, Alan and March, Salvatore and T, Salvatore and Park, and Park, Jinsoo and Ram, and Sudha,},
+year = {2004},
+month = {03},
+pages = {75-},
+title = {Design Science in Information Systems Research},
+volume = {28},
+journal = {Management Information Systems Quarterly}
+}
+
+
+
 4. Peffers_2007_DSRM.pdf
    - URL: https://scholarworks.gsu.edu/cgi/viewcontent.cgi?article=1028&context=cis_facpub (Le script n'a pas pu contourner la protection)
 

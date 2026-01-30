@@ -28,7 +28,9 @@ try:
     from syscred.verification_system import CredibilityVerificationSystem
     from syscred.seo_analyzer import SEOAnalyzer
     from syscred.ontology_manager import OntologyManager
+    from syscred.ontology_manager import OntologyManager
     from syscred.config import config, Config
+    from syscred.database import init_db, db, AnalysisResult # [NEW] DB Integration
     SYSCRED_AVAILABLE = True
     print("[SysCRED Backend] Modules imported successfully")
 except ImportError as e:
@@ -48,6 +50,12 @@ except ImportError as e:
 # --- Initialize Flask App ---
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend
+
+# Initialize Database
+try:
+    init_db(app) # [NEW] Setup DB connection
+except Exception as e:
+    print(f"[SysCRED Backend] Warning: DB init failed: {e}")
 
 # --- Initialize SysCRED System ---
 credibility_system = None
@@ -190,6 +198,21 @@ def verify_endpoint():
                 result['pageRankEstimation'] = {'error': str(e)}
         
         print(f"[SysCRED Backend] Score: {result.get('scoreCredibilite', 'N/A')}")
+        
+        # [NEW] Persist to Database
+        try:
+            new_analysis = AnalysisResult(
+                url=input_data[:500],
+                credibility_score=result.get('scoreCredibilite', 0.5),
+                summary=result.get('resumeAnalyse', ''),
+                source_reputation=result.get('detailsScore', {}).get('factors', [{}])[0].get('value')
+            )
+            db.session.add(new_analysis)
+            db.session.commit()
+            print(f"[SysCRED-DB] Result saved. ID: {new_analysis.id}")
+        except Exception as e:
+            print(f"[SysCRED-DB] Save failed: {e}")
+
         return jsonify(result), 200
         
     except Exception as e:

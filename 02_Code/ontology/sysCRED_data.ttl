@@ -1,0 +1,253 @@
+@prefix cred: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cred:Report_20260128_084225_1 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T08:42:25.720407"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_084225_1 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_084225_1 ;
+    cred:isReportOf cred:Request_20260128_084225_1 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_084503_1 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T08:45:03.424213"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_084503_1 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_084503_1 ;
+    cred:isReportOf cred:Request_20260128_084503_1 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_084810_2 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T08:48:10.181536"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_084810_2 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_084810_2 ;
+    cred:isReportOf cred:Request_20260128_084810_2 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_090545_3 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T09:05:45.606806"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_090545_3 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_090545_3 ;
+    cred:isReportOf cred:Request_20260128_090545_3 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_090719_4 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T09:07:19.324552"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_090719_4 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_090719_4 ;
+    cred:isReportOf cred:Request_20260128_090719_4 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_090755_5 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T09:07:55.636146"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.5"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_090755_5 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_090755_5 ;
+    cred:isReportOf cred:Request_20260128_090755_5 ;
+    cred:reportSummary "⚠️ ATTENTION: Impossible de lire le texte de la page (403 Client Error: Forbidden for url: https://truthsocial.com/). Analyse basée uniquement sur la réputation du domaine. L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_090956_6 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T09:09:56.955684"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.5"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_090956_6 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_090956_6 ;
+    cred:isReportOf cred:Request_20260128_090956_6 ;
+    cred:reportSummary "⚠️ ATTENTION: Impossible de lire le texte de la page (403 Client Error: Forbidden for url: https://truthsocial.com/#realDonaldTrump). Analyse basée uniquement sur la réputation du domaine. L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_091005_7 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T09:10:05.190058"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.5"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_091005_7 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_091005_7 ;
+    cred:isReportOf cred:Request_20260128_091005_7 ;
+    cred:reportSummary "⚠️ ATTENTION: Impossible de lire le texte de la page (403 Client Error: Forbidden for url: https://truthsocial.com/#realDonaldTrump). Analyse basée uniquement sur la réputation du domaine. L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260128_091146_8 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-01-28T09:11:46.891576"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.5"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260128_091146_8 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260128_091146_8 ;
+    cred:isReportOf cred:Request_20260128_091146_8 ;
+    cred:reportSummary "⚠️ ATTENTION: Impossible de lire le texte de la page (403 Client Error: Forbidden for url: https://truthsocial.com/@realDonaldTrump). Analyse basée uniquement sur la réputation du domaine. L'analyse suggère une crédibilité MOYENNE."^^xsd:string .
+
+cred:Report_20260129_173754_1 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:basedOnEvidence cred:Evidence_20260129_173754_1_0 ;
+    cred:completionTimestamp "2026-01-29T17:37:54.820412"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.41"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260129_173754_1 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260129_173754_1 ;
+    cred:isReportOf cred:Request_20260129_173754_1 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Evidence_20260129_173754_1_0 a cred:Evidence,
+        cred:RefutingEvidence ;
+    cred:evidenceSnippet "\"If you take a look at those five or six tweets [on Jan. 6], you will see very beautiful, very heartwarming statements.\""^^xsd:string .
+
+cred:Info_20260128_084225_1 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Trump says January 6th insurrection never happened"^^xsd:string .
+
+cred:Info_20260128_084503_1 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Trump says January 6 insurrection never happened"^^xsd:string .
+
+cred:Info_20260128_084810_2 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Trump says January 6 insurrection never happened"^^xsd:string .
+
+cred:Info_20260128_090545_3 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "https://uqam.ca"^^xsd:string ;
+    cred:informationURL "https://uqam.ca"^^xsd:anyURI .
+
+cred:Info_20260128_090719_4 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "la terre est plate selon Donald Trump"^^xsd:string .
+
+cred:Info_20260128_090755_5 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "https://truthsocial.com"^^xsd:string ;
+    cred:informationURL "https://truthsocial.com"^^xsd:anyURI .
+
+cred:Info_20260128_090956_6 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "https://truthsocial.com#realDonaldTrump"^^xsd:string ;
+    cred:informationURL "https://truthsocial.com#realDonaldTrump"^^xsd:anyURI .
+
+cred:Info_20260128_091005_7 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "https://truthsocial.com#realDonaldTrump"^^xsd:string ;
+    cred:informationURL "https://truthsocial.com#realDonaldTrump"^^xsd:anyURI .
+
+cred:Info_20260128_091146_8 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "https://truthsocial.com/@realDonaldTrump"^^xsd:string ;
+    cred:informationURL "https://truthsocial.com/@realDonaldTrump"^^xsd:anyURI .
+
+cred:Info_20260129_173754_1 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Donald Trump says January 6th did not happened"^^xsd:string .
+
+cred:NLPResult_20260128_084225_1 a cred:ResultatNLP ;
+    cred:coherenceScore "1.0"^^xsd:float .
+
+cred:NLPResult_20260128_084503_1 a cred:ResultatNLP ;
+    cred:coherenceScore "1.0"^^xsd:float .
+
+cred:NLPResult_20260128_084810_2 a cred:ResultatNLP ;
+    cred:coherenceScore "1.0"^^xsd:float .
+
+cred:NLPResult_20260128_090545_3 a cred:ResultatNLP ;
+    cred:coherenceScore "0.8"^^xsd:float .
+
+cred:NLPResult_20260128_090719_4 a cred:ResultatNLP ;
+    cred:coherenceScore "1.0"^^xsd:float .
+
+cred:NLPResult_20260128_090755_5 a cred:ResultatNLP ;
+    cred:sentimentScore "0.5"^^xsd:float .
+
+cred:NLPResult_20260128_090956_6 a cred:ResultatNLP ;
+    cred:sentimentScore "0.5"^^xsd:float .
+
+cred:NLPResult_20260128_091005_7 a cred:ResultatNLP ;
+    cred:sentimentScore "0.5"^^xsd:float .
+
+cred:NLPResult_20260128_091146_8 a cred:ResultatNLP ;
+    cred:sentimentScore "0.5"^^xsd:float .
+
+cred:NLPResult_20260129_173754_1 a cred:ResultatNLP ;
+    cred:coherenceScore "1.0"^^xsd:float .
+
+cred:Request_20260128_084225_1 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_084225_1 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T08:42:25.720407"^^xsd:dateTime .
+
+cred:Request_20260128_084503_1 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_084503_1 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T08:45:03.424213"^^xsd:dateTime .
+
+cred:Request_20260128_084810_2 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_084810_2 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T08:48:10.181536"^^xsd:dateTime .
+
+cred:Request_20260128_090545_3 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_090545_3 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T09:05:45.606806"^^xsd:dateTime .
+
+cred:Request_20260128_090719_4 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_090719_4 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T09:07:19.324552"^^xsd:dateTime .
+
+cred:Request_20260128_090755_5 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_090755_5 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T09:07:55.636146"^^xsd:dateTime .
+
+cred:Request_20260128_090956_6 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_090956_6 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T09:09:56.955684"^^xsd:dateTime .
+
+cred:Request_20260128_091005_7 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_091005_7 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T09:10:05.190058"^^xsd:dateTime .
+
+cred:Request_20260128_091146_8 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260128_091146_8 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-28T09:11:46.891576"^^xsd:dateTime .
+
+cred:Request_20260129_173754_1 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260129_173754_1 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-01-29T17:37:54.820412"^^xsd:dateTime .
+
+cred:SourceAnalysis_20260128_084225_1 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_084503_1 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_084810_2 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_090545_3 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_090719_4 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_090755_5 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_090956_6 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_091005_7 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260128_091146_8 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+
+cred:SourceAnalysis_20260129_173754_1 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "Unknown"^^xsd:string .
+

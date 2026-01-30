@@ -37,6 +37,7 @@ except ImportError:
 from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
 from syscred.ontology_manager import OntologyManager
 from syscred.seo_analyzer import SEOAnalyzer
+from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
 
 
 class CredibilityVerificationSystem:
@@ -80,9 +81,13 @@ class CredibilityVerificationSystem:
                     base_ontology_path=ontology_base_path,
                     data_path=ontology_data_path
                 )
-                print("[SysCRED] Ontology manager initialized")
+                self.graph_rag = GraphRAG(self.ontology_manager) # [NEW] Init GraphRAG
+                print("[SysCRED] Ontology manager & GraphRAG initialized")
             except Exception as e:
                 print(f"[SysCRED] Ontology manager disabled: {e}")
+                self.graph_rag = None
+        else:
+             self.graph_rag = None
         
         # Initialize ML models
         self.sentiment_pipeline = None
@@ -462,7 +467,8 @@ class CredibilityVerificationSystem:
         nlp_results: Dict,
         external_data: ExternalData,
         overall_score: float,
-        web_content: Optional[WebContent] = None
+        web_content: Optional[WebContent] = None,
+        graph_context: str = "" # [NEW]
     ) -> Dict[str, Any]:
         """Generate the final evaluation report."""
         
@@ -642,14 +648,24 @@ class CredibilityVerificationSystem:
         # 6. Calculate score
         overall_score = self.calculate_overall_score(rule_results, nlp_results)
         print(f"[SysCRED] ✓ Credibility score: {overall_score:.2f}")
-        
-        # 7. Generate report
+
+        # 7. [NEW] GraphRAG Context Retrieval
+        graph_context = ""
+        if self.graph_rag and 'source_analysis' in rule_results:
+             domain = rule_results['source_analysis'].get('domain', '')
+             context = self.graph_rag.get_context(domain)
+             graph_context = context.get('full_text', '')
+             if "Graph Memory" in graph_context:
+                 print(f"[SysCRED] GraphRAG Context Found: {graph_context.splitlines()[1]}")
+
+        # 8. Generate report (Updated to include context)
         report = self.generate_report(
             input_data, cleaned_text, rule_results, 
-            nlp_results, external_data, overall_score, web_content
+            nlp_results, external_data, overall_score, web_content,
+            graph_context=graph_context # Pass context
         )
-        
-        # 8. Save to ontology
+
+        # 9. Save to ontology
         if self.ontology_manager:
             try:
                 report_uri = self.ontology_manager.add_evaluation_triplets(report)

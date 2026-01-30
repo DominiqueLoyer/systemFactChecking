@@ -292,6 +292,47 @@
             color: #7c3aed;
             text-decoration: none;
         }
+        
+        /* Node Details Overlay */
+        .node-details-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 15, 35, 0.95);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 300px;
+            display: none;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            pointer-events: auto;
+        }
+        .node-details-overlay.visible {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #8b8ba7;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            width: auto;
+            height: auto;
+            box-shadow: none;
+        }
+        .close-btn:hover {
+            color: #fff;
+            transform: none;
+            box-shadow: none;
+        }
     </style>
 </head>
 
@@ -585,6 +626,17 @@
                     .attr("height", "100%")
                     .attr("viewBox", [-width / 2, -height / 2, width, height])
                     .style("background-color", "rgba(0,0,0,0.2)"); // Visible background
+                    
+                // ADDED: Overlay for details
+                const overlay = document.createElement('div');
+                overlay.id = 'nodeDetails';
+                overlay.className = 'node-details-overlay';
+                overlay.innerHTML = `
+                    <button class="close-btn" onclick="document.getElementById('nodeDetails').classList.remove('visible')">×</button>
+                    <h3 id="detailTitle" style="color:#fff; margin-bottom:0.5rem; font-size:1.1rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:0.5rem;"></h3>
+                    <div id="detailBody" style="font-size:0.9rem; color:#ccc; line-height:1.5;"></div>
+                `;
+                container.appendChild(overlay);
 
                 logDebug("SVG created. Starting simulation...");
 
@@ -597,6 +649,12 @@
                     .force("link", d3.forceLink(data.links).id(d => d.id).distance(120))
                     .force("charge", d3.forceManyBody().strength(-400))
                     .force("center", d3.forceCenter(0, 0));
+                    
+                // ADDED: Container click to close overlay
+                svg.on("click", () => {
+                   document.getElementById('nodeDetails').classList.remove('visible');
+                   node.attr("stroke", "#fff").attr("stroke-width", 1.5);
+                });
 
                 // Arrow marker
                 svg.append("defs").selectAll("marker")
@@ -631,7 +689,15 @@
                     .attr("stroke", "#fff")
                     .attr("stroke-width", 1.5)
                     .style("cursor", "pointer")
-                    .call(drag(simulation));
+                    .call(drag(simulation))
+                    .on("click", (event, d) => {
+                        event.stopPropagation(); // Stop background click
+                        showNodeDetails(d);
+                        
+                        // Highlight selected
+                        node.attr("stroke", "#fff").attr("stroke-width", 1.5);
+                        d3.select(event.currentTarget).attr("stroke", "#f43f5e").attr("stroke-width", 3);
+                    });
 
                 // Labels
                 const text = svg.append("g")
@@ -746,6 +812,30 @@
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended);
+        }
+        
+        function showNodeDetails(d) {
+            const overlay = document.getElementById('nodeDetails');
+            const title = document.getElementById('detailTitle');
+            const body = document.getElementById('detailBody');
+            
+            if(!overlay) return;
+            
+            title.textContent = d.name;
+            
+            let typeColor = "#94a3b8";
+            if(d.group === 1) typeColor = "#8b5cf6"; // Report
+            if(d.group === 3) typeColor = "#22c55e"; // Good
+            if(d.group === 4) typeColor = "#ef4444"; // Bad
+            
+            body.innerHTML = `
+                <div style="margin-bottom:0.5rem">
+                    <span style="background:${typeColor}; color:white; padding:2px 6px; border-radius:4px; font-size:0.75rem;">${d.type || 'Unknown Type'}</span>
+                </div>
+                <div><strong>URI:</strong> <br><span style="font-family:monospace; color:#a855f7; word-break:break-all;">${d.id}</span></div>
+            `;
+            
+            overlay.classList.add('visible');
         }
 
         // Allow Enter key to trigger analysis

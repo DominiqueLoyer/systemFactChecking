@@ -24,7 +24,8 @@ from typing import Dict, Optional
 from dotenv import load_dotenv
 
 # Charger les variables depuis .env
-env_path = Path(__file__).parent / '.env'
+# Charger les variables depuis .env (Project Root)
+env_path = Path(__file__).parent.parent.parent / '.env'
 load_dotenv(dotenv_path=env_path)
 print(f"[Config] Loading .env from {env_path}")
 print(f"[Config] SYSCRED_GOOGLE_API_KEY present: {'SYSCRED_GOOGLE_API_KEY' in os.environ}")
@@ -50,7 +51,8 @@ class Config:
     DEBUG = os.getenv("SYSCRED_DEBUG", "true").lower() == "true"
     
     # === API Keys ===
-    GOOGLE_FACT_CHECK_API_KEY = os.getenv("SYSCRED_GOOGLE_API_KEY", None)
+    GOOGLE_FACT_CHECK_API_KEY = os.getenv("SYSCRED_GOOGLE_API_KEY")
+    DATABASE_URL = os.getenv("DATABASE_URL") # [NEW] Read DB URL from env
     
     # === Modèles ML ===
     LOAD_ML_MODELS = os.getenv("SYSCRED_LOAD_ML", "true").lower() == "true"

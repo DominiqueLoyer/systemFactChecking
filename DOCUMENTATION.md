@@ -33,17 +33,20 @@ Le système fonctionne en "Sandwich Cognitif" à 4 couches :
 
 ```
 systemFactChecking/
-├── SysCRED_v2.1_Update/       # Code source principal (Python)
-│   ├── verification_system.py # Point d'entrée principal
-│   ├── api_clients.py         # Connecteurs (Google, WHOIS, Web)
-│   ├── ontology_manager.py    # Gestionnaire du Graphe RDF
-│   ├── config.py              # Configuration et Liste Noire/Blanche
-│   └── static/                # Assets Web (JS/CSS)
+├── 02_Code/                   # Code source principal
+│   ├── syscred/               # Package Python
+│   │   ├── backend_app.py     # Serveur Flask (Point d'entrée)
+│   │   ├── verification_system.py
+│   │   ├── api_clients.py
+│   │   ├── database.py        # [NOUVEAU] Gestion DB (SQLAlchemy)
+│   │   ├── config.py
+│   │   └── static/            # Frontend (HTML/JS/D3)
+│   ├── Dockerfile             # [NOUVEAU] Conteneurisation
+│   ├── requirements.txt
+│   └── venv/                  # Environnement virtuel
 ├── presentation_2026/         # Présentation de Thèse (LaTeX)
-│   ├── syscred_presentation.tex
-│   └── references.bib
-├── projetFinal_sysCred_Onto_28avril.ttl # Ontologie de base
-└── syscred_legacy/            # Anciennes versions archivées
+├── DOCUMENTATION.md           # Ce fichier
+└── syscred_legacy/            # Archives
 ```
 
 ---
@@ -58,20 +61,31 @@ systemFactChecking/
 ### Installation
 
 ```bash
-# 1. Cloner le dépôt
-git clone https://github.com/DominiqueLoyer/systemFactChecking.git
-cd systemFactChecking
+# 1. Aller dans le dossier du code
+cd ~/Desktop/systemFactChecking/02_Code
 
-# 2. Installer les dépendances
-pip install -r SysCRED_v2.1_Update/requirements.txt
-# (Inclut: transformers, torch, rdflib, flask, beautifulsoup4)
+# 2. Activer l'environnement (si local)
+source venv/bin/activate
+
+# 3. Installer les dépendances
+pip install -r syscred/requirements.txt
+```
+
+### Installation (Docker - Recommandé pour Prod)
+```bash
+# Construire l'image
+docker build -t syscred:v2.2 .
+
+# Lancer le conteneur
+docker run -p 5000:5000 --env-file ../.env syscred:v2.2
 ```
 
 ### Lancer une vérification
 
 ```bash
-cd SysCRED_v2.1_Update
-python verification_system.py
+```bash
+# Lancer le serveur Flask
+python syscred/backend_app.py
 ```
 
 *Le script lancera une série de tests sur des URL (Le Monde, Infowars, etc.) et affichera les rapports de crédibilité dans la console.*

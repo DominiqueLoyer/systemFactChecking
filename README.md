@@ -1,6 +1,6 @@
 # Fact Checking System: Information Credibility Verification
 
-[![DOI](https://zenodo.org/badge/992891582.svg)](https://zenodo.org/badge/latestdoi/992891582)
+<!-- [![DOI](https://zenodo.org/badge/992891582.svg)](https://zenodo.org/badge/latestdoi/992891582) -->
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_colab.ipynb)
 [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_kaggle.ipynb)
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dominiqueloyer)
@@ -8,6 +8,12 @@
 
 **PhD Thesis Prototype** - Dominique S. Loyer  
 *Citation Key: loyerModelingHybridSystem2025*
+
+> [!NOTE]
+> **New in v2.2 (Jan 29, 2026)**:
+> - **GraphRAG**: Contextual memory from Knowledge Graph.
+> - **Interactive Graph**: D3.js visualization with physics and details on click.
+> - **Cloud Ready**: Docker & Supabase integration.
 
 ---
 
@@ -31,20 +37,24 @@ The system provides explainable credibility scores (High/Medium/Low) with detail
 2. Enable GPU runtime
 3. Run All cells
 
-### Option 2: Local Installation
+### Option 2: Local Installation (Docker / Recommended)
 
 ```bash
 # Clone the repository
 git clone https://github.com/DominiqueLoyer/systemFactChecking.git
-cd systemFactChecking/02_Code/v2_syscred
+cd systemFactChecking/02_Code
 
-# Install dependencies
-pip install -r requirements.txt
+# Run with Startup Script (Mac/Linux)
+./start_syscred.sh
+# Access at http://localhost:5001
+```
 
-# Run the backend server
-python backend_app.py
+### Option 3: Manual Python Run
 
-# Server starts at http://localhost:5000
+```bash
+cd systemFactChecking/02_Code
+pip install -r syscred/requirements.txt
+python syscred/backend_app.py
 ```
 
 ### Option 3: Python API
@@ -103,16 +113,18 @@ curl -X POST http://localhost:5000/api/verify \
 
 ## 📁 Project Structure
 
-```
 systemFactChecking/
 ├── README.md                    # This file
 ├── 01_Presentations/            # Presentations (.pdf, .tex)
-├── 02_Code/                     # Source Code
-│   ├── v2_syscred/              # ⭐ VERSION 2.0 (January 2026)
+├── 02_Code/                     # Source Code & Docker
+│   ├── syscred/                 # ⭐ CORE ENGINE (v2.2)
+│   │   ├── graph_rag.py         # [NEW] GraphRAG Module
 │   │   ├── verification_system.py
-│   │   ├── ...
-│   │   └── requirements.txt
-│   └── src/                     # Source files
+│   │   ├── database.py          # [NEW] Supabase Connector
+│   │   └── ...
+│   ├── start_syscred.sh         # Startup Script
+│   ├── Dockerfile               # Deployment Config
+│   └── requirements.txt
 ├── 03_Docs/                     # Documentation (.pdf)
 └── 04_Bibliography/             # References (.bib, .pdf)
 ```
