@@ -15,14 +15,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file into the container
-COPY syscred/requirements.txt /app/requirements.txt
+COPY 02_Code/syscred/requirements.txt /app/requirements.txt
 
 # Install python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn psycopg2-binary flask_sqlalchemy
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy the code directory contents into the container at /app
+COPY 02_Code /app
 
 # Expose port
 EXPOSE 5000
