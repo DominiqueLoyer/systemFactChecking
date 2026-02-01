@@ -38,7 +38,6 @@ from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
 from syscred.ontology_manager import OntologyManager
 from syscred.seo_analyzer import SEOAnalyzer
 from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
-from syscred import config  # [FIX] Import config for SCORE_WEIGHTS
 
 
 class CredibilityVerificationSystem:
