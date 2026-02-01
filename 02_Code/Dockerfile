@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements (relative to 02_Code/ context)
-COPY syscred/requirements.txt /app/requirements.txt
+# Copy requirements (light version for Render free tier)
+COPY syscred/requirements-light.txt /app/requirements.txt
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt

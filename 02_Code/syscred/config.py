@@ -71,6 +71,21 @@ class Config:
     # === Timeouts ===
     WEB_FETCH_TIMEOUT = int(os.getenv("SYSCRED_TIMEOUT", "10"))
     
+    # === TREC IR Configuration (NEW - Feb 2026) ===
+    TREC_INDEX_PATH = os.getenv("SYSCRED_TREC_INDEX", None)  # Lucene/Pyserini index
+    TREC_CORPUS_PATH = os.getenv("SYSCRED_TREC_CORPUS", None)  # JSONL corpus
+    TREC_TOPICS_PATH = os.getenv("SYSCRED_TREC_TOPICS", None)  # Topics directory
+    TREC_QRELS_PATH = os.getenv("SYSCRED_TREC_QRELS", None)  # Qrels directory
+    
+    # BM25 Parameters (optimized on AP88-90)
+    BM25_K1 = float(os.getenv("SYSCRED_BM25_K1", "0.9"))
+    BM25_B = float(os.getenv("SYSCRED_BM25_B", "0.4"))
+    
+    # PRF (Pseudo-Relevance Feedback) settings
+    ENABLE_PRF = os.getenv("SYSCRED_ENABLE_PRF", "true").lower() == "true"
+    PRF_TOP_DOCS = int(os.getenv("SYSCRED_PRF_TOP_DOCS", "3"))
+    PRF_EXPANSION_TERMS = int(os.getenv("SYSCRED_PRF_TERMS", "10"))
+    
     # === Pondération des scores ===
     SCORE_WEIGHTS = {
         'source_reputation': 0.25,
