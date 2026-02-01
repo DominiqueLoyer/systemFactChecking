@@ -23,7 +23,7 @@ RUN pip install gunicorn psycopg2-binary flask_sqlalchemy
 # Copy everything from 02_Code/
 COPY . /app
 
-EXPOSE 5000
+EXPOSE 10000
 
-# Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "120", "syscred.backend_app:app"]
+# Run gunicorn with PORT from Render (defaults to 10000)
+CMD gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 2 --timeout 120 syscred.backend_app:app
