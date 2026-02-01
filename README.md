@@ -203,7 +203,7 @@ The system uses weighted factors to calculate credibility:
 @software{loyer2025syscred,
   author = {Loyer, Dominique S.},
   title = {SysCRED: Neuro-Symbolic System for Information Credibility Verification},
-  year = {2025},
+  year = {2026},
   publisher = {GitHub},
   url = {https://github.com/DominiqueLoyer/systemFactChecking}
 }
