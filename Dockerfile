@@ -1,32 +1,29 @@
-# SysCRED Docker Configuration for Render
-# Use an official Python runtime as a parent image
+# SysCRED Docker Configuration for Render (Optimized)
+# Reduces image from 4.36GB to ~200MB
 FROM python:3.10-slim
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app/02_Code
+ENV PYTHONPATH=/app
+ENV SYSCRED_LOAD_ML_MODELS=false
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file from 02_Code/syscred/
-COPY 02_Code/syscred/requirements.txt /app/requirements.txt
+# Copy only requirements first (cache layer)
+COPY 02_Code/syscred/requirements_light.txt /app/requirements.txt
 
-# Install python dependencies
+# Install python dependencies (light version - no PyTorch)
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install gunicorn psycopg2-binary flask_sqlalchemy
 
-# Copy the entire project
-COPY . /app
+# Copy only necessary application code
+COPY 02_Code/syscred/ /app/syscred/
 
-# Expose port
 EXPOSE 5000
 
-# Run gunicorn pointing to the correct module path
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "120", "--chdir", "/app/02_Code", "syscred.backend_app:app"]
+# Use PORT env variable from Render
+CMD gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 2 --timeout 120 syscred.backend_app:app

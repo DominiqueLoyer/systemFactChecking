@@ -4,3 +4,38 @@
 .git
 .env
 .DS_Store
+
+# Large Archives (TREC corpus ~4GB)
+99_Archive/
+01_Presentations/
+03_Docs/
+04_Bibliography/
+
+# Build artifacts
+dist/
+*.egg-info/
+syscred.egg-info/
+build/
+
+# Test directories
+tests/
+test_*/
+venv_pypi/
+examples/
+
+# Git submodules and nested repos
+systemFactChecking/
+huggingface_space/
+
+# IDE and temp files
+*.log
+*.zip
+.vscode/
+*.code-workspace
+
+# Scripts and docs at root
+*.sh
+*.md
+*.sql
+pyproject.toml
+LICENSE
