@@ -527,5 +527,68 @@ def verify_with_evidence(self, claim: str, k: int = 5) -> Dict[str, Any]:
 
 ---
 
+## 🔄 Recommandations pour reprendre le travail
+
+### État actuel (2 février 2026)
+
+**Branche `main`** est à jour avec tous les commits TREC :
+```
+743b689 chore: Update Docker configs and add HuggingFace deploy script
+f0bf7ba feat(trec): Add TREC API endpoints to backend and documentation
+b11f1b2 fix(config): Support both SYSCRED_LOAD_ML and SYSCRED_LOAD_ML_MODELS
+d981b06 feat(trec): Integrate TRECRetriever into VerificationSystem
+```
+
+### Pour reprendre le travail
+
+1. **Mettre à jour votre copie locale :**
+   ```bash
+   cd /Users/bk280625/Desktop/systemFactChecking
+   git fetch origin
+   git pull origin main
+   ```
+
+2. **Synchroniser la branche feature (si vous y travaillez encore) :**
+   ```bash
+   git checkout feature/trec-88-90-integration
+   git merge main
+   git push origin feature/trec-88-90-integration
+   ```
+
+3. **Lancer le serveur SysCRED avec TREC :**
+   ```bash
+   cd 02_Code
+   source venv/bin/activate
+   SYSCRED_LOAD_ML_MODELS=false python -m syscred.backend_app
+   ```
+   Le serveur sera accessible sur http://127.0.0.1:5001
+
+4. **Tester les endpoints TREC :**
+   ```bash
+   # Dans un autre terminal
+   curl http://127.0.0.1:5001/api/trec/health
+   curl http://127.0.0.1:5001/api/trec/corpus
+   ```
+
+### Fichiers clés créés/modifiés
+
+| Fichier | Description |
+|---------|-------------|
+| `02_Code/syscred/backend_app.py` | Backend Flask avec endpoints TREC intégrés |
+| `02_Code/syscred/trec_retriever.py` | Module de recherche d'évidences |
+| `02_Code/syscred/eval_metrics.py` | Métriques IR (MAP, NDCG, P@K) |
+| `02_Code/demo_trec.py` | Script de démonstration CLI |
+| `02_Code/demo_trec_web.py` | Serveur web de démo léger (port 5003) |
+| `03_Docs/TREC_Integration_Documentation.md` | Cette documentation |
+
+### Prochaines étapes suggérées
+
+- [ ] Intégrer la recherche TREC dans l'interface frontend (index.html)
+- [ ] Connecter avec un vrai corpus AP88-90 (pas juste le démo)
+- [ ] Ajouter les tests d'intégration automatisés
+- [ ] Déployer sur Render/HuggingFace avec les nouveaux endpoints
+
+---
+
 *SysCRED v2.3 - TREC AP88-90 Integration*  
 *(c) Dominique S. Loyer - PhD Thesis Prototype*
