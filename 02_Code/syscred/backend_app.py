@@ -31,10 +31,15 @@ try:
     from syscred.ontology_manager import OntologyManager
     from syscred.config import config, Config
     from syscred.database import init_db, db, AnalysisResult
+    # TREC modules
+    from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    from syscred.eval_metrics import EvaluationMetrics
     SYSCRED_AVAILABLE = True
-    print("[SysCRED Backend] Modules imported successfully")
+    TREC_AVAILABLE = True
+    print("[SysCRED Backend] Modules imported successfully (including TREC)")
 except ImportError as e:
     SYSCRED_AVAILABLE = False
+    TREC_AVAILABLE = False
     print(f"[SysCRED Backend] Warning: Could not import modules: {e}")
     # Define dummy init_db to prevent crash
     def init_db(app): pass
@@ -63,6 +68,40 @@ except Exception as e:
 # --- Initialize SysCRED System ---
 credibility_system = None
 seo_analyzer = None
+trec_retriever = None
+eval_metrics = None
+
+# Demo corpus for TREC (AP88-90 style documents)
+TREC_DEMO_CORPUS = {
+    "AP880101-0001": {
+        "text": "Climate change is primarily caused by human activities, particularly the burning of fossil fuels which release greenhouse gases into the atmosphere.",
+        "title": "Climate Science Report"
+    },
+    "AP880101-0002": {
+        "text": "The Earth's temperature has risen significantly over the past century due to greenhouse gas emissions from industrial activities and deforestation.",
+        "title": "Global Warming Study"
+    },
+    "AP880102-0001": {
+        "text": "Scientists warn that sea levels could rise dramatically if current warming trends continue, threatening coastal cities worldwide.",
+        "title": "Sea Level Warning"
+    },
+    "AP890215-0001": {
+        "text": "The presidential election campaign focused on economic policies, healthcare reform, and national security issues.",
+        "title": "Election Coverage"
+    },
+    "AP890216-0001": {
+        "text": "Stock markets rose sharply after positive economic indicators were released by the Federal Reserve, signaling economic recovery.",
+        "title": "Financial News"
+    },
+    "AP880201-0001": {
+        "text": "Renewable energy sources like solar and wind power are becoming more cost-effective alternatives to fossil fuels.",
+        "title": "Green Energy Report"
+    },
+    "AP890301-0001": {
+        "text": "The technology industry continues to grow rapidly, with artificial intelligence and machine learning driving innovation.",
+        "title": "Tech Industry Update"
+    },
+}
 
 def initialize_system():
     """Initialize the credibility system (lazy loading)."""
@@ -339,6 +378,201 @@ def ontology_stats():
         }), 200
 
 
+# --- TREC Endpoints ---
+
+@app.route('/api/trec/search', methods=['POST'])
+def trec_search():
+    """
+    Search for evidence using TREC retrieval methods.
+    
+    Request JSON:
+    {
+        "query": "Claim or query to search for",
+        "k": 10,              # Number of results (optional, default 10)
+        "model": "bm25"       # Retrieval model: bm25, tfidf, qld (optional)
+    }
+    
+    Response:
+    {
+        "query": "original query",
+        "results": [
+            {"doc_id": "AP880101-0001", "score": 6.27, "rank": 1, "text": "...", "title": "..."},
+            ...
+        ],
+        "total": 3,
+        "model": "bm25",
+        "search_time_ms": 12.5
+    }
+    """
+    global trec_retriever, eval_metrics
+    
+    # Initialize TREC components if needed
+    if trec_retriever is None:
+        try:
+            trec_retriever = TRECRetriever(use_stemming=True, enable_prf=False)
+            trec_retriever.corpus = TREC_DEMO_CORPUS
+            eval_metrics = EvaluationMetrics()
+            print("[SysCRED Backend] TREC Retriever initialized with demo corpus")
+        except Exception as e:
+            return jsonify({'error': f'TREC initialization failed: {str(e)}'}), 503
+    
+    if not request.is_json:
+        return jsonify({'error': 'Request must be JSON'}), 400
+    
+    data = request.get_json()
+    query = data.get('query', '').strip()
+    
+    if not query:
+        return jsonify({'error': "'query' is required"}), 400
+    
+    k = data.get('k', 10)
+    model = data.get('model', 'bm25')
+    
+    try:
+        import time
+        start_time = time.time()
+        
+        # Retrieve evidence
+        result = trec_retriever.retrieve_evidence(query, k=k, model=model)
+        search_time_ms = (time.time() - start_time) * 1000
+        
+        # Format results
+        results = []
+        for ev in result.evidences:
+            doc_info = trec_retriever.corpus.get(ev.doc_id, {})
+            results.append({
+                'doc_id': ev.doc_id,
+                'score': round(ev.score, 4),
+                'rank': ev.rank,
+                'text': ev.text,
+                'title': doc_info.get('title', ''),
+                'model': ev.retrieval_model
+            })
+        
+        return jsonify({
+            'query': query,
+            'results': results,
+            'total': len(results),
+            'model': model,
+            'search_time_ms': round(search_time_ms, 2)
+        }), 200
+        
+    except Exception as e:
+        print(f"[SysCRED Backend] TREC search error: {e}")
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/trec/corpus', methods=['GET'])
+def trec_corpus():
+    """
+    Get the TREC demo corpus information.
+    
+    Response:
+    {
+        "corpus_size": 7,
+        "corpus_type": "AP88-90 Demo",
+        "documents": [
+            {"doc_id": "AP880101-0001", "title": "...", "text_preview": "..."},
+            ...
+        ]
+    }
+    """
+    docs = []
+    for doc_id, doc in TREC_DEMO_CORPUS.items():
+        docs.append({
+            'doc_id': doc_id,
+            'title': doc.get('title', ''),
+            'text_preview': doc['text'][:150] + '...' if len(doc['text']) > 150 else doc['text']
+        })
+    
+    return jsonify({
+        'corpus_size': len(TREC_DEMO_CORPUS),
+        'corpus_type': 'AP88-90 Demo',
+        'documents': docs
+    }), 200
+
+
+@app.route('/api/trec/metrics', methods=['POST'])
+def trec_metrics():
+    """
+    Calculate IR evaluation metrics for a retrieval result.
+    
+    Request JSON:
+    {
+        "retrieved": ["AP880101-0001", "AP890215-0001", "AP880101-0002"],
+        "relevant": ["AP880101-0001", "AP880101-0002", "AP880102-0001"]
+    }
+    
+    Response:
+    {
+        "precision_at_3": 0.67,
+        "recall_at_3": 0.67,
+        "average_precision": 0.81,
+        "mrr": 1.0,
+        "ndcg_at_3": 0.88
+    }
+    """
+    global eval_metrics
+    
+    if eval_metrics is None:
+        eval_metrics = EvaluationMetrics()
+    
+    if not request.is_json:
+        return jsonify({'error': 'Request must be JSON'}), 400
+    
+    data = request.get_json()
+    retrieved = data.get('retrieved', [])
+    relevant = set(data.get('relevant', []))
+    
+    if not retrieved:
+        return jsonify({'error': "'retrieved' list is required"}), 400
+    
+    k = len(retrieved)
+    
+    try:
+        # Calculate metrics
+        p_at_k = eval_metrics.precision_at_k(retrieved, relevant, k)
+        r_at_k = eval_metrics.recall_at_k(retrieved, relevant, k)
+        ap = eval_metrics.average_precision(retrieved, relevant)
+        mrr = eval_metrics.mrr(retrieved, relevant)
+        
+        # For NDCG, create relevance dict (binary: 1 if relevant, 0 otherwise)
+        relevance_dict = {doc: 1 for doc in relevant}
+        ndcg = eval_metrics.ndcg_at_k(retrieved, relevance_dict, k)
+        
+        return jsonify({
+            f'precision_at_{k}': round(p_at_k, 4),
+            f'recall_at_{k}': round(r_at_k, 4),
+            'average_precision': round(ap, 4),
+            'mrr': round(mrr, 4),
+            f'ndcg_at_{k}': round(ndcg, 4),
+            'metrics_explanation': {
+                'P@K': 'Proportion de documents pertinents parmi les K premiers récupérés',
+                'R@K': 'Proportion de documents pertinents récupérés parmi tous les pertinents',
+                'AP': 'Moyenne des précisions à chaque document pertinent trouvé',
+                'MRR': 'Rang réciproque du premier document pertinent',
+                'NDCG': 'Gain cumulatif normalisé avec décroissance logarithmique'
+            }
+        }), 200
+        
+    except Exception as e:
+        print(f"[SysCRED Backend] TREC metrics error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/trec/health', methods=['GET'])
+def trec_health():
+    """Health check for TREC module."""
+    return jsonify({
+        'status': 'healthy',
+        'trec_available': TREC_AVAILABLE if 'TREC_AVAILABLE' in dir() else True,
+        'retriever_initialized': trec_retriever is not None,
+        'corpus_size': len(TREC_DEMO_CORPUS),
+        'models_available': ['bm25', 'tfidf', 'qld']
+    }), 200
+
+
 # --- Main ---
 if __name__ == '__main__':
     print("=" * 60)
@@ -354,10 +588,15 @@ if __name__ == '__main__':
     print()
     print("[SysCRED Backend] Starting Flask server...")
     print("[SysCRED Backend] Endpoints:")
-    print("  - POST /api/verify     - Full credibility verification")
-    print("  - POST /api/seo        - SEO analysis only (faster)")
-    print("  - GET  /api/ontology/stats - Ontology statistics")
-    print("  - GET  /api/health     - Health check")
+    print("  - POST /api/verify          - Full credibility verification")
+    print("  - POST /api/seo             - SEO analysis only (faster)")
+    print("  - GET  /api/ontology/stats  - Ontology statistics")
+    print("  - GET  /api/health          - Health check")
+    print("  --- TREC Endpoints ---")
+    print("  - POST /api/trec/search     - Evidence retrieval (BM25/TF-IDF/QLD)")
+    print("  - POST /api/trec/metrics    - Calculate IR metrics (MAP, P@K, NDCG)")
+    print("  - GET  /api/trec/corpus     - Demo corpus info")
+    print("  - GET  /api/trec/health     - TREC module health")
     print()
     
     app.run(host='0.0.0.0', port=5001, debug=True)
