@@ -64,7 +64,8 @@ class Config:
     DATABASE_URL = os.getenv("DATABASE_URL") # [NEW] Read DB URL from env
     
     # === Modèles ML ===
-    LOAD_ML_MODELS = os.getenv("SYSCRED_LOAD_ML", "true").lower() == "true"
+    # Support both SYSCRED_LOAD_ML and SYSCRED_LOAD_ML_MODELS (for Render)
+    LOAD_ML_MODELS = os.getenv("SYSCRED_LOAD_ML_MODELS", os.getenv("SYSCRED_LOAD_ML", "true")).lower() == "true"
     SENTIMENT_MODEL = "distilbert-base-uncased-finetuned-sst-2-english"
     NER_MODEL = "dbmdz/bert-large-cased-finetuned-conll03-english"
     
