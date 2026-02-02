@@ -38,6 +38,8 @@ from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
 from syscred.ontology_manager import OntologyManager
 from syscred.seo_analyzer import SEOAnalyzer
 from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
+from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult  # [NEW] TREC Integration
+from syscred import config
 
 
 class CredibilityVerificationSystem:
@@ -88,6 +90,21 @@ class CredibilityVerificationSystem:
                 self.graph_rag = None
         else:
              self.graph_rag = None
+        
+        # [NEW] Initialize TREC Retriever for evidence gathering
+        self.trec_retriever = None
+        try:
+            self.trec_retriever = TRECRetriever(
+                index_path=config.Config.TREC_INDEX_PATH,
+                corpus_path=config.Config.TREC_CORPUS_PATH,
+                use_stemming=True,
+                enable_prf=config.Config.ENABLE_PRF,
+                prf_top_docs=config.Config.PRF_TOP_DOCS,
+                prf_expansion_terms=config.Config.PRF_EXPANSION_TERMS
+            )
+            print("[SysCRED] TREC Retriever initialized for evidence gathering")
+        except Exception as e:
+            print(f"[SysCRED] TREC Retriever disabled: {e}")
         
         # Initialize ML models
         self.sentiment_pipeline = None
@@ -464,6 +481,139 @@ class CredibilityVerificationSystem:
         
         return max(0.0, min(1.0, final_score))
     
+    # --- [NEW] TREC Evidence Retrieval Methods ---
+    
+    def retrieve_evidence(
+        self,
+        claim: str,
+        k: int = 10,
+        model: str = "bm25"
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieve evidence documents for a given claim using TREC methodology.
+        
+        This integrates the classic IR evaluation framework (TREC AP88-90)
+        with the neuro-symbolic credibility verification system.
+        
+        Args:
+            claim: The claim or statement to verify
+            k: Number of evidence documents to retrieve
+            model: Retrieval model ('bm25', 'qld', 'tfidf')
+            
+        Returns:
+            List of evidence dictionaries with doc_id, text, score, rank
+        """
+        if not self.trec_retriever:
+            return []
+        
+        try:
+            result = self.trec_retriever.retrieve_evidence(
+                claim=claim,
+                k=k,
+                model=model
+            )
+            
+            # Convert Evidence objects to dictionaries
+            evidences = [e.to_dict() for e in result.evidences]
+            
+            # Add to ontology if available
+            if self.ontology_manager:
+                for e in result.evidences[:3]:  # Top 3 only
+                    self.ontology_manager.add_evidence(
+                        evidence_id=e.doc_id,
+                        source=e.source or "trec_corpus",
+                        content=e.text[:500],
+                        score=e.score
+                    )
+            
+            return evidences
+            
+        except Exception as ex:
+            print(f"[SysCRED] Evidence retrieval error: {ex}")
+            return []
+    
+    def verify_with_evidence(
+        self,
+        claim: str,
+        k: int = 5
+    ) -> Dict[str, Any]:
+        """
+        Complete fact-checking pipeline with evidence retrieval.
+        
+        Combines:
+        1. TREC-style evidence retrieval
+        2. NLP analysis of claim
+        3. Evidence-claim comparison
+        4. Credibility scoring
+        
+        Args:
+            claim: The claim to verify
+            k: Number of evidence documents
+            
+        Returns:
+            Verification result with evidence, analysis, and score
+        """
+        result = {
+            'claim': claim,
+            'evidences': [],
+            'nlp_analysis': {},
+            'evidence_support_score': 0.0,
+            'verification_verdict': 'UNKNOWN',
+            'confidence': 0.0
+        }
+        
+        # 1. Retrieve evidence
+        evidences = self.retrieve_evidence(claim, k=k)
+        result['evidences'] = evidences
+        
+        # 2. NLP analysis of claim
+        cleaned_claim = self.preprocess(claim)
+        result['nlp_analysis'] = self.nlp_analysis(cleaned_claim)
+        
+        # 3. Calculate evidence support score
+        if evidences:
+            # Use semantic similarity if SBERT available
+            if self.coherence_model:
+                try:
+                    claim_embedding = self.coherence_model.encode(claim)
+                    evidence_texts = [e.get('text', '') for e in evidences]
+                    evidence_embeddings = self.coherence_model.encode(evidence_texts)
+                    
+                    from sentence_transformers import util
+                    similarities = util.pytorch_cos_sim(claim_embedding, evidence_embeddings)[0]
+                    avg_similarity = similarities.mean().item()
+                    max_similarity = similarities.max().item()
+                    
+                    # Evidence support based on similarity
+                    result['evidence_support_score'] = round(max_similarity, 4)
+                    result['average_evidence_similarity'] = round(avg_similarity, 4)
+                except Exception as e:
+                    print(f"[SysCRED] Similarity error: {e}")
+                    # Fallback: use retrieval scores
+                    result['evidence_support_score'] = evidences[0].get('score', 0) if evidences else 0
+            else:
+                # Fallback: use retrieval scores
+                result['evidence_support_score'] = evidences[0].get('score', 0) if evidences else 0
+        
+        # 4. Determine verdict
+        support_score = result['evidence_support_score']
+        if support_score > 0.7:
+            result['verification_verdict'] = 'SUPPORTED'
+            result['confidence'] = support_score
+        elif support_score > 0.5:
+            result['verification_verdict'] = 'PARTIALLY_SUPPORTED'
+            result['confidence'] = support_score
+        elif support_score > 0.3:
+            result['verification_verdict'] = 'INSUFFICIENT_EVIDENCE'
+            result['confidence'] = 0.5
+        else:
+            result['verification_verdict'] = 'NOT_SUPPORTED'
+            result['confidence'] = 1 - support_score
+        
+        return result
+    
+    # --- End TREC Evidence Methods ---
+
     def generate_report(
         self,
         input_data: str,
@@ -473,7 +623,8 @@ class CredibilityVerificationSystem:
         external_data: ExternalData,
         overall_score: float,
         web_content: Optional[WebContent] = None,
-        graph_context: str = "" # [NEW]
+        graph_context: str = "",  # [NEW]
+        evidences: List[Dict[str, Any]] = None  # [NEW] TREC evidences
     ) -> Dict[str, Any]:
         """Generate the final evaluation report."""
         
@@ -497,6 +648,8 @@ class CredibilityVerificationSystem:
                 'coherence_score': nlp_results.get('coherence_score'),
                 'sentiment_explanation_preview': (nlp_results.get('sentiment_explanation') or [])[:3]
             },
+            # [NEW] TREC Evidence section
+            'evidences': evidences or [],
             'metadonnees': {}
         }
         
@@ -552,6 +705,14 @@ class CredibilityVerificationSystem:
             'type': 'Fact Check API',
             'results_count': len(external_data.fact_checks)
         })
+        # [NEW] Add TREC evidence source
+        if evidences:
+            report['sourcesUtilisees'].append({
+                'type': 'TREC Evidence Retrieval',
+                'method': 'BM25/TF-IDF',
+                'corpus': 'AP88-90',
+                'results_count': len(evidences)
+            })
         
         return report
     
