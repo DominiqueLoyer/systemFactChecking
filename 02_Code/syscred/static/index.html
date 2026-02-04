@@ -333,6 +333,69 @@
             transform: none;
             box-shadow: none;
         }
+        /* Backend Toggle Switch */
+        .backend-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .backend-toggle label {
+            font-size: 0.85rem;
+            color: #8b8ba7;
+            cursor: pointer;
+        }
+        .backend-toggle .active {
+            color: #a855f7;
+            font-weight: 600;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 26px;
+            transition: 0.3s;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: '';
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+        }
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        .backend-status {
+            font-size: 0.75rem;
+            color: #6b6b8a;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        .backend-status.local { color: #22c55e; }
+        .backend-status.remote { color: #a855f7; }
     </style>
 </head>
 
@@ -345,12 +408,23 @@
 
         <div class="search-box">
             <div class="input-group">
-                <input type="text" id="urlInput" placeholder="Entrez une URL à analyser (ex: https://www.lemonde.fr)"
+                <input type="text" id="urlInput" placeholder="Entrez une URL ou du texte à analyser"
                     autofocus>
                 <button id="analyzeBtn" onclick="analyzeUrl()">
                     🔍 Analyser
                 </button>
             </div>
+            
+            <!-- Backend Toggle -->
+            <div class="backend-toggle">
+                <label id="labelLocal" class="active">🖥️ Local</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="backendToggle" onchange="toggleBackend()">
+                    <span class="toggle-slider"></span>
+                </div>
+                <label id="labelRemote">☁️ HF Space</label>
+            </div>
+            <div class="backend-status local" id="backendStatus">Backend: localhost:5001 (léger, sans ML)</div>
         </div>
 
         <div class="loading" id="loading">
@@ -393,7 +467,32 @@
     </div>
 
     <script>
-        const API_URL = 'http://localhost:5001';
+        // Backend URLs
+        const LOCAL_API_URL = 'http://localhost:5001';
+        const REMOTE_API_URL = 'https://domloyer-syscred.hf.space';
+        let API_URL = LOCAL_API_URL;
+        
+        function toggleBackend() {
+            const toggle = document.getElementById('backendToggle');
+            const status = document.getElementById('backendStatus');
+            const labelLocal = document.getElementById('labelLocal');
+            const labelRemote = document.getElementById('labelRemote');
+            
+            if (toggle.checked) {
+                API_URL = REMOTE_API_URL;
+                status.textContent = 'Backend: HF Space (ML complet, plus lent)';
+                status.className = 'backend-status remote';
+                labelLocal.classList.remove('active');
+                labelRemote.classList.add('active');
+            } else {
+                API_URL = LOCAL_API_URL;
+                status.textContent = 'Backend: localhost:5001 (léger, sans ML)';
+                status.className = 'backend-status local';
+                labelLocal.classList.add('active');
+                labelRemote.classList.remove('active');
+            }
+            console.log('[SysCRED] Backend switched to:', API_URL);
+        }
 
         async function analyzeUrl() {
             const urlInput = document.getElementById('urlInput');

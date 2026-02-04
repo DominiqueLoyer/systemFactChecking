@@ -17,6 +17,20 @@ Endpoints:
 import sys
 import os
 import traceback
+
+# Load environment variables from .env file
+from pathlib import Path
+try:
+    from dotenv import load_dotenv
+    env_path = Path(__file__).parent / '.env'
+    if env_path.exists():
+        load_dotenv(env_path)
+        print(f"[SysCRED Backend] Loaded .env from {env_path}")
+    else:
+        print(f"[SysCRED Backend] No .env file found at {env_path}")
+except ImportError:
+    print("[SysCRED Backend] python-dotenv not installed, using system env vars")
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 

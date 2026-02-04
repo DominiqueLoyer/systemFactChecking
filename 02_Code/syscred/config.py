@@ -88,13 +88,15 @@ class Config:
     PRF_EXPANSION_TERMS = int(os.getenv("SYSCRED_PRF_TERMS", "10"))
     
     # === Pondération des scores ===
+    # Note: Weights should sum to 1.0 for proper normalization
     SCORE_WEIGHTS = {
-        'source_reputation': 0.25,
-        'domain_age': 0.10,
-        'sentiment_neutrality': 0.15,
-        'entity_presence': 0.15,
-        'coherence': 0.15,
-        'fact_check': 0.20
+        'source_reputation': 0.22,    # Was 0.25, reduced for graph_context
+        'domain_age': 0.08,           # Was 0.10
+        'sentiment_neutrality': 0.13, # Was 0.15
+        'entity_presence': 0.13,      # Was 0.15
+        'coherence': 0.12,            # Was 0.15
+        'fact_check': 0.17,           # Was 0.20
+        'graph_context': 0.15         # NEW - Historical knowledge from GraphRAG
     }
     
     # === Seuils de crédibilité ===
