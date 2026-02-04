@@ -62,6 +62,9 @@ class GraphRAG:
         """
         if not domain:
             return ""
+        
+        # Escape domain to prevent SPARQL injection
+        safe_domain = self._escape_sparql_string(domain)
             
         # We reuse the specific query logic but tailored for retrieval
         query = """
@@ -79,7 +82,7 @@ class GraphRAG:
         }
         ORDER BY DESC(?timestamp)
         LIMIT 5
-        """ % domain
+        """ % safe_domain
         
         results = []
         try:
@@ -124,8 +127,10 @@ class GraphRAG:
         clean_kws = [k for k in keywords if len(k) > 3] # Skip short words
         if not clean_kws:
             return {"text": "", "uris": [], "scores": []}
-            
-        regex_pattern = "|".join(clean_kws)
+        
+        # Escape each keyword for safe use in SPARQL REGEX
+        safe_kws = [self._escape_sparql_string(k) for k in clean_kws]
+        regex_pattern = "|".join(safe_kws)
         
         query = """
         PREFIX cred: <https://github.com/DominiqueLoyer/systemFactChecking#>
@@ -245,6 +250,22 @@ class GraphRAG:
         
         return result
     
+    def _escape_sparql_string(self, value: str) -> str:
+        """
+        Escape special characters in a string for safe use in SPARQL queries.
+        Prevents SPARQL injection attacks.
+        """
+        if not value:
+            return ""
+        # Escape backslash first, then other special characters
+        result = value.replace('\\', '\\\\')
+        result = result.replace('"', '\\"')
+        result = result.replace("'", "\\'")
+        result = result.replace('\n', '\\n')
+        result = result.replace('\r', '\\r')
+        result = result.replace('\t', '\\t')
+        return result
+    
     def _get_source_history_data(self, domain: str) -> Dict[str, Any]:
         """
         Query the graph for evaluation statistics of this domain.
@@ -254,6 +275,9 @@ class GraphRAG:
         """
         if not domain:
             return {'count': 0, 'avg_score': 0.5, 'scores': []}
+        
+        # Escape domain to prevent SPARQL injection
+        safe_domain = self._escape_sparql_string(domain)
             
         query = """
         PREFIX cred: <https://github.com/DominiqueLoyer/systemFactChecking#>
@@ -270,7 +294,7 @@ class GraphRAG:
         }
         ORDER BY DESC(?timestamp)
         LIMIT 10
-        """ % domain
+        """ % safe_domain
         
         scores = []
         last_verdict = None

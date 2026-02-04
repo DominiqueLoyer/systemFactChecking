@@ -356,4 +356,4 @@ if __name__ == "__main__":
         print(f"\n❌ Error: {e}")
         print("\nTo use this module, download the LIAR dataset:")
         print("  wget https://www.cs.ucsb.edu/~william/data/liar_dataset.zip")
-        print("  unzip liar_dataset.zip -d 02_Code/syscred/datasets/liar/")
+        print("  unzip liar_dataset.zip -d src/syscred/datasets/liar/")
