@@ -33,13 +33,21 @@ except ImportError:
     HAS_SBERT = False
     print("Warning: sentence-transformers not installed. Semantic coherence will use heuristics.")
 
-# Local imports
-from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
-from syscred.ontology_manager import OntologyManager
-from syscred.seo_analyzer import SEOAnalyzer
-from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
-from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult  # [NEW] TREC Integration
-from syscred import config
+# Local imports - Support both syscred.module and relative imports
+try:
+    from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
+    from syscred.ontology_manager import OntologyManager
+    from syscred.seo_analyzer import SEOAnalyzer
+    from syscred.graph_rag import GraphRAG
+    from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    from syscred import config
+except ImportError:
+    from api_clients import ExternalAPIClients, WebContent, ExternalData
+    from ontology_manager import OntologyManager
+    from seo_analyzer import SEOAnalyzer
+    from graph_rag import GraphRAG
+    from trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    import config
 
 
 class CredibilityVerificationSystem:
@@ -486,6 +494,26 @@ class CredibilityVerificationSystem:
             adjustment_factor = (graph_score - 0.5) * w_graph * confidence
             adjustments += adjustment_factor
             total_weight_used += w_graph * confidence  # Partial weight based on confidence
+        
+        # 8. [NEW] Linguistic Markers Analysis (sensationalism penalty)
+        # Penalize sensational language heavily, reward doubt markers (critical thinking)
+        linguistic = rule_results.get('linguistic_markers', {})
+        sensationalism_count = linguistic.get('sensationalism', 0)
+        doubt_count = linguistic.get('doubt', 0)
+        certainty_count = linguistic.get('certainty', 0)
+        
+        # Sensationalism is a strong negative signal
+        if sensationalism_count > 0:
+            penalty = min(0.20, sensationalism_count * 0.05)  # Max 20% penalty
+            adjustments -= penalty
+        
+        # Excessive certainty without sources is suspicious
+        if certainty_count > 2 and not fact_checks:
+            adjustments -= 0.05
+        
+        # Doubt markers indicate critical/questioning tone (slight positive)
+        if doubt_count > 0:
+            adjustments += min(0.05, doubt_count * 0.02)
             
         # Final calculation
         # Base 0.5 + sum of weighted adjustments
@@ -642,11 +670,24 @@ class CredibilityVerificationSystem:
     ) -> Dict[str, Any]:
         """Generate the final evaluation report."""
         
+        # Determine credibility level
+        if overall_score >= 0.75:
+            niveau = "Élevée"
+        elif overall_score >= 0.55:
+            niveau = "Moyenne-Élevée"
+        elif overall_score >= 0.45:
+            niveau = "Moyenne"
+        elif overall_score >= 0.25:
+            niveau = "Faible-Moyenne"
+        else:
+            niveau = "Faible"
+        
         report = {
             'idRapport': f"report_{int(datetime.datetime.now().timestamp())}",
             'informationEntree': input_data,
             'dateGeneration': datetime.datetime.now().isoformat(),
             'scoreCredibilite': round(overall_score, 2),
+            'niveauCredibilite': niveau,
             'resumeAnalyse': "",
             'detailsScore': {
                 'base': 0.5,

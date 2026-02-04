@@ -164,25 +164,6 @@ cred:Report_20260203_110527_21 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110527_21 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110528_22 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:28.072433"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110528_22 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110528_22 ;
-    cred:isReportOf cred:Request_20260203_110528_22 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110535_29 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110511_4 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:35.364443"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110535_29 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110535_29 ;
-    cred:isReportOf cred:Request_20260203_110535_29 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
 cred:Report_20260203_110550_45 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
     cred:completionTimestamp "2026-02-03T11:05:50.930164"^^xsd:dateTime ;
@@ -212,16 +193,6 @@ cred:Report_20260203_110557_51 a cred:RapportEvaluation ;
     cred:includesNLPResult cred:NLPResult_20260203_110557_51 ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110557_51 ;
     cred:isReportOf cred:Request_20260203_110557_51 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110559_53 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110552_47 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:59.242142"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110559_53 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110559_53 ;
-    cred:isReportOf cred:Request_20260203_110559_53 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110600_54 a cred:RapportEvaluation ;
@@ -273,17 +244,6 @@ cred:Report_20260203_110610_63 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110610_63 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110616_68 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Bas ;
-    cred:basedOnEvidence cred:Evidence_20260203_110616_68_0,
-        cred:Evidence_20260203_110616_68_1 ;
-    cred:completionTimestamp "2026-02-03T11:06:16.191855"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.35"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110616_68 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110616_68 ;
-    cred:isReportOf cred:Request_20260203_110616_68 ;
-    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 2 vérification(s) de faits trouvée(s)."^^xsd:string .
-
 cred:Report_20260203_110619_70 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110511_4 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
@@ -303,16 +263,6 @@ cred:Report_20260203_110621_72 a cred:RapportEvaluation ;
     cred:includesNLPResult cred:NLPResult_20260203_110621_72 ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110621_72 ;
     cred:isReportOf cred:Request_20260203_110621_72 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110625_76 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110514_7 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:25.357009"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110625_76 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110625_76 ;
-    cred:isReportOf cred:Request_20260203_110625_76 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110631_81 a cred:RapportEvaluation ;
@@ -345,28 +295,6 @@ cred:Report_20260203_110633_83 a cred:RapportEvaluation ;
     cred:includesNLPResult cred:NLPResult_20260203_110633_83 ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110633_83 ;
     cred:isReportOf cred:Request_20260203_110633_83 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110635_84 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110622_73,
-        cred:Report_20260203_110624_75,
-        cred:Report_20260203_110630_80 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:35.092501"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110635_84 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110635_84 ;
-    cred:isReportOf cred:Request_20260203_110635_84 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110636_85 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110537_31 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:36.060113"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110636_85 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110636_85 ;
-    cred:isReportOf cred:Request_20260203_110636_85 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110637_86 a cred:RapportEvaluation ;
@@ -413,55 +341,6 @@ cred:Report_20260203_110642_90 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110642_90 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110643_91 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110529_24,
-        cred:Report_20260203_110548_42,
-        cred:Report_20260203_110629_79 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:43.358340"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110643_91 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110643_91 ;
-    cred:isReportOf cred:Request_20260203_110643_91 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110644_92 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110515_8,
-        cred:Report_20260203_110545_39,
-        cred:Report_20260203_110609_62 ;
-    cred:assignsCredibilityLevel cred:Niveau_Bas ;
-    cred:basedOnEvidence cred:Evidence_20260203_110644_92_0 ;
-    cred:completionTimestamp "2026-02-03T11:06:44.525362"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.35"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110644_92 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110644_92 ;
-    cred:isReportOf cred:Request_20260203_110644_92 ;
-    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
-
-cred:Report_20260203_110648_95 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110629_79,
-        cred:Report_20260203_110638_87,
-        cred:Report_20260203_110647_94 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:48.055832"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110648_95 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110648_95 ;
-    cred:isReportOf cred:Request_20260203_110648_95 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110649_96 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110602_56,
-        cred:Report_20260203_110611_64,
-        cred:Report_20260203_110645_93 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:49.350470"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.54"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110649_96 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110649_96 ;
-    cred:isReportOf cred:Request_20260203_110649_96 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
 cred:Report_20260203_110650_97 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110547_41 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
@@ -505,6 +384,215 @@ cred:Report_20260203_200052_1 a cred:RapportEvaluation ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_200052_1 ;
     cred:isReportOf cred:Request_20260203_200052_1 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE à ÉLEVÉE. Réputation source : High."^^xsd:string .
+
+cred:Report_20260204_100436_3 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110545_39,
+        cred:Report_20260203_110547_41,
+        cred:Report_20260203_110644_92 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260204_100436_3_0,
+        cred:Evidence_20260204_100436_3_1 ;
+    cred:completionTimestamp "2026-02-04T10:04:36.255071"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.36"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100436_3 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100436_3 ;
+    cred:isReportOf cred:Request_20260204_100436_3 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 2 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260204_100446_6 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110524_18,
+        cred:Report_20260203_110539_34 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:46.311232"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100446_6 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100446_6 ;
+    cred:isReportOf cred:Request_20260204_100446_6 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100452_7 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110558_52,
+        cred:Report_20260203_110611_64,
+        cred:Report_20260204_100437_4 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:52.166761"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100452_7 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100452_7 ;
+    cred:isReportOf cred:Request_20260204_100452_7 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100504_12 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110559_53 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260204_100504_12_0 ;
+    cred:completionTimestamp "2026-02-04T10:05:04.543392"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.35"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100504_12 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100504_12 ;
+    cred:isReportOf cred:Request_20260204_100504_12 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260204_100509_15 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:09.272926"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100509_15 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100509_15 ;
+    cred:isReportOf cred:Request_20260204_100509_15 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100511_17 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110532_26 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:11.915769"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100511_17 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100511_17 ;
+    cred:isReportOf cred:Request_20260204_100511_17 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100516_20 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110536_30 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:16.225697"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100516_20 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100516_20 ;
+    cred:isReportOf cred:Request_20260204_100516_20 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100541_2 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110542_36,
+        cred:Report_20260204_100506_13 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:41.379500"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100541_2 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100541_2 ;
+    cred:isReportOf cred:Request_20260204_100541_2 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100542_3 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110539_33,
+        cred:Report_20260203_110636_85,
+        cred:Report_20260203_110638_87 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:42.647341"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100542_3 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100542_3 ;
+    cred:isReportOf cred:Request_20260204_100542_3 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100545_6 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110539_34,
+        cred:Report_20260203_110601_55,
+        cred:Report_20260203_110630_80 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:basedOnEvidence cred:Evidence_20260204_100545_6_0 ;
+    cred:completionTimestamp "2026-02-04T10:05:45.829113"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100545_6 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100545_6 ;
+    cred:isReportOf cred:Request_20260204_100545_6 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260204_100548_8 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110526_20,
+        cred:Report_20260203_110609_62,
+        cred:Report_20260204_100434_1 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:48.980674"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100548_8 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100548_8 ;
+    cred:isReportOf cred:Request_20260204_100548_8 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100552_11 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110613_65,
+        cred:Report_20260204_100550_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:52.610741"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100552_11 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100552_11 ;
+    cred:isReportOf cred:Request_20260204_100552_11 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100556_14 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100543_4,
+        cred:Report_20260204_100544_5,
+        cred:Report_20260204_100550_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:56.795458"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100556_14 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100556_14 ;
+    cred:isReportOf cred:Request_20260204_100556_14 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100559_16 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100554_12,
+        cred:Report_20260204_100555_13,
+        cred:Report_20260204_100557_15 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260204_100559_16_0 ;
+    cred:completionTimestamp "2026-02-04T10:05:59.123186"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.37"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100559_16 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100559_16 ;
+    cred:isReportOf cred:Request_20260204_100559_16 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260204_100600_17 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110511_5,
+        cred:Report_20260203_110541_35 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:06:00.241555"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100600_17 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100600_17 ;
+    cred:isReportOf cred:Request_20260204_100600_17 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100601_18 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110648_95,
+        cred:Report_20260204_100440_5,
+        cred:Report_20260204_100550_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:06:01.389998"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100601_18 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100601_18 ;
+    cred:isReportOf cred:Request_20260204_100601_18 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100604_20 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100506_13,
+        cred:Report_20260204_100510_16,
+        cred:Report_20260204_100603_19 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:06:04.639514"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100604_20 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100604_20 ;
+    cred:isReportOf cred:Request_20260204_100604_20 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_121803_1 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110516_9,
+        cred:Report_20260203_110522_17,
+        cred:Report_20260203_110629_79 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260204_121803_1_0 ;
+    cred:completionTimestamp "2026-02-04T12:18:03.677538"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.35"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_121803_1 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_121803_1 ;
+    cred:isReportOf cred:Request_20260204_121803_1 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
 
 cred1:Evidence_20260129_173754_1_0 a cred1:Evidence,
         cred1:RefutingEvidence ;
@@ -857,6 +945,48 @@ cred:Evidence_20260203_110650_97_0 a cred:PreuveFactuelle ;
     cred:evidenceSource "PolitiFact"^^xsd:string ;
     cred:evidenceURL "https://www.politifact.com/factchecks/2016/nov/22/rush-limbaugh/trump-hamilton-was-immigration-hawk-rush-limbaugh-/"^^xsd:anyURI ;
     cred:evidenceVerdict "Half True"^^xsd:string .
+
+cred:Evidence_20260204_100436_3_0 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "Donald Trump is not the first president to nominate a Supreme Court justice amid an election"^^xsd:string ;
+    cred:evidenceSource "USA Today"^^xsd:string ;
+    cred:evidenceURL "https://www.usatoday.com/story/news/factcheck/2020/10/12/fact-check-supreme-court-nomination-during-voting/5880544002/"^^xsd:anyURI ;
+    cred:evidenceVerdict "False"^^xsd:string .
+
+cred:Evidence_20260204_100436_3_1 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "Senate Republicans should \"follow the rule they set in 2016 not to consider a SCOTUS nominee in an election year.\""^^xsd:string ;
+    cred:evidenceSource "The New York Times"^^xsd:string ;
+    cred:evidenceURL "https://www.nytimes.com/2018/06/27/us/politics/fact-check-supreme-court-senate-confirm.html"^^xsd:anyURI ;
+    cred:evidenceVerdict "This requires context."^^xsd:string .
+
+cred:Evidence_20260204_100504_12_0 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "\"There's been no conclusive or specific report to say\" Russia was trying to muddy the election."^^xsd:string ;
+    cred:evidenceSource "PolitiFact"^^xsd:string ;
+    cred:evidenceURL "https://www.politifact.com/factchecks/2016/dec/11/reince-priebus/priebus-falsely-claims-no-conclusive-report-whethe/"^^xsd:anyURI ;
+    cred:evidenceVerdict "False"^^xsd:string .
+
+cred:Evidence_20260204_100506_13_0 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "President Obama has announced a nationwide Muslim outreach program for children from grades K-12."^^xsd:string ;
+    cred:evidenceSource "Snopes.com"^^xsd:string ;
+    cred:evidenceURL "https://www.snopes.com/fact-check/november-surprise/"^^xsd:anyURI ;
+    cred:evidenceVerdict "False"^^xsd:string .
+
+cred:Evidence_20260204_100545_6_0 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "Says Congresswoman Loretta Sanchez \"has passed one bill in her 20 years in office, and that was to rename a post office.\""^^xsd:string ;
+    cred:evidenceSource "PolitiFact"^^xsd:string ;
+    cred:evidenceURL "https://www.politifact.com/factchecks/2016/oct/06/kamala-harris/claim-loretta-sanchez-passed-one-bill-20-years-tec/"^^xsd:anyURI ;
+    cred:evidenceVerdict "Half True"^^xsd:string .
+
+cred:Evidence_20260204_100559_16_0 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "\"What the facts say\" is ... \"the best scenario for kids is a loving mom and dad.\""^^xsd:string ;
+    cred:evidenceSource "PolitiFact"^^xsd:string ;
+    cred:evidenceURL "https://www.politifact.com/factchecks/2016/jul/17/reince-priebus/gop-chair-wrongly-claims-facts-show-children-do-be/"^^xsd:anyURI ;
+    cred:evidenceVerdict "False"^^xsd:string .
+
+cred:Evidence_20260204_121803_1_0 a cred:PreuveFactuelle ;
+    cred:evidenceClaim "Donald Trump said that he believes that the Earth is flat."^^xsd:string ;
+    cred:evidenceSource "Snopes.com"^^xsd:string ;
+    cred:evidenceURL "https://www.snopes.com/fact-check/donald-trump-says-the-earth-is-flat/"^^xsd:anyURI ;
+    cred:evidenceVerdict "False"^^xsd:string .
 
 cred:Info_20260130_141312_1 a cred:InformationMoyenneCredibilite,
         cred:InformationSoumise ;
@@ -1285,6 +1415,170 @@ cred:Info_20260203_200052_1 a cred:InformationHauteCredibilite,
     cred:informationContent "https://www.lemonde.fr/"^^xsd:string ;
     cred:informationURL "https://www.lemonde.fr/"^^xsd:anyURI .
 
+cred:Info_20260204_100434_1 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "The tax burden on Virginia families was lower under Tim Kaine than under George Allen."^^xsd:string .
+
+cred:Info_20260204_100435_2 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Congress includes 36 people accused of spousal abuse, 84 arrested for drunk driving in the past year, 71 with terrible creditand more."^^xsd:string .
+
+cred:Info_20260204_100436_3 a cred:InformationFaibleCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "There is a precedent for not nominating someone to the U.S. Supreme Court in the middle of a presidential election."^^xsd:string .
+
+cred:Info_20260204_100437_4 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "For every dollar (in the stimulus package) that is spent to help small businesses, $4 is being spent to help upkeep the grass on the lawns of Washington."^^xsd:string .
+
+cred:Info_20260204_100440_5 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Whether the Amendment passes or not, the medical use of marijuana is a federal criminal offense."^^xsd:string .
+
+cred:Info_20260204_100446_6 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "John McCain has changed position on invading Iraq."^^xsd:string .
+
+cred:Info_20260204_100452_7 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Says U.S. Rep. Ron Kinds stimulus cost taxpayers $278,000 per job."^^xsd:string .
+
+cred:Info_20260204_100454_8 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Georgia loses millions of dollars of revenue because people go out of state to buy fireworks."^^xsd:string .
+
+cred:Info_20260204_100459_9 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Texas has a higher unemployment rate than neighboring states."^^xsd:string .
+
+cred:Info_20260204_100501_10 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Wisconsins lawsuit rules are so anti-business that the states system is one of the most promiscuous in America."^^xsd:string .
+
+cred:Info_20260204_100502_11 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "A Texas law requires every high school to have a voter registrar and part of their responsibility is to make sure that when children become 18 and become eligible to vote, that they vote."^^xsd:string .
+
+cred:Info_20260204_100504_12 a cred:InformationFaibleCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Theres been no conclusive or specific report to say Russia was trying to muddy the election."^^xsd:string .
+
+cred:Info_20260204_100506_13 a cred:InformationFaibleCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Obama Declares November National Muslim Appreciation Month."^^xsd:string .
+
+cred:Info_20260204_100507_14 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "We have 41,000 people right now on the waitlist for financial-based assistance for our tech colleges and universities, most of them for tech schools."^^xsd:string .
+
+cred:Info_20260204_100509_15 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Dan Patrick called for increasing the gas tax and the state sales tax."^^xsd:string .
+
+cred:Info_20260204_100510_16 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Obamacare insurance cooperative failures should be expected because theyre like any business, and when you start businesses in America, at the fifth year, half of the businesses have closed."^^xsd:string .
+
+cred:Info_20260204_100511_17 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Gov. Kasich and the Republican-dominated legislature have foregone the popular option of closing tax loopholes that amount to $7 billion annually in this state."^^xsd:string .
+
+cred:Info_20260204_100513_18 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Our (Texas) graduation rate ranks 43rd out of 50 states."^^xsd:string .
+
+cred:Info_20260204_100515_19 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "When it comes to jobless workers, Mitt Romney says he likes to fire people."^^xsd:string .
+
+cred:Info_20260204_100516_20 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Providence has more of its pension fund invested in hedge funds and is less transparent about it than the state."^^xsd:string .
+
+cred:Info_20260204_100539_1 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "When Atlanta Police Chief George Turner was interim head of the department, overall crime fell 14 percent and violent crime dropped 22.7 percent."^^xsd:string .
+
+cred:Info_20260204_100541_2 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "6,400 Ohioans ... lost manufacturing jobs in the month of September."^^xsd:string .
+
+cred:Info_20260204_100542_3 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "The (Russian) ruble is already going down."^^xsd:string .
+
+cred:Info_20260204_100543_4 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "The Democrat majority in the Senate has failed to submit [a] budget in the past 1,000 days."^^xsd:string .
+
+cred:Info_20260204_100544_5 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Active duty males in the military are twice as likely to develop prostate cancer than their civilian counterparts."^^xsd:string .
+
+cred:Info_20260204_100545_6 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Says Congresswoman Loretta Sanchez has passed one bill in her 20 years in Congress, and that was to rename a post office."^^xsd:string .
+
+cred:Info_20260204_100547_7 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Because of the health care act, The people who have health care and like it in this county are not going to be able to keep what they have."^^xsd:string .
+
+cred:Info_20260204_100548_8 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "The tax burden on Virginia families was lower under Tim Kaine than under George Allen."^^xsd:string .
+
+cred:Info_20260204_100550_9 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Eighty percent of the American people support an approach (to federal budget problems) that includes revenues and includes cuts."^^xsd:string .
+
+cred:Info_20260204_100551_10 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Says Chris Dudley thinks Oregons minimum wage is too high."^^xsd:string .
+
+cred:Info_20260204_100552_11 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Says, Statistics indicate that one in eight children, and one in 18 adults in Oregon suffers from mental illness."^^xsd:string .
+
+cred:Info_20260204_100554_12 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Each year, 18,000 people die in America because they don't have health care."^^xsd:string .
+
+cred:Info_20260204_100555_13 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Fox News is banned in Canada because it violatesa law thatprevents news channels from lying to their viewers."^^xsd:string .
+
+cred:Info_20260204_100556_14 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Says Gov. Scott Walkers proposed state budget contained 110 pages of errors -- an unusually high number -- and millions of dollars worth of mistakes that were corrected with a follow-up document."^^xsd:string .
+
+cred:Info_20260204_100557_15 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "The United States of America, right now, has the strongest, most durable economy in the world."^^xsd:string .
+
+cred:Info_20260204_100559_16 a cred:InformationFaibleCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "What the facts say is ...the best scenario for kids is a loving mom and dad."^^xsd:string .
+
+cred:Info_20260204_100600_17 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "I have never said that I don't wear flag pins or refuse to wear flag pins."^^xsd:string .
+
+cred:Info_20260204_100601_18 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "With the exception of baby formula, the federal government does not require any food to carry an expiration date, and state laws vary widely."^^xsd:string .
+
+cred:Info_20260204_100603_19 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Barack Obama thinks terrorists just need a good talking to."^^xsd:string .
+
+cred:Info_20260204_100604_20 a cred:InformationMoyenneCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "Says President Barack Obama is a socialist."^^xsd:string .
+
+cred:Info_20260204_121803_1 a cred:InformationFaibleCredibilite,
+        cred:InformationSoumise ;
+    cred:informationContent "donald trump says earth is flat"^^xsd:string .
+
 cred:NLPResult_20260130_141312_1 a cred:ResultatNLP ;
     cred:coherenceScore "0.7"^^xsd:float .
 
@@ -1603,6 +1897,129 @@ cred:NLPResult_20260203_110654_100 a cred:ResultatNLP ;
 cred:NLPResult_20260203_200052_1 a cred:ResultatNLP ;
     cred:coherenceScore "0.6000000000000001"^^xsd:float .
 
+cred:NLPResult_20260204_100434_1 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100435_2 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100436_3 a cred:ResultatNLP ;
+    cred:coherenceScore "0.8"^^xsd:float .
+
+cred:NLPResult_20260204_100437_4 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100440_5 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100446_6 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100452_7 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100454_8 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100459_9 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100501_10 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100502_11 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100504_12 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100506_13 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100507_14 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100509_15 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100510_16 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100511_17 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100513_18 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100515_19 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100516_20 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100539_1 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100541_2 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100542_3 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100543_4 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100544_5 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100545_6 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100547_7 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100548_8 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100550_9 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100551_10 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100552_11 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100554_12 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100555_13 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100556_14 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100557_15 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100559_16 a cred:ResultatNLP ;
+    cred:coherenceScore "0.8"^^xsd:float .
+
+cred:NLPResult_20260204_100600_17 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100601_18 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100603_19 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_100604_20 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
+cred:NLPResult_20260204_121803_1 a cred:ResultatNLP ;
+    cred:coherenceScore "0.7"^^xsd:float .
+
 cred:Report_20260203_110508_1 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
     cred:completionTimestamp "2026-02-03T11:05:08.858969"^^xsd:dateTime ;
@@ -1619,15 +2036,6 @@ cred:Report_20260203_110510_3 a cred:RapportEvaluation ;
     cred:includesNLPResult cred:NLPResult_20260203_110510_3 ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110510_3 ;
     cred:isReportOf cred:Request_20260203_110510_3 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110511_5 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:11.876376"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110511_5 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110511_5 ;
-    cred:isReportOf cred:Request_20260203_110511_5 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110512_6 a cred:RapportEvaluation ;
@@ -1648,18 +2056,6 @@ cred:Report_20260203_110515_8 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110515_8 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110516_9 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260130_141312_1,
-        cred:Report_20260130_142430_1 ;
-    cred:assignsCredibilityLevel cred:Niveau_Bas ;
-    cred:basedOnEvidence cred:Evidence_20260203_110516_9_0 ;
-    cred:completionTimestamp "2026-02-03T11:05:16.127409"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.35"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110516_9 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110516_9 ;
-    cred:isReportOf cred:Request_20260203_110516_9 ;
-    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
-
 cred:Report_20260203_110517_10 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
     cred:completionTimestamp "2026-02-03T11:05:17.222678"^^xsd:dateTime ;
@@ -1676,6 +2072,15 @@ cred:Report_20260203_110517_11 a cred:RapportEvaluation ;
     cred:includesNLPResult cred:NLPResult_20260203_110517_11 ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110517_11 ;
     cred:isReportOf cred:Request_20260203_110517_11 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110528_22 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:28.072433"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110528_22 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110528_22 ;
+    cred:isReportOf cred:Request_20260203_110528_22 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110529_23 a cred:RapportEvaluation ;
@@ -1702,27 +2107,14 @@ cred:Report_20260203_110530_25 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110530_25 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110536_30 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110532_26,
-        cred:Report_20260203_110534_28 ;
+cred:Report_20260203_110535_29 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110511_4 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:36.156385"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110536_30 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110536_30 ;
-    cred:isReportOf cred:Request_20260203_110536_30 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110539_34 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110521_15,
-        cred:Report_20260203_110533_27,
-        cred:Report_20260203_110534_28 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:39.954041"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.54"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110539_34 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110539_34 ;
-    cred:isReportOf cred:Request_20260203_110539_34 ;
+    cred:completionTimestamp "2026-02-03T11:05:35.364443"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110535_29 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110535_29 ;
+    cred:isReportOf cred:Request_20260203_110535_29 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110544_38 a cred:RapportEvaluation ;
@@ -1737,15 +2129,6 @@ cred:Report_20260203_110544_38 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110544_38 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110545_39 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:45.638754"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110545_39 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110545_39 ;
-    cred:isReportOf cred:Request_20260203_110545_39 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
 cred:Report_20260203_110546_40 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
     cred:completionTimestamp "2026-02-03T11:05:46.480083"^^xsd:dateTime ;
@@ -1753,24 +2136,6 @@ cred:Report_20260203_110546_40 a cred:RapportEvaluation ;
     cred:includesNLPResult cred:NLPResult_20260203_110546_40 ;
     cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110546_40 ;
     cred:isReportOf cred:Request_20260203_110546_40 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110548_42 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:48.425437"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110548_42 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110548_42 ;
-    cred:isReportOf cred:Request_20260203_110548_42 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110550_44 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:50.126871"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110550_44 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110550_44 ;
-    cred:isReportOf cred:Request_20260203_110550_44 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110553_48 a cred:RapportEvaluation ;
@@ -1783,24 +2148,14 @@ cred:Report_20260203_110553_48 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110553_48 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110554_49 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110551_46 ;
+cred:Report_20260203_110559_53 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110552_47 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:54.845385"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:05:59.242142"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110554_49 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110554_49 ;
-    cred:isReportOf cred:Request_20260203_110554_49 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110558_52 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110517_11 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:58.223542"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110558_52 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110558_52 ;
-    cred:isReportOf cred:Request_20260203_110558_52 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110559_53 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110559_53 ;
+    cred:isReportOf cred:Request_20260203_110559_53 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110603_57 a cred:RapportEvaluation ;
@@ -1812,26 +2167,16 @@ cred:Report_20260203_110603_57 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110603_57 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110613_65 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:13.013407"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110613_65 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110613_65 ;
-    cred:isReportOf cred:Request_20260203_110613_65 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110617_69 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110539_33,
-        cred:Report_20260203_110550_44 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:basedOnEvidence cred:Evidence_20260203_110617_69_0 ;
-    cred:completionTimestamp "2026-02-03T11:06:17.629431"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110617_69 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110617_69 ;
-    cred:isReportOf cred:Request_20260203_110617_69 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+cred:Report_20260203_110616_68 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260203_110616_68_0,
+        cred:Evidence_20260203_110616_68_1 ;
+    cred:completionTimestamp "2026-02-03T11:06:16.191855"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.35"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110616_68 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110616_68 ;
+    cred:isReportOf cred:Request_20260203_110616_68 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 2 vérification(s) de faits trouvée(s)."^^xsd:string .
 
 cred:Report_20260203_110620_71 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110552_47 ;
@@ -1857,37 +2202,36 @@ cred:Report_20260203_110624_75 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110624_75 ;
     cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 2 vérification(s) de faits trouvée(s)."^^xsd:string .
 
-cred:Report_20260203_110627_78 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110552_47,
-        cred:Report_20260203_110601_55,
-        cred:Report_20260203_110626_77 ;
+cred:Report_20260203_110625_76 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110514_7 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:27.393360"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110627_78 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110627_78 ;
-    cred:isReportOf cred:Request_20260203_110627_78 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110638_87 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110614_66,
-        cred:Report_20260203_110617_69,
-        cred:Report_20260203_110622_73 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:38.458007"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.54"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110638_87 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110638_87 ;
-    cred:isReportOf cred:Request_20260203_110638_87 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110645_93 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:45.701202"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:06:25.357009"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110645_93 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110645_93 ;
-    cred:isReportOf cred:Request_20260203_110645_93 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110625_76 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110625_76 ;
+    cred:isReportOf cred:Request_20260203_110625_76 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110635_84 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110622_73,
+        cred:Report_20260203_110624_75,
+        cred:Report_20260203_110630_80 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:35.092501"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110635_84 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110635_84 ;
+    cred:isReportOf cred:Request_20260203_110635_84 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110636_85 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110537_31 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:36.060113"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110636_85 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110636_85 ;
+    cred:isReportOf cred:Request_20260203_110636_85 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110647_94 a cred:RapportEvaluation ;
@@ -1902,13 +2246,121 @@ cred:Report_20260203_110647_94 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110647_94 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110652_99 a cred:RapportEvaluation ;
+cred:Report_20260204_100440_5 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110616_68 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:52.981282"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.54"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110652_99 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110652_99 ;
-    cred:isReportOf cred:Request_20260203_110652_99 ;
+    cred:completionTimestamp "2026-02-04T10:04:40.179984"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100440_5 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100440_5 ;
+    cred:isReportOf cred:Request_20260204_100440_5 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100501_10 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110602_56,
+        cred:Report_20260203_110644_92,
+        cred:Report_20260204_100459_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:01.110789"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100501_10 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100501_10 ;
+    cred:isReportOf cred:Request_20260204_100501_10 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100513_18 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100459_9,
+        cred:Report_20260204_100501_10,
+        cred:Report_20260204_100502_11 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:13.603421"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100513_18 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100513_18 ;
+    cred:isReportOf cred:Request_20260204_100513_18 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100539_1 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110551_46,
+        cred:Report_20260203_110554_49,
+        cred:Report_20260204_100434_1 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:39.941181"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100539_1 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100539_1 ;
+    cred:isReportOf cred:Request_20260204_100539_1 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100543_4 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110550_44,
+        cred:Report_20260203_110630_80,
+        cred:Report_20260203_110635_84 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:43.882825"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100543_4 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100543_4 ;
+    cred:isReportOf cred:Request_20260204_100543_4 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100544_5 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110511_4,
+        cred:Report_20260203_110535_29 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:44.797008"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100544_5 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100544_5 ;
+    cred:isReportOf cred:Request_20260204_100544_5 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100551_10 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110652_99,
+        cred:Report_20260204_100459_9,
+        cred:Report_20260204_100502_11 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:51.501813"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100551_10 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100551_10 ;
+    cred:isReportOf cred:Request_20260204_100551_10 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100555_13 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100510_16,
+        cred:Report_20260204_100547_7,
+        cred:Report_20260204_100554_12 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:55.313715"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100555_13 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100555_13 ;
+    cred:isReportOf cred:Request_20260204_100555_13 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100557_15 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100507_14,
+        cred:Report_20260204_100510_16,
+        cred:Report_20260204_100513_18 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:57.973596"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100557_15 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100557_15 ;
+    cred:isReportOf cred:Request_20260204_100557_15 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100603_19 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100506_13,
+        cred:Report_20260204_100510_16,
+        cred:Report_20260204_100551_10 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:06:03.148559"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100603_19 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100603_19 ;
+    cred:isReportOf cred:Request_20260204_100603_19 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Request_20260130_141312_1 a cred:RequeteEvaluation ;
@@ -2441,6 +2893,211 @@ cred:Request_20260203_200052_1 a cred:RequeteEvaluation ;
     cred:requestStatus "Completed"^^xsd:string ;
     cred:submissionTimestamp "2026-02-03T20:00:52.685433"^^xsd:dateTime .
 
+cred:Request_20260204_100434_1 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100434_1 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:34.020196"^^xsd:dateTime .
+
+cred:Request_20260204_100435_2 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100435_2 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:35.188950"^^xsd:dateTime .
+
+cred:Request_20260204_100436_3 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100436_3 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:36.255071"^^xsd:dateTime .
+
+cred:Request_20260204_100437_4 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100437_4 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:37.746344"^^xsd:dateTime .
+
+cred:Request_20260204_100440_5 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100440_5 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:40.179984"^^xsd:dateTime .
+
+cred:Request_20260204_100446_6 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100446_6 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:46.311232"^^xsd:dateTime .
+
+cred:Request_20260204_100452_7 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100452_7 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:52.166761"^^xsd:dateTime .
+
+cred:Request_20260204_100454_8 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100454_8 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:54.539551"^^xsd:dateTime .
+
+cred:Request_20260204_100459_9 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100459_9 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:04:59.316103"^^xsd:dateTime .
+
+cred:Request_20260204_100501_10 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100501_10 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:01.110789"^^xsd:dateTime .
+
+cred:Request_20260204_100502_11 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100502_11 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:02.911158"^^xsd:dateTime .
+
+cred:Request_20260204_100504_12 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100504_12 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:04.543392"^^xsd:dateTime .
+
+cred:Request_20260204_100506_13 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100506_13 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:06.093956"^^xsd:dateTime .
+
+cred:Request_20260204_100507_14 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100507_14 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:07.260243"^^xsd:dateTime .
+
+cred:Request_20260204_100509_15 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100509_15 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:09.272926"^^xsd:dateTime .
+
+cred:Request_20260204_100510_16 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100510_16 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:10.728613"^^xsd:dateTime .
+
+cred:Request_20260204_100511_17 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100511_17 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:11.915769"^^xsd:dateTime .
+
+cred:Request_20260204_100513_18 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100513_18 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:13.603421"^^xsd:dateTime .
+
+cred:Request_20260204_100515_19 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100515_19 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:15.017001"^^xsd:dateTime .
+
+cred:Request_20260204_100516_20 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100516_20 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:16.225697"^^xsd:dateTime .
+
+cred:Request_20260204_100539_1 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100539_1 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:39.941181"^^xsd:dateTime .
+
+cred:Request_20260204_100541_2 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100541_2 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:41.379500"^^xsd:dateTime .
+
+cred:Request_20260204_100542_3 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100542_3 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:42.647341"^^xsd:dateTime .
+
+cred:Request_20260204_100543_4 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100543_4 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:43.882825"^^xsd:dateTime .
+
+cred:Request_20260204_100544_5 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100544_5 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:44.797008"^^xsd:dateTime .
+
+cred:Request_20260204_100545_6 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100545_6 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:45.829113"^^xsd:dateTime .
+
+cred:Request_20260204_100547_7 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100547_7 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:47.626176"^^xsd:dateTime .
+
+cred:Request_20260204_100548_8 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100548_8 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:48.980674"^^xsd:dateTime .
+
+cred:Request_20260204_100550_9 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100550_9 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:50.178918"^^xsd:dateTime .
+
+cred:Request_20260204_100551_10 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100551_10 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:51.501813"^^xsd:dateTime .
+
+cred:Request_20260204_100552_11 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100552_11 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:52.610741"^^xsd:dateTime .
+
+cred:Request_20260204_100554_12 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100554_12 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:54.313286"^^xsd:dateTime .
+
+cred:Request_20260204_100555_13 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100555_13 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:55.313715"^^xsd:dateTime .
+
+cred:Request_20260204_100556_14 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100556_14 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:56.795458"^^xsd:dateTime .
+
+cred:Request_20260204_100557_15 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100557_15 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:57.973596"^^xsd:dateTime .
+
+cred:Request_20260204_100559_16 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100559_16 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:05:59.123186"^^xsd:dateTime .
+
+cred:Request_20260204_100600_17 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100600_17 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:06:00.241555"^^xsd:dateTime .
+
+cred:Request_20260204_100601_18 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100601_18 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:06:01.389998"^^xsd:dateTime .
+
+cred:Request_20260204_100603_19 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100603_19 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:06:03.148559"^^xsd:dateTime .
+
+cred:Request_20260204_100604_20 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_100604_20 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T10:06:04.639514"^^xsd:dateTime .
+
+cred:Request_20260204_121803_1 a cred:RequeteEvaluation ;
+    cred:concernsInformation cred:Info_20260204_121803_1 ;
+    cred:requestStatus "Completed"^^xsd:string ;
+    cred:submissionTimestamp "2026-02-04T12:18:03.677538"^^xsd:dateTime .
+
 cred:SourceAnalysis_20260130_141312_1 a cred:InfoSourceAnalyse ;
     cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
 
@@ -2759,6 +3416,129 @@ cred:SourceAnalysis_20260203_110654_100 a cred:InfoSourceAnalyse ;
 cred:SourceAnalysis_20260203_200052_1 a cred:InfoSourceAnalyse ;
     cred:sourceAnalyzedReputation "High"^^xsd:string .
 
+cred:SourceAnalysis_20260204_100434_1 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100435_2 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100436_3 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100437_4 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100440_5 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100446_6 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100452_7 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100454_8 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100459_9 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100501_10 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100502_11 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100504_12 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100506_13 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100507_14 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100509_15 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100510_16 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100511_17 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100513_18 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100515_19 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100516_20 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100539_1 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100541_2 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100542_3 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100543_4 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100544_5 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100545_6 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100547_7 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100548_8 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100550_9 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100551_10 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100552_11 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100554_12 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100555_13 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100556_14 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100557_15 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100559_16 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100600_17 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100601_18 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100603_19 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_100604_20 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred:SourceAnalysis_20260204_121803_1 a cred:InfoSourceAnalyse ;
+    cred:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
 cred:Report_20260130_142430_1 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260130_141312_1 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
@@ -2778,6 +3558,27 @@ cred:Report_20260203_110509_2 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110509_2 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
+cred:Report_20260203_110511_5 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:11.876376"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110511_5 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110511_5 ;
+    cred:isReportOf cred:Request_20260203_110511_5 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110516_9 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260130_141312_1,
+        cred:Report_20260130_142430_1 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260203_110516_9_0 ;
+    cred:completionTimestamp "2026-02-03T11:05:16.127409"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.35"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110516_9 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110516_9 ;
+    cred:isReportOf cred:Request_20260203_110516_9 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
 cred:Report_20260203_110518_12 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
     cred:completionTimestamp "2026-02-03T11:05:18.595766"^^xsd:dateTime ;
@@ -2787,27 +3588,15 @@ cred:Report_20260203_110518_12 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110518_12 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110522_17 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260130_141312_1,
-        cred:Report_20260130_142430_1,
-        cred:Report_20260203_110516_9 ;
-    cred:assignsCredibilityLevel cred:Niveau_Bas ;
-    cred:basedOnEvidence cred:Evidence_20260203_110522_17_0 ;
-    cred:completionTimestamp "2026-02-03T11:05:22.853634"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.36"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110522_17 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110522_17 ;
-    cred:isReportOf cred:Request_20260203_110522_17 ;
-    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
-
-cred:Report_20260203_110532_26 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110522_17 ;
+cred:Report_20260203_110536_30 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110532_26,
+        cred:Report_20260203_110534_28 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:32.155398"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110532_26 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110532_26 ;
-    cred:isReportOf cred:Request_20260203_110532_26 ;
+    cred:completionTimestamp "2026-02-03T11:05:36.156385"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110536_30 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110536_30 ;
+    cred:isReportOf cred:Request_20260203_110536_30 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110537_31 a cred:RapportEvaluation ;
@@ -2831,45 +3620,41 @@ cred:Report_20260203_110538_32 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110538_32 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110541_35 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110511_5,
-        cred:Report_20260203_110526_20 ;
+cred:Report_20260203_110545_39 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:41.397217"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110541_35 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110541_35 ;
-    cred:isReportOf cred:Request_20260203_110541_35 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
-
-cred:Report_20260203_110547_41 a cred:RapportEvaluation ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:47.355028"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:05:45.638754"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110547_41 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110547_41 ;
-    cred:isReportOf cred:Request_20260203_110547_41 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110545_39 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110545_39 ;
+    cred:isReportOf cred:Request_20260203_110545_39 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110551_46 a cred:RapportEvaluation ;
+cred:Report_20260203_110548_42 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:51.848031"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:05:48.425437"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110551_46 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110551_46 ;
-    cred:isReportOf cred:Request_20260203_110551_46 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110548_42 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110548_42 ;
+    cred:isReportOf cred:Request_20260203_110548_42 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110602_56 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110526_20,
-        cred:Report_20260203_110538_32,
-        cred:Report_20260203_110541_35 ;
+cred:Report_20260203_110550_44 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:02.621863"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.54"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110602_56 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110602_56 ;
-    cred:isReportOf cred:Request_20260203_110602_56 ;
+    cred:completionTimestamp "2026-02-03T11:05:50.126871"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110550_44 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110550_44 ;
+    cred:isReportOf cred:Request_20260203_110550_44 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110554_49 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110551_46 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:54.845385"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110554_49 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110554_49 ;
+    cred:isReportOf cred:Request_20260203_110554_49 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110604_58 a cred:RapportEvaluation ;
@@ -2881,16 +3666,13 @@ cred:Report_20260203_110604_58 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110604_58 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110611_64 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110549_43,
-        cred:Report_20260203_110558_52,
-        cred:Report_20260203_110601_55 ;
+cred:Report_20260203_110613_65 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:11.959600"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110611_64 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110611_64 ;
-    cred:isReportOf cred:Request_20260203_110611_64 ;
+    cred:completionTimestamp "2026-02-03T11:06:13.013407"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110613_65 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110613_65 ;
+    cred:isReportOf cred:Request_20260203_110613_65 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110614_66 a cred:RapportEvaluation ;
@@ -2916,6 +3698,18 @@ cred:Report_20260203_110615_67 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110615_67 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
+cred:Report_20260203_110617_69 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110539_33,
+        cred:Report_20260203_110550_44 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:basedOnEvidence cred:Evidence_20260203_110617_69_0 ;
+    cred:completionTimestamp "2026-02-03T11:06:17.629431"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110617_69 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110617_69 ;
+    cred:isReportOf cred:Request_20260203_110617_69 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
 cred:Report_20260203_110623_74 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110543_37,
         cred:Report_20260203_110604_58 ;
@@ -2940,29 +3734,154 @@ cred:Report_20260203_110626_77 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110626_77 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
 
-cred:Report_20260203_110629_79 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110522_17,
-        cred:Report_20260203_110529_24,
-        cred:Report_20260203_110602_56 ;
+cred:Report_20260203_110627_78 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110552_47,
+        cred:Report_20260203_110601_55,
+        cred:Report_20260203_110626_77 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:basedOnEvidence cred:Evidence_20260203_110629_79_0 ;
-    cred:completionTimestamp "2026-02-03T11:06:29.012344"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110629_79 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110629_79 ;
-    cred:isReportOf cred:Request_20260203_110629_79 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+    cred:completionTimestamp "2026-02-03T11:06:27.393360"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110627_78 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110627_78 ;
+    cred:isReportOf cred:Request_20260203_110627_78 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110630_80 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110601_55,
-        cred:Report_20260203_110609_62,
-        cred:Report_20260203_110615_67 ;
+cred:Report_20260203_110644_92 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110515_8,
+        cred:Report_20260203_110545_39,
+        cred:Report_20260203_110609_62 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260203_110644_92_0 ;
+    cred:completionTimestamp "2026-02-03T11:06:44.525362"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.35"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110644_92 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110644_92 ;
+    cred:isReportOf cred:Request_20260203_110644_92 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260203_110645_93 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:30.103395"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:06:45.701202"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110630_80 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110630_80 ;
-    cred:isReportOf cred:Request_20260203_110630_80 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110645_93 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110645_93 ;
+    cred:isReportOf cred:Request_20260203_110645_93 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110648_95 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110629_79,
+        cred:Report_20260203_110638_87,
+        cred:Report_20260203_110647_94 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:48.055832"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110648_95 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110648_95 ;
+    cred:isReportOf cred:Request_20260203_110648_95 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110649_96 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110602_56,
+        cred:Report_20260203_110611_64,
+        cred:Report_20260203_110645_93 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:49.350470"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.54"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110649_96 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110649_96 ;
+    cred:isReportOf cred:Request_20260203_110649_96 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110652_99 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:52.981282"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.54"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110652_99 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110652_99 ;
+    cred:isReportOf cred:Request_20260203_110652_99 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100434_1 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110526_20,
+        cred:Report_20260203_110609_62 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:34.020196"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100434_1 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100434_1 ;
+    cred:isReportOf cred:Request_20260204_100434_1 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100435_2 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110548_42,
+        cred:Report_20260203_110629_79,
+        cred:Report_20260203_110643_91 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:35.188950"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100435_2 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100435_2 ;
+    cred:isReportOf cred:Request_20260204_100435_2 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100437_4 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110558_52,
+        cred:Report_20260203_110611_64,
+        cred:Report_20260203_110625_76 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:37.746344"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100437_4 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100437_4 ;
+    cred:isReportOf cred:Request_20260204_100437_4 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100454_8 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110629_79,
+        cred:Report_20260203_110643_91,
+        cred:Report_20260204_100435_2 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:54.539551"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100454_8 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100454_8 ;
+    cred:isReportOf cred:Request_20260204_100454_8 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100502_11 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110649_96,
+        cred:Report_20260204_100437_4,
+        cred:Report_20260204_100459_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:02.911158"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100502_11 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100502_11 ;
+    cred:isReportOf cred:Request_20260204_100502_11 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100507_14 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110643_91,
+        cred:Report_20260204_100435_2,
+        cred:Report_20260204_100454_8 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:07.260243"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100507_14 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100507_14 ;
+    cred:isReportOf cred:Request_20260204_100507_14 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100554_12 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100515_19,
+        cred:Report_20260204_100547_7,
+        cred:Report_20260204_100550_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:54.313286"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100554_12 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100554_12 ;
+    cred:isReportOf cred:Request_20260204_100554_12 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260130_141312_1 a cred:RapportEvaluation ;
@@ -3004,17 +3923,18 @@ cred:Report_20260203_110522_16 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110522_16 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110526_20 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110511_4,
-        cred:Report_20260203_110519_13,
-        cred:Report_20260203_110522_16 ;
-    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:26.032047"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.53"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110526_20 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110526_20 ;
-    cred:isReportOf cred:Request_20260203_110526_20 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+cred:Report_20260203_110522_17 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260130_141312_1,
+        cred:Report_20260130_142430_1,
+        cred:Report_20260203_110516_9 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260203_110522_17_0 ;
+    cred:completionTimestamp "2026-02-03T11:05:22.853634"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.36"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110522_17 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110522_17 ;
+    cred:isReportOf cred:Request_20260203_110522_17 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
 
 cred:Report_20260203_110529_24 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110508_1,
@@ -3027,13 +3947,37 @@ cred:Report_20260203_110529_24 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110529_24 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110542_36 a cred:RapportEvaluation ;
+cred:Report_20260203_110532_26 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110522_17 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:42.238114"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:05:32.155398"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110542_36 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110542_36 ;
-    cred:isReportOf cred:Request_20260203_110542_36 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110532_26 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110532_26 ;
+    cred:isReportOf cred:Request_20260203_110532_26 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110539_34 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110521_15,
+        cred:Report_20260203_110533_27,
+        cred:Report_20260203_110534_28 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:39.954041"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.54"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110539_34 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110539_34 ;
+    cred:isReportOf cred:Request_20260203_110539_34 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110541_35 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110511_5,
+        cred:Report_20260203_110526_20 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:41.397217"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110541_35 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110541_35 ;
+    cred:isReportOf cred:Request_20260203_110541_35 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110543_37 a cred:RapportEvaluation ;
@@ -3048,26 +3992,91 @@ cred:Report_20260203_110543_37 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110543_37 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110609_62 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110521_15,
-        cred:Report_20260203_110542_36 ;
-    cred:assignsCredibilityLevel cred:Niveau_Bas ;
-    cred:basedOnEvidence cred:Evidence_20260203_110609_62_0,
-        cred:Evidence_20260203_110609_62_1 ;
-    cred:completionTimestamp "2026-02-03T11:06:09.406103"^^xsd:dateTime ;
-    cred:credibilityScoreValue "0.36"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110609_62 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110609_62 ;
-    cred:isReportOf cred:Request_20260203_110609_62 ;
-    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 2 vérification(s) de faits trouvée(s)."^^xsd:string .
-
-cred:Report_20260203_110622_73 a cred:RapportEvaluation ;
+cred:Report_20260203_110547_41 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:06:22.474183"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:05:47.355028"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110622_73 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110622_73 ;
-    cred:isReportOf cred:Request_20260203_110622_73 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110547_41 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110547_41 ;
+    cred:isReportOf cred:Request_20260203_110547_41 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110551_46 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:51.848031"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110551_46 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110551_46 ;
+    cred:isReportOf cred:Request_20260203_110551_46 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110558_52 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110517_11 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:58.223542"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110558_52 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110558_52 ;
+    cred:isReportOf cred:Request_20260203_110558_52 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110638_87 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110614_66,
+        cred:Report_20260203_110617_69,
+        cred:Report_20260203_110622_73 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:38.458007"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.54"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110638_87 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110638_87 ;
+    cred:isReportOf cred:Request_20260203_110638_87 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110643_91 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110529_24,
+        cred:Report_20260203_110548_42,
+        cred:Report_20260203_110629_79 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:43.358340"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110643_91 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110643_91 ;
+    cred:isReportOf cred:Request_20260203_110643_91 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100506_13 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110622_73,
+        cred:Report_20260203_110638_87,
+        cred:Report_20260203_110648_95 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260204_100506_13_0 ;
+    cred:completionTimestamp "2026-02-04T10:05:06.093956"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.36"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100506_13 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100506_13 ;
+    cred:isReportOf cred:Request_20260204_100506_13 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260204_100515_19 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110528_22 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:15.017001"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100515_19 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100515_19 ;
+    cred:isReportOf cred:Request_20260204_100515_19 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100547_7 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100507_14,
+        cred:Report_20260204_100510_16,
+        cred:Report_20260204_100515_19 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:47.626176"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100547_7 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100547_7 ;
+    cred:isReportOf cred:Request_20260204_100547_7 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110533_27 a cred:RapportEvaluation ;
@@ -3092,20 +4101,14 @@ cred:Report_20260203_110534_28 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110534_28 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110539_33 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110514_7 ;
+cred:Report_20260203_110542_36 a cred:RapportEvaluation ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:basedOnEvidence cred:Evidence_20260203_110539_33_0,
-        cred:Evidence_20260203_110539_33_1,
-        cred:Evidence_20260203_110539_33_2,
-        cred:Evidence_20260203_110539_33_3,
-        cred:Evidence_20260203_110539_33_4 ;
-    cred:completionTimestamp "2026-02-03T11:05:39.082978"^^xsd:dateTime ;
+    cred:completionTimestamp "2026-02-03T11:05:42.238114"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110539_33 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110539_33 ;
-    cred:isReportOf cred:Request_20260203_110539_33 ;
-    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
+    cred:includesNLPResult cred:NLPResult_20260203_110542_36 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110542_36 ;
+    cred:isReportOf cred:Request_20260203_110542_36 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110549_43 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110539_33,
@@ -3128,6 +4131,113 @@ cred:Report_20260203_110552_47 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110552_47 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
+cred:Report_20260203_110602_56 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110526_20,
+        cred:Report_20260203_110538_32,
+        cred:Report_20260203_110541_35 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:02.621863"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.54"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110602_56 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110602_56 ;
+    cred:isReportOf cred:Request_20260203_110602_56 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110611_64 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110549_43,
+        cred:Report_20260203_110558_52,
+        cred:Report_20260203_110601_55 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:11.959600"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110611_64 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110611_64 ;
+    cred:isReportOf cred:Request_20260203_110611_64 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110622_73 a cred:RapportEvaluation ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:22.474183"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110622_73 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110622_73 ;
+    cred:isReportOf cred:Request_20260203_110622_73 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110630_80 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110601_55,
+        cred:Report_20260203_110609_62,
+        cred:Report_20260203_110615_67 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:06:30.103395"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110630_80 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110630_80 ;
+    cred:isReportOf cred:Request_20260203_110630_80 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100459_9 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110602_56,
+        cred:Report_20260203_110645_93,
+        cred:Report_20260203_110649_96 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:04:59.316103"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100459_9 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100459_9 ;
+    cred:isReportOf cred:Request_20260204_100459_9 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260204_100550_9 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260204_100515_19,
+        cred:Report_20260204_100539_1,
+        cred:Report_20260204_100547_7 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:50.178918"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100550_9 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100550_9 ;
+    cred:isReportOf cred:Request_20260204_100550_9 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110519_13 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110511_4,
+        cred:Report_20260203_110517_10 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:19.547119"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110519_13 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110519_13 ;
+    cred:isReportOf cred:Request_20260203_110519_13 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110526_20 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110511_4,
+        cred:Report_20260203_110519_13,
+        cred:Report_20260203_110522_16 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-03T11:05:26.032047"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110526_20 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110526_20 ;
+    cred:isReportOf cred:Request_20260203_110526_20 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
+cred:Report_20260203_110539_33 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110514_7 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:basedOnEvidence cred:Evidence_20260203_110539_33_0,
+        cred:Evidence_20260203_110539_33_1,
+        cred:Evidence_20260203_110539_33_2,
+        cred:Evidence_20260203_110539_33_3,
+        cred:Evidence_20260203_110539_33_4 ;
+    cred:completionTimestamp "2026-02-03T11:05:39.082978"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.52"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110539_33 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110539_33 ;
+    cred:isReportOf cred:Request_20260203_110539_33 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
+
 cred:Report_20260203_110601_55 a cred:RapportEvaluation ;
     rdfs:seeAlso cred:Report_20260203_110524_18,
         cred:Report_20260203_110539_33,
@@ -3140,15 +4250,42 @@ cred:Report_20260203_110601_55 a cred:RapportEvaluation ;
     cred:isReportOf cred:Request_20260203_110601_55 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
-cred:Report_20260203_110519_13 a cred:RapportEvaluation ;
-    rdfs:seeAlso cred:Report_20260203_110511_4,
-        cred:Report_20260203_110517_10 ;
+cred:Report_20260203_110609_62 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110521_15,
+        cred:Report_20260203_110542_36 ;
+    cred:assignsCredibilityLevel cred:Niveau_Bas ;
+    cred:basedOnEvidence cred:Evidence_20260203_110609_62_0,
+        cred:Evidence_20260203_110609_62_1 ;
+    cred:completionTimestamp "2026-02-03T11:06:09.406103"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.36"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260203_110609_62 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110609_62 ;
+    cred:isReportOf cred:Request_20260203_110609_62 ;
+    cred:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 2 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260203_110629_79 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110522_17,
+        cred:Report_20260203_110529_24,
+        cred:Report_20260203_110602_56 ;
     cred:assignsCredibilityLevel cred:Niveau_Moyen ;
-    cred:completionTimestamp "2026-02-03T11:05:19.547119"^^xsd:dateTime ;
+    cred:basedOnEvidence cred:Evidence_20260203_110629_79_0 ;
+    cred:completionTimestamp "2026-02-03T11:06:29.012344"^^xsd:dateTime ;
     cred:credibilityScoreValue "0.52"^^xsd:float ;
-    cred:includesNLPResult cred:NLPResult_20260203_110519_13 ;
-    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110519_13 ;
-    cred:isReportOf cred:Request_20260203_110519_13 ;
+    cred:includesNLPResult cred:NLPResult_20260203_110629_79 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260203_110629_79 ;
+    cred:isReportOf cred:Request_20260203_110629_79 ;
+    cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 1 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred:Report_20260204_100510_16 a cred:RapportEvaluation ;
+    rdfs:seeAlso cred:Report_20260203_110617_69,
+        cred:Report_20260203_110627_78,
+        cred:Report_20260204_100454_8 ;
+    cred:assignsCredibilityLevel cred:Niveau_Moyen ;
+    cred:completionTimestamp "2026-02-04T10:05:10.728613"^^xsd:dateTime ;
+    cred:credibilityScoreValue "0.53"^^xsd:float ;
+    cred:includesNLPResult cred:NLPResult_20260204_100510_16 ;
+    cred:includesSourceAnalysis cred:SourceAnalysis_20260204_100510_16 ;
+    cred:isReportOf cred:Request_20260204_100510_16 ;
     cred:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
 cred:Report_20260203_110524_18 a cred:RapportEvaluation ;

@@ -37,27 +37,21 @@ from flask_cors import CORS
 # Add syscred package to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Import SysCRED modules
+# Import SysCRED modules (with graceful fallbacks)
+SYSCRED_AVAILABLE = False
+TREC_AVAILABLE = False
+DB_AVAILABLE = False
+
+# Core modules (required)
 try:
     from syscred.verification_system import CredibilityVerificationSystem
     from syscred.seo_analyzer import SEOAnalyzer
     from syscred.ontology_manager import OntologyManager
-    from syscred.ontology_manager import OntologyManager
     from syscred.config import config, Config
-    from syscred.database import init_db, db, AnalysisResult
-    # TREC modules
-    from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
-    from syscred.eval_metrics import EvaluationMetrics
     SYSCRED_AVAILABLE = True
-    TREC_AVAILABLE = True
-    print("[SysCRED Backend] Modules imported successfully (including TREC)")
+    print("[SysCRED Backend] Core modules imported successfully")
 except ImportError as e:
-    SYSCRED_AVAILABLE = False
-    TREC_AVAILABLE = False
-    print(f"[SysCRED Backend] Warning: Could not import modules: {e}")
-    # Define dummy init_db to prevent crash
-    def init_db(app): pass
-
+    print(f"[SysCRED Backend] Warning: Core modules failed: {e}")
     # Fallback config
     class Config:
         HOST = "0.0.0.0"
@@ -68,6 +62,24 @@ except ImportError as e:
         LOAD_ML_MODELS = True
         GOOGLE_FACT_CHECK_API_KEY = None
     config = Config()
+
+# Database (optional)
+try:
+    from syscred.database import init_db, db, AnalysisResult
+    DB_AVAILABLE = True
+    print("[SysCRED Backend] Database module loaded")
+except ImportError as e:
+    print(f"[SysCRED Backend] Database disabled: {e}")
+    def init_db(app): pass
+
+# TREC modules (optional)
+try:
+    from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    from syscred.eval_metrics import EvaluationMetrics
+    TREC_AVAILABLE = True
+    print("[SysCRED Backend] TREC modules loaded")
+except ImportError as e:
+    print(f"[SysCRED Backend] TREC modules disabled: {e}")
 
 # --- Initialize Flask App ---
 app = Flask(__name__)
@@ -613,4 +625,4 @@ if __name__ == '__main__':
     print("  - GET  /api/trec/health     - TREC module health")
     print()
     
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=False, threaded=True)
