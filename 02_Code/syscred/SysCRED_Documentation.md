@@ -2,11 +2,16 @@
 
 ## Système Neuro-Symbolique de Vérification de Crédibilité
 
-> **Version:** 2.0  
+> **Version:** 2.3.1  
 > **Auteur:** Dominique S. Loyer  
 > **Citation Key:** `loyerModelingHybridSystem2025`  
 > **DOI:** [10.5281/zenodo.17943226](https://doi.org/10.5281/zenodo.17943226)  
-> **Dernière mise à jour:** Janvier 2026
+> **Dernière mise à jour:** Février 2026
+>
+> **Nouveautés v2.3:**
+> - **TREC IR Integration**: Récupération d'évidence avec BM25/QLD
+> - **TRECRetriever**: Classe dédiée pour fact-checking basé sur TREC AP88-90
+> - **Benchmark Suite**: Script complet pour évaluation IR
 
 ---
 
@@ -17,11 +22,12 @@
 3. [Modules et fichiers](#modules-et-fichiers)
 4. [Installation et configuration](#installation-et-configuration)
 5. [Commandes et utilisation](#commandes-et-utilisation)
-6. [Choix de conception](#choix-de-conception)
-7. [Améliorations réalisées](#améliorations-réalisées)
-8. [Améliorations futures](#améliorations-futures)
-9. [API Reference](#api-reference)
-10. [Ontologie OWL](#ontologie-owl)
+6. [TREC IR Integration (NEW)](#trec-ir-integration)
+7. [Choix de conception](#choix-de-conception)
+8. [Améliorations réalisées](#améliorations-réalisées)
+9. [Améliorations futures](#améliorations-futures)
+10. [API Reference](#api-reference)
+11. [Ontologie OWL](#ontologie-owl)
 
 ---
 
@@ -102,20 +108,25 @@ Le système est conçu comme **prototype de recherche doctorale** avec ces princ
 
 ```
 syscred/
-├── __init__.py              # Package init
+├── __init__.py              # Package init (exports v2.3)
 ├── config.py                # Configuration centralisée
-├── verification_system.py   # Système principal
+├── verification_system.py   # Système principal (1018 lignes)
 ├── api_clients.py           # Clients APIs externes
 ├── ontology_manager.py      # Gestion OWL/RDF
+├── graph_rag.py             # GraphRAG - Mémoire contextuelle
 ├── seo_analyzer.py          # Analyse SEO/PageRank
 ├── backend_app.py           # API Flask REST
-├── eval_metrics.py          # Métriques d'évaluation
-├── ir_engine.py             # Moteur de recherche
+├── eval_metrics.py          # Métriques IR (MAP, NDCG, P@K)
+├── ir_engine.py             # Moteur BM25/TF-IDF/QLD
+├── trec_retriever.py        # [NEW] Récupération d'évidence TREC
+├── trec_dataset.py          # [NEW] Loader topics/qrels TREC
+├── run_trec_benchmark.py    # [NEW] Script benchmark TREC
+├── demo_syscred.py          # [NEW] Script de démonstration
+├── liar_dataset.py          # Loader dataset LIAR
+├── run_liar_benchmark.py    # Benchmark LIAR
 ├── requirements.txt         # Dépendances Python
 ├── setup.py                 # Installation package
-├── syscred_kaggle.ipynb     # Notebook Kaggle
-├── syscred_colab.ipynb      # Notebook Colab (avec Drive)
-└── kaggle_to_gdrive_backup.ipynb  # Backup notebooks
+└── static/                  # Frontend HTML/JS/D3
 ```
 
 ### Description des modules
@@ -482,10 +493,97 @@ SCORE_WEIGHTS = {
 
 ### Long terme (Thèse)
 
-- [ ] **Évaluation formelle** - Dataset de benchmark
+- [x] **Évaluation formelle** - Dataset de benchmark ✅ TREC AP88-90
 - [ ] **Multi-langue** - Support français natif
 - [ ] **Graphe de connaissances** - Neo4j intégration
 - [ ] **Apprentissage continu** - Feedback loop
+
+---
+
+## TREC IR Integration (NEW v2.3)
+
+### Vue d'ensemble
+
+Le module TREC ajoute une capacité de **recherche de preuves** (Evidence Retrieval) au système SysCRED. Il utilise la méthodologie TREC (Text REtrieval Conference) pour retrouver des documents pertinents.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                  ARCHITECTURE TREC                      │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   Claim ──▶ TRECRetriever ──▶ Evidence[]               │
+│                   │                                     │
+│         ┌────────┴────────┐                            │
+│         │                 │                            │
+│    ┌────▼────┐      ┌────▼────┐                        │
+│    │Pyserini │      │In-Memory│                        │
+│    │(Lucene) │      │  BM25   │                        │
+│    └────┬────┘      └────┬────┘                        │
+│         │                │                             │
+│         ▼                ▼                             │
+│    ┌─────────────────────────┐                         │
+│    │     AP88-90 Corpus      │                         │
+│    │    (~242,918 docs)      │                         │
+│    └─────────────────────────┘                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Modèles de Recherche
+
+| Modèle | Description | Paramètres |
+|--------|-------------|------------|
+| **BM25** | Best Match 25 | k1=0.9, b=0.4 |
+| **QLD** | Query Likelihood Dirichlet | μ=2500 |
+| **BM25+PRF** | Avec Pseudo-Relevance Feedback | top_docs=3, terms=10 |
+
+### Usage - TRECRetriever
+
+```python
+from syscred import TRECRetriever
+
+retriever = TRECRetriever(model="bm25")
+results = retriever.retrieve_evidence(
+    query="climate change polar bears",
+    top_k=10
+)
+
+for ev in results.evidence_list:
+    print(f"[{ev.score:.3f}] {ev.doc_id}: {ev.snippet[:80]}...")
+```
+
+### Usage - TRECDataset
+
+```python
+from syscred import TRECDataset
+
+dataset = TRECDataset()
+dataset.load_topics("/path/to/topics.51-100.txt")
+dataset.load_qrels("/path/to/qrels.txt")
+
+queries = dataset.get_topic_queries(query_field="title")
+```
+
+### Configuration
+
+```python
+# Dans config.py
+TREC_INDEX_PATH = "/path/to/trec/index"
+BM25_K1 = 0.9
+BM25_B = 0.4
+ENABLE_PRF = True
+PRF_TOP_DOCS = 3
+```
+
+### Benchmark
+
+```bash
+python run_trec_benchmark.py \
+    --index /path/to/index \
+    --topics /path/to/topics.txt \
+    --qrels /path/to/qrels.txt
+```
+
+Métriques: MAP, P@5, P@10, NDCG@10, MRR, Recall@1000
 
 ---
 

@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-02-03T12:09:05.879133",
+  "dataset": "LIAR",
+  "mode": "remote",
+  "metrics": {
+    "error": "All evaluations failed",
+    "elapsed_time": 23.6876118183136,
+    "statements_per_second": 0.8443231911009874,
+    "ml_used_percentage": 0.0,
+    "api_url": "https://domloyer-syscred.hf.space"
+  }
+}

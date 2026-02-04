@@ -1,0 +1,41 @@
+id,statement,ground_truth_6way,ground_truth_binary,ground_truth_ternary,speaker,party,syscred_score,predicted_binary,predicted_ternary,binary_correct,ternary_correct,processing_time,error,ml_used
+1781.json,"Texas has, now, the highest share of minimum-wage workers in the nation.",TRUE,Real,True,linda-chavez-thompson,democrat,0.5,Unknown,Unknown,False,False,9.177884817123413,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+9192.json,Says Charlie Crist implemented Jeb Bushs A+ Plan.,TRUE,Real,True,progressive-choice,organization,0.5,Unknown,Unknown,False,False,0.1163179874420166,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+13527.json,Theres been no conclusive or specific report to say Russia was trying to muddy the election.,FALSE,Fake,False,reince-priebus,republican,0.5,Unknown,Unknown,False,False,0.12008404731750488,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+9594.json,Fox News is banned in Canada because it violatesa law thatprevents news channels from lying to their viewers.,PANTS_FIRE,Fake,False,facebook-posts,none,0.5,Unknown,Unknown,False,False,2.8561038970947266,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+9462.json,"When Rick Scott was deposed in lawsuits about his company, he took the Fifth 75 times.",MOSTLY_TRUE,Real,True,florida-democratic-party,democrat,0.5,Unknown,Unknown,False,False,0.1120152473449707,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+4929.json,"In 1993, Newt Gingrich first advocated for the individual mandate in health care. And as recently as May of this year, he was still advocating for it.",MOSTLY_TRUE,Real,True,michele-bachmann,republican,0.5,Unknown,Unknown,False,False,0.11033391952514648,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+8498.json,Providence has more of its pension fund invested in hedge funds and is less transparent about it than the state.,MOSTLY_TRUE,Real,True,gina-raimondo,democrat,0.5,Unknown,Unknown,False,False,0.11792421340942383,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+3029.json,The state is able to sharply curtail contract bargaining rights for state employee unions.,MOSTLY_TRUE,Real,True,scott-walker,republican,0.5,Unknown,Unknown,False,False,0.1507091522216797,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+6197.json,President Barack Obamas health care reform slashed $500 billion from Medicare.,BARELY_TRUE,Fake,Mixed,sean-duffy,republican,0.5,Unknown,Unknown,False,False,0.11129593849182129,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+7706.json,Narragansett Bay waters are getting warmer -- 4 degrees Fahrenheit warmer in the winter since the 1960s.,HALF_TRUE,Real,Mixed,sheldon-whitehouse,democrat,0.5,Unknown,Unknown,False,False,0.11189484596252441,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+12858.json,"Thanks to the Trans-Pacific Partnership, Vietnam is drafting and presenting unprecedented labor reforms, changing their Constitution to recognize worker organizations in Vietnam for the first time.",HALF_TRUE,Real,Mixed,barack-obama,democrat,0.5,Unknown,Unknown,False,False,0.10973858833312988,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+1051.json,"Contends that President Obama literally said (if) his cap-and-trade proposals were to pass, that utility rates, his words now, would, necessarily skyrocket.",TRUE,Real,True,mike-pence,republican,0.5,Unknown,Unknown,False,False,0.11478090286254883,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+447.json,I have never said that I don't wear flag pins or refuse to wear flag pins.,FALSE,Fake,False,barack-obama,democrat,0.5,Unknown,Unknown,False,False,0.1125950813293457,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+6060.json,"We spend in tax loopholes annually $1.1 trillion. Thats more than we spend on our defense budget in a year, on Medicare or Medicaid in a year.",BARELY_TRUE,Fake,Mixed,jeanne-shaheen,democrat,0.5,Unknown,Unknown,False,False,0.11559724807739258,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+3700.json,A [bank] surveillance camera capturing a criminals face and other identifiable traits would certainly discourage robbery attempts and serve as a deterrent to robbers.,FALSE,Fake,False,stephen-ucci,democrat,0.5,Unknown,Unknown,False,False,0.11048293113708496,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+7827.json,Half of all hospitalized seniors are suffering from malnutrition so severe that it either caused their illness or it prevents them from getting better.,BARELY_TRUE,Fake,Mixed,meals-wheels-rhode-island,organization,0.5,Unknown,Unknown,False,False,0.11241698265075684,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+6428.json,This ban will only apply to Oregon commercial fishermen. Washington commercial fishermen would still be allowed to use gillnets on the Columbia River.,HALF_TRUE,Real,Mixed,salmon-all,organization,0.5,Unknown,Unknown,False,False,0.11763715744018555,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+7164.json,Agriculture is the strongest industry in Ohio.,TRUE,Real,True,john-kasich,republican,0.5,Unknown,Unknown,False,False,0.1127011775970459,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+11276.json,There has never been a panther attack in the history of Florida.,MOSTLY_TRUE,Real,True,ron-bergeron,state-official,0.5,Unknown,Unknown,False,False,0.11888504028320312,"HTTP 400: {""error"":""'input_data' is required""}
+",False
+12849.json,Donald Trump is against marriage equality. He wants to go back.,TRUE,Real,True,sean-patrick-maloney,democrat,0.5,Unknown,Unknown,False,False,0.11237502098083496,"HTTP 400: {""error"":""'input_data' is required""}
+",False
