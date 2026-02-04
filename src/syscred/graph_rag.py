@@ -117,13 +117,13 @@ class GraphRAG:
         Returns dict with 'text' (for LLM) and 'uris' (for Graph linking).
         """
         if not keywords:
-            return {"text": "", "uris": []}
+            return {"text": "", "uris": [], "scores": []}
             
         # Build REGEX filter for keywords (OR logic)
         # e.g., (fake|hoax|conspiracy)
         clean_kws = [k for k in keywords if len(k) > 3] # Skip short words
         if not clean_kws:
-            return {"text": "", "uris": []}
+            return {"text": "", "uris": [], "scores": []}
             
         regex_pattern = "|".join(clean_kws)
         
@@ -156,10 +156,10 @@ class GraphRAG:
                 })
         except Exception as e:
             print(f"[GraphRAG] Similar claims error: {e}")
-            return {"text": "", "uris": []}
+            return {"text": "", "uris": [], "scores": []}
             
         if not results:
-            return {"text": "", "uris": []}
+            return {"text": "", "uris": [], "scores": []}
             
         lines = [f"Found {len(results)} similar claims in history:"]
         for r in results:
@@ -167,5 +167,130 @@ class GraphRAG:
             
         return {
             "text": "\n".join(lines),
-            "uris": [r['uri'] for r in results]
+            "uris": [r['uri'] for r in results],
+            "scores": [r['score'] for r in results]
+        }
+    
+    def compute_context_score(self, domain: str, keywords: List[str] = []) -> Dict[str, float]:
+        """
+        Compute numerical context scores for integration into credibility scoring.
+        
+        This transforms the GraphRAG context into actionable numerical scores
+        that can be directly used in the calculate_overall_score() function.
+        
+        Args:
+            domain: The domain being analyzed (e.g., 'lemonde.fr')
+            keywords: List of keywords from the claim
+            
+        Returns:
+            Dictionary with:
+            - 'history_score': 0.0-1.0 based on past evaluations of this domain
+            - 'pattern_score': 0.0-1.0 based on similar claims in the graph
+            - 'combined_score': Weighted average (0.7 * history + 0.3 * pattern)
+            - 'confidence': How confident we are (based on amount of data)
+            - 'has_history': Boolean if domain has prior evaluations
+        """
+        result = {
+            'history_score': 0.5,  # Neutral default
+            'pattern_score': 0.5,
+            'combined_score': 0.5,
+            'confidence': 0.0,
+            'has_history': False,
+            'history_count': 0,
+            'similar_count': 0
+        }
+        
+        if not self.om:
+            return result
+        
+        # 1. Get source history score
+        history_data = self._get_source_history_data(domain)
+        if history_data['count'] > 0:
+            result['history_score'] = history_data['avg_score']
+            result['has_history'] = True
+            result['history_count'] = history_data['count']
+            # Confidence increases with more data points (max at 5)
+            history_confidence = min(1.0, history_data['count'] / 5)
+        else:
+            history_confidence = 0.0
+        
+        # 2. Get pattern score from similar claims
+        if keywords:
+            similar_result = self._find_similar_claims(keywords)
+            scores = similar_result.get('scores', [])
+            if scores:
+                result['pattern_score'] = sum(scores) / len(scores)
+                result['similar_count'] = len(scores)
+                pattern_confidence = min(1.0, len(scores) / 3)
+            else:
+                pattern_confidence = 0.0
+        else:
+            pattern_confidence = 0.0
+        
+        # 3. Calculate combined score
+        # Weight history more heavily than pattern matching
+        if result['has_history'] and result['similar_count'] > 0:
+            result['combined_score'] = 0.7 * result['history_score'] + 0.3 * result['pattern_score']
+            result['confidence'] = 0.6 * history_confidence + 0.4 * pattern_confidence
+        elif result['has_history']:
+            result['combined_score'] = result['history_score']
+            result['confidence'] = history_confidence * 0.8  # Reduce confidence without pattern
+        elif result['similar_count'] > 0:
+            result['combined_score'] = result['pattern_score']
+            result['confidence'] = pattern_confidence * 0.5  # Lower confidence with only patterns
+        else:
+            # No data available - return neutral
+            result['combined_score'] = 0.5
+            result['confidence'] = 0.0
+        
+        return result
+    
+    def _get_source_history_data(self, domain: str) -> Dict[str, Any]:
+        """
+        Query the graph for evaluation statistics of this domain.
+        
+        Returns:
+            Dictionary with 'count', 'avg_score', 'last_verdict', 'scores'
+        """
+        if not domain:
+            return {'count': 0, 'avg_score': 0.5, 'scores': []}
+            
+        query = """
+        PREFIX cred: <https://github.com/DominiqueLoyer/systemFactChecking#>
+        
+        SELECT ?score ?level ?timestamp
+        WHERE {
+            ?info cred:informationURL ?url .
+            ?request cred:concernsInformation ?info .
+            ?report cred:isReportOf ?request .
+            ?report cred:credibilityScoreValue ?score .
+            ?report cred:assignsCredibilityLevel ?level .
+            ?report cred:completionTimestamp ?timestamp .
+            FILTER(CONTAINS(STR(?url), "%s"))
+        }
+        ORDER BY DESC(?timestamp)
+        LIMIT 10
+        """ % domain
+        
+        scores = []
+        last_verdict = None
+        
+        try:
+            combined = self.om.base_graph + self.om.data_graph
+            for i, row in enumerate(combined.query(query)):
+                scores.append(float(row.score))
+                if i == 0:
+                    last_verdict = str(row.level).split('#')[-1]
+        except Exception as e:
+            print(f"[GraphRAG] History data query error: {e}")
+            return {'count': 0, 'avg_score': 0.5, 'scores': []}
+        
+        if not scores:
+            return {'count': 0, 'avg_score': 0.5, 'scores': []}
+        
+        return {
+            'count': len(scores),
+            'avg_score': sum(scores) / len(scores),
+            'last_verdict': last_verdict,
+            'scores': scores
         }
