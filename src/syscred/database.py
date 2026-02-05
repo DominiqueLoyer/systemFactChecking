@@ -42,12 +42,17 @@ def init_db(app):
     db_url = os.environ.get('DATABASE_URL')
     if db_url and db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
-    
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url or 'sqlite:///syscred.db'
+
+    # For Hugging Face Spaces: always use a writable path for SQLite
+    if not db_url:
+        db_path = os.environ.get('SYSCRED_SQLITE_PATH', '/data/syscred.db')
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = db_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
+
     db.init_app(app)
-    
+
     # Create tables if they don't exist (basic migration)
     with app.app_context():
         db.create_all()

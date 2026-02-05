@@ -112,40 +112,47 @@ class CredibilityVerificationSystem:
         print("[SysCRED] Loading ML models (this may take a moment)...")
         
         try:
-            # Sentiment analysis
+            # Sentiment analysis - modèle ultra-léger
             self.sentiment_pipeline = pipeline(
-                "sentiment-analysis", 
-                model="distilbert-base-uncased-finetuned-sst-2-english"
+                "sentiment-analysis",
+                model="distilbert-base-uncased-finetuned-sst-2-english",
+                device=-1,
+                model_kwargs={"low_cpu_mem_usage": True}
             )
-            print("[SysCRED] ✓ Sentiment model loaded")
+            print("[SysCRED] ✓ Sentiment model loaded (distilbert-base)")
         except Exception as e:
             print(f"[SysCRED] ✗ Sentiment model failed: {e}")
-        
+
         try:
-            # NER pipeline
-            self.ner_pipeline = pipeline("ner", grouped_entities=True)
-            print("[SysCRED] ✓ NER model loaded")
+            # NER pipeline - modèle plus léger
+            self.ner_pipeline = pipeline(
+                "ner",
+                model="dslim/bert-base-NER",
+                grouped_entities=True,
+                device=-1,
+                model_kwargs={"low_cpu_mem_usage": True}
+            )
+            print("[SysCRED] ✓ NER model loaded (dslim/bert-base-NER)")
         except Exception as e:
             print(f"[SysCRED] ✗ NER model failed: {e}")
-        
+
         try:
-            # Bias detection - Specialized model
-            # Using 'd4data/bias-detection-model' or fallback to generic
-            bias_model_name = "d4data/bias-detection-model"
+            # Bias detection - modèle plus léger si possible
+            bias_model_name = "typeform/distilbert-base-uncased-mnli"
             self.bias_tokenizer = AutoTokenizer.from_pretrained(bias_model_name)
             self.bias_model = AutoModelForSequenceClassification.from_pretrained(bias_model_name)
-            print("[SysCRED] ✓ Bias model loaded (d4data)")
+            print("[SysCRED] ✓ Bias model loaded (distilbert-mnli)")
         except Exception as e:
             print(f"[SysCRED] ✗ Bias model failed: {e}. Using heuristics.")
 
         try:
-            # Semantic Coherence
+            # Semantic Coherence - modèle MiniLM (déjà léger)
             if HAS_SBERT:
                 self.coherence_model = SentenceTransformer('all-MiniLM-L6-v2')
-                print("[SysCRED] ✓ Coherence model loaded (SBERT)")
+                print("[SysCRED] ✓ Coherence model loaded (SBERT MiniLM)")
         except Exception as e:
             print(f"[SysCRED] ✗ Coherence model failed: {e}")
-        
+
         try:
             # LIME explainer
             self.explainer = LimeTextExplainer(class_names=['NEGATIVE', 'POSITIVE'])
