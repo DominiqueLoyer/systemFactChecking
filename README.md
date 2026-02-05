@@ -134,21 +134,18 @@ curl -X POST http://localhost:5000/api/verify \
 
 ## 📁 Project Structure
 
-systemFactChecking/
-├── README.md                    # This file
-├── 01_Presentations/            # Presentations (.pdf, .tex)
-├── 02_Code/                     # Source Code & Docker
-│   ├── syscred/                 # ⭐ CORE ENGINE (v2.2)
-│   │   ├── graph_rag.py         # [NEW] GraphRAG Module
-│   │   ├── verification_system.py
-│   │   ├── database.py          # [NEW] Supabase Connector
-│   │   └── ...
-│   ├── start_syscred.sh         # Startup Script
-│   ├── Dockerfile               # Deployment Config
-│   └── requirements.txt
-├── 03_Docs/                     # Documentation (.pdf)
-└── 04_Bibliography/             # References (.bib, .pdf)
-```
+```bash
+organisateur-GDRIVE/
+├── README.md                    # Ce fichier
+├── organisateur.html            # ⭐ Interface principale
+├── organisateur2.html           # Version alternative
+├── organisateur3.html           # Version améliorée
+├── docColab_0408.html           # Documentation Colab
+├── gdrive_090625.html           # Version juin 2025
+├── regulateur_0508.html         # Module régulateur
+├── Rapport_Analyse_Drive_*.txt  # Rapports générés
+└── Organisateur_*.pdf           # Archives PDF
+
 
 ---
 
