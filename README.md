@@ -223,3 +223,14 @@ MIT License - See [LICENSE](LICENSE) for details.
 |---------|------|---------|
 | v2.0 | Jan 2026 | Complete rewrite with modular architecture, Kaggle/Colab support, REST API |
 | v1.0 | Apr 2025 | Initial prototype with basic credibility scoring |
+
+___
+## Présentation des graphes
+
+![Graphe 1](assets/graphs/generated-image.png)
+![Graphe 2](assets/graphs/generated-image-2.png)
+![Graphe 3](assets/graphs/generated-image-3.png)
+![Graphe 4](assets/graphs/generated-image-4.png)
+![Graphe 5](assets/graphs/generated-image-5.png)
+![Graphe 6](assets/graphs/generated-image-6.png)
+
