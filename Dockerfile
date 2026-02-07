@@ -1,5 +1,7 @@
 # SysCRED Docker Configuration for Render (Optimized)
 # Reduces image from 4.36GB to ~200MB
+# Last Updated: Fix for Render Build Paths (02_Code context)
+
 FROM python:3.10-slim
 
 WORKDIR /app
@@ -15,9 +17,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy only requirements first (cache layer)
-COPY 02_Code/syscred/requirements_light.txt /app/requirements.txt
+# Ensuring we grab the file from the correct source path (requirements.txt exists, light version does not)
+COPY 02_Code/syscred/requirements.txt /app/requirements.txt
 
-# Install python dependencies (light version - no PyTorch)
+# Install python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only necessary application code
