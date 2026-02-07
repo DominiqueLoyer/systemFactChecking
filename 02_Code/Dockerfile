@@ -23,6 +23,14 @@ COPY syscred/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn psycopg2-binary flask_sqlalchemy
 
+# Copy ontology files (Explicitly to ensure they are present)
+COPY sysCRED_onto26avrtil.ttl /app/sysCRED_onto26avrtil.ttl
+COPY ontology/ /app/ontology/
+
+# Copy ontology files (Explicitly to ensure they are present)
+COPY sysCRED_onto26avrtil.ttl /app/sysCRED_onto26avrtil.ttl
+COPY ontology/ /app/ontology/
+
 # Copy everything from 02_Code/
 COPY . /app
 
