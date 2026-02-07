@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
+# Disable ML models to prevent timeout/OOM on Render Free Tier
+ENV SYSCRED_LOAD_ML_MODELS=false
+
 # Copy requirements
 COPY syscred/requirements.txt /app/requirements.txt
 
