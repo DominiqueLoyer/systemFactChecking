@@ -33,11 +33,21 @@ except ImportError:
     HAS_SBERT = False
     print("Warning: sentence-transformers not installed. Semantic coherence will use heuristics.")
 
-# Local imports
-from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
-from syscred.ontology_manager import OntologyManager
-from syscred.seo_analyzer import SEOAnalyzer
-from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
+# Local imports - Support both syscred.module and relative imports
+try:
+    from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
+    from syscred.ontology_manager import OntologyManager
+    from syscred.seo_analyzer import SEOAnalyzer
+    from syscred.graph_rag import GraphRAG
+    from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    from syscred import config
+except ImportError:
+    from api_clients import ExternalAPIClients, WebContent, ExternalData
+    from ontology_manager import OntologyManager
+    from seo_analyzer import SEOAnalyzer
+    from graph_rag import GraphRAG
+    from trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    import config
 
 
 class CredibilityVerificationSystem:
@@ -88,6 +98,21 @@ class CredibilityVerificationSystem:
                 self.graph_rag = None
         else:
              self.graph_rag = None
+        
+        # [NEW] Initialize TREC Retriever for evidence gathering
+        self.trec_retriever = None
+        try:
+            self.trec_retriever = TRECRetriever(
+                index_path=config.Config.TREC_INDEX_PATH,
+                corpus_path=config.Config.TREC_CORPUS_PATH,
+                use_stemming=True,
+                enable_prf=config.Config.ENABLE_PRF,
+                prf_top_docs=config.Config.PRF_TOP_DOCS,
+                prf_expansion_terms=config.Config.PRF_EXPANSION_TERMS
+            )
+            print("[SysCRED] TREC Retriever initialized for evidence gathering")
+        except Exception as e:
+            print(f"[SysCRED] TREC Retriever disabled: {e}")
         
         # Initialize ML models
         self.sentiment_pipeline = None
@@ -454,14 +479,48 @@ class CredibilityVerificationSystem:
             adjustments += w_ent * boost
             total_weight_used += w_ent
             
-        # 6. Text Coherence (15%) (Vocabulary Diversity)
-        w_coh = self.weights.get('coherence', 0.15)
+        # 6. Text Coherence (12%) (Vocabulary Diversity)
+        w_coh = self.weights.get('coherence', 0.12)
         coherence = nlp_results.get('coherence_score')
         if coherence is not None:
             # Coherence is usually 0.0 to 1.0
             # Center around 0.5: >0.5 improves, <0.5 penalizes
             adjustments += (coherence - 0.5) * w_coh
             total_weight_used += w_coh
+        
+        # 7. [NEW] GraphRAG Context Score (15%)
+        # This uses historical knowledge from the knowledge graph
+        w_graph = self.weights.get('graph_context', 0.15)
+        graph_context_data = rule_results.get('graph_context_data', {})
+        if graph_context_data and graph_context_data.get('confidence', 0) > 0:
+            # Use combined score from GraphRAG
+            graph_score = graph_context_data.get('combined_score', 0.5)
+            confidence = graph_context_data.get('confidence', 0)
+            
+            # Scale adjustment by confidence (0 confidence = no effect)
+            adjustment_factor = (graph_score - 0.5) * w_graph * confidence
+            adjustments += adjustment_factor
+            total_weight_used += w_graph * confidence  # Partial weight based on confidence
+        
+        # 8. [NEW] Linguistic Markers Analysis (sensationalism penalty)
+        # Penalize sensational language heavily, reward doubt markers (critical thinking)
+        linguistic = rule_results.get('linguistic_markers', {})
+        sensationalism_count = linguistic.get('sensationalism', 0)
+        doubt_count = linguistic.get('doubt', 0)
+        certainty_count = linguistic.get('certainty', 0)
+        
+        # Sensationalism is a strong negative signal
+        if sensationalism_count > 0:
+            penalty = min(0.20, sensationalism_count * 0.05)  # Max 20% penalty
+            adjustments -= penalty
+        
+        # Excessive certainty without sources is suspicious
+        if certainty_count > 2 and not fact_checks:
+            adjustments -= 0.05
+        
+        # Doubt markers indicate critical/questioning tone (slight positive)
+        if doubt_count > 0:
+            adjustments += min(0.05, doubt_count * 0.02)
             
         # Final calculation
         # Base 0.5 + sum of weighted adjustments
@@ -471,6 +530,139 @@ class CredibilityVerificationSystem:
         
         return max(0.0, min(1.0, final_score))
     
+    # --- [NEW] TREC Evidence Retrieval Methods ---
+    
+    def retrieve_evidence(
+        self,
+        claim: str,
+        k: int = 10,
+        model: str = "bm25"
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieve evidence documents for a given claim using TREC methodology.
+        
+        This integrates the classic IR evaluation framework (TREC AP88-90)
+        with the neuro-symbolic credibility verification system.
+        
+        Args:
+            claim: The claim or statement to verify
+            k: Number of evidence documents to retrieve
+            model: Retrieval model ('bm25', 'qld', 'tfidf')
+            
+        Returns:
+            List of evidence dictionaries with doc_id, text, score, rank
+        """
+        if not self.trec_retriever:
+            return []
+        
+        try:
+            result = self.trec_retriever.retrieve_evidence(
+                claim=claim,
+                k=k,
+                model=model
+            )
+            
+            # Convert Evidence objects to dictionaries
+            evidences = [e.to_dict() for e in result.evidences]
+            
+            # Add to ontology if available
+            if self.ontology_manager:
+                for e in result.evidences[:3]:  # Top 3 only
+                    self.ontology_manager.add_evidence(
+                        evidence_id=e.doc_id,
+                        source=e.source or "trec_corpus",
+                        content=e.text[:500],
+                        score=e.score
+                    )
+            
+            return evidences
+            
+        except Exception as ex:
+            print(f"[SysCRED] Evidence retrieval error: {ex}")
+            return []
+    
+    def verify_with_evidence(
+        self,
+        claim: str,
+        k: int = 5
+    ) -> Dict[str, Any]:
+        """
+        Complete fact-checking pipeline with evidence retrieval.
+        
+        Combines:
+        1. TREC-style evidence retrieval
+        2. NLP analysis of claim
+        3. Evidence-claim comparison
+        4. Credibility scoring
+        
+        Args:
+            claim: The claim to verify
+            k: Number of evidence documents
+            
+        Returns:
+            Verification result with evidence, analysis, and score
+        """
+        result = {
+            'claim': claim,
+            'evidences': [],
+            'nlp_analysis': {},
+            'evidence_support_score': 0.0,
+            'verification_verdict': 'UNKNOWN',
+            'confidence': 0.0
+        }
+        
+        # 1. Retrieve evidence
+        evidences = self.retrieve_evidence(claim, k=k)
+        result['evidences'] = evidences
+        
+        # 2. NLP analysis of claim
+        cleaned_claim = self.preprocess(claim)
+        result['nlp_analysis'] = self.nlp_analysis(cleaned_claim)
+        
+        # 3. Calculate evidence support score
+        if evidences:
+            # Use semantic similarity if SBERT available
+            if self.coherence_model:
+                try:
+                    claim_embedding = self.coherence_model.encode(claim)
+                    evidence_texts = [e.get('text', '') for e in evidences]
+                    evidence_embeddings = self.coherence_model.encode(evidence_texts)
+                    
+                    from sentence_transformers import util
+                    similarities = util.pytorch_cos_sim(claim_embedding, evidence_embeddings)[0]
+                    avg_similarity = similarities.mean().item()
+                    max_similarity = similarities.max().item()
+                    
+                    # Evidence support based on similarity
+                    result['evidence_support_score'] = round(max_similarity, 4)
+                    result['average_evidence_similarity'] = round(avg_similarity, 4)
+                except Exception as e:
+                    print(f"[SysCRED] Similarity error: {e}")
+                    # Fallback: use retrieval scores
+                    result['evidence_support_score'] = evidences[0].get('score', 0) if evidences else 0
+            else:
+                # Fallback: use retrieval scores
+                result['evidence_support_score'] = evidences[0].get('score', 0) if evidences else 0
+        
+        # 4. Determine verdict
+        support_score = result['evidence_support_score']
+        if support_score > 0.7:
+            result['verification_verdict'] = 'SUPPORTED'
+            result['confidence'] = support_score
+        elif support_score > 0.5:
+            result['verification_verdict'] = 'PARTIALLY_SUPPORTED'
+            result['confidence'] = support_score
+        elif support_score > 0.3:
+            result['verification_verdict'] = 'INSUFFICIENT_EVIDENCE'
+            result['confidence'] = 0.5
+        else:
+            result['verification_verdict'] = 'NOT_SUPPORTED'
+            result['confidence'] = 1 - support_score
+        
+        return result
+    
+    # --- End TREC Evidence Methods ---
+
     def generate_report(
         self,
         input_data: str,
@@ -480,15 +672,29 @@ class CredibilityVerificationSystem:
         external_data: ExternalData,
         overall_score: float,
         web_content: Optional[WebContent] = None,
-        graph_context: str = "" # [NEW]
+        graph_context: str = "",  # [NEW]
+        evidences: List[Dict[str, Any]] = None  # [NEW] TREC evidences
     ) -> Dict[str, Any]:
         """Generate the final evaluation report."""
+        
+        # Determine credibility level
+        if overall_score >= 0.75:
+            niveau = "Élevée"
+        elif overall_score >= 0.55:
+            niveau = "Moyenne-Élevée"
+        elif overall_score >= 0.45:
+            niveau = "Moyenne"
+        elif overall_score >= 0.25:
+            niveau = "Faible-Moyenne"
+        else:
+            niveau = "Faible"
         
         report = {
             'idRapport': f"report_{int(datetime.datetime.now().timestamp())}",
             'informationEntree': input_data,
             'dateGeneration': datetime.datetime.now().isoformat(),
             'scoreCredibilite': round(overall_score, 2),
+            'niveauCredibilite': niveau,
             'resumeAnalyse': "",
             'detailsScore': {
                 'base': 0.5,
@@ -504,6 +710,17 @@ class CredibilityVerificationSystem:
                 'coherence_score': nlp_results.get('coherence_score'),
                 'sentiment_explanation_preview': (nlp_results.get('sentiment_explanation') or [])[:3]
             },
+            # [NEW] GraphRAG section
+            'graphRAG': {
+                'context_text': graph_context,
+                'context_score': rule_results.get('graph_context_data', {}).get('combined_score'),
+                'confidence': rule_results.get('graph_context_data', {}).get('confidence', 0),
+                'has_history': rule_results.get('graph_context_data', {}).get('has_history', False),
+                'history_count': rule_results.get('graph_context_data', {}).get('history_count', 0),
+                'similar_claims_count': rule_results.get('graph_context_data', {}).get('similar_count', 0)
+            },
+            # [NEW] TREC Evidence section
+            'evidences': evidences or [],
             'metadonnees': {}
         }
         
@@ -559,6 +776,14 @@ class CredibilityVerificationSystem:
             'type': 'Fact Check API',
             'results_count': len(external_data.fact_checks)
         })
+        # [NEW] Add TREC evidence source
+        if evidences:
+            report['sourcesUtilisees'].append({
+                'type': 'TREC Evidence Retrieval',
+                'method': 'BM25/TF-IDF',
+                'corpus': 'AP88-90',
+                'results_count': len(evidences)
+            })
         
         return report
     
@@ -603,6 +828,20 @@ class CredibilityVerificationSystem:
                 'value': f"{sent.get('label')} ({sent.get('score',0):.2f})",
                 'weight': f"{int(self.weights.get('sentiment_neutrality',0)*100)}%",
                 'impact': '-' if sent.get('score', 0) > 0.9 else '0'
+            })
+        
+        # 5. GraphRAG Context (NEW)
+        graph_data = rule_results.get('graph_context_data', {})
+        if graph_data.get('confidence', 0) > 0:
+            graph_score = graph_data.get('combined_score', 0.5)
+            impact = '+' if graph_score > 0.6 else ('-' if graph_score < 0.4 else '0')
+            factors.append({
+                'factor': 'Graph Context (History)',
+                'value': f"Score: {graph_score:.2f}, Confidence: {graph_data.get('confidence', 0):.0%}",
+                'weight': f"{int(self.weights.get('graph_context',0)*100)}%",
+                'impact': impact,
+                'history_count': graph_data.get('history_count', 0),
+                'similar_count': graph_data.get('similar_count', 0)
             })
 
         return factors
@@ -674,30 +913,43 @@ class CredibilityVerificationSystem:
         print("[SysCRED] Running rule-based analysis...")
         rule_results = self.rule_based_analysis(cleaned_text, external_data)
         
-        # 5. NLP analysis
+        # 5. [MOVED] GraphRAG Context Retrieval (Before NLP for context)
+        graph_context = ""
+        similar_uris = []
+        graph_context_data = {}
+        
+        if self.graph_rag and 'source_analysis' in rule_results:
+            domain = rule_results['source_analysis'].get('domain', '')
+            # Pass keywords for text search if domain is empty or generic
+            keywords = []
+            if cleaned_text:
+                # Extract meaningful keywords (filter out short words)
+                keywords = [w for w in cleaned_text.split()[:10] if len(w) > 4]
+            
+            # Get text context for display
+            context = self.graph_rag.get_context(domain, keywords=keywords)
+            graph_context = context.get('full_text', '')
+            similar_uris = context.get('similar_uris', [])
+            
+            # Get numerical score for integration into scoring
+            graph_context_data = self.graph_rag.compute_context_score(domain, keywords=keywords)
+            
+            # Add to rule_results for use in calculate_overall_score
+            rule_results['graph_context_data'] = graph_context_data
+            
+            if graph_context_data.get('has_history'):
+                print(f"[SysCRED] GraphRAG: Domain has {graph_context_data['history_count']} prior evaluations, "
+                      f"avg score: {graph_context_data['history_score']:.2f}")
+            if graph_context_data.get('similar_count', 0) > 0:
+                print(f"[SysCRED] GraphRAG: Found {graph_context_data['similar_count']} similar claims")
+        
+        # 6. NLP analysis
         print("[SysCRED] Running NLP analysis...")
         nlp_results = self.nlp_analysis(cleaned_text)
         
-        # 6. Calculate score
+        # 7. Calculate score (Now includes GraphRAG context)
         overall_score = self.calculate_overall_score(rule_results, nlp_results)
         print(f"[SysCRED] ✓ Credibility score: {overall_score:.2f}")
-
-        # 7. [NEW] GraphRAG Context Retrieval
-        graph_context = ""
-        similar_uris = []
-        if self.graph_rag and 'source_analysis' in rule_results:
-             domain = rule_results['source_analysis'].get('domain', '')
-             # Pass keywords for text search if domain is empty or generic
-             keywords = []
-             if not domain and cleaned_text:
-                 keywords = cleaned_text.split()[:5] # Simple keyword extraction
-                 
-             context = self.graph_rag.get_context(domain, keywords=keywords)
-             graph_context = context.get('full_text', '')
-             similar_uris = context.get('similar_uris', [])
-             
-             if "Graph Memory" in graph_context:
-                 print(f"[SysCRED] GraphRAG Context Found: {graph_context.splitlines()[1]}")
 
         # 8. Generate report (Updated to include context)
         report = self.generate_report(
