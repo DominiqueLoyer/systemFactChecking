@@ -41,6 +41,21 @@ from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
 from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult  # [NEW] TREC Integration
 from syscred import config
 
+# [NEW] NER and E-E-A-T modules
+try:
+    from syscred.ner_analyzer import NERAnalyzer, get_ner_analyzer
+    HAS_NER = True
+except ImportError:
+    HAS_NER = False
+    print("[SysCRED] Warning: NER module not available")
+
+try:
+    from syscred.eeat_calculator import EEATCalculator, EEATScore
+    HAS_EEAT = True
+except ImportError:
+    HAS_EEAT = False
+    print("[SysCRED] Warning: E-E-A-T module not available")
+
 
 class CredibilityVerificationSystem:
     """
