@@ -5,171 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ababca0d-be03-4e4f-bc97-781e8d70d5eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.ai/mcp/mcp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/systemFactChecking.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/SysCRED_v2.1_Update/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/diagnosis_tool.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/fix_v2.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/src/SysCRED_v2.1_Update/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/src/syscred_legacy/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/src/v2_syscred/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/syscred/requirements-light.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/syscred/requirements_light.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/syscred_legacy/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/02_Code/v2_syscred/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figures/generated-image-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figures/generated-image-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figures/generated-image-4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figures/generated-image-5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Figures/generated-image-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/huggingface_space/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/syscred/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/SysCRED_Documentation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/api_clients.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/backend_app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/benchmark_data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/datasets/liar/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/datasets/liar/test.tsv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/datasets/liar/train.tsv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/datasets/liar/valid.tsv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/debug_factcheck.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/debug_graph_json.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/debug_init.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/debug_local_server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/diagnose_imports.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/eval_metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/graph_rag.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/ir_engine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/liar_benchmark_test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/liar_benchmark_test.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/liar_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/ontology_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/requirements-light.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/requirements_light.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/run_benchmark.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/run_liar_benchmark.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/run_liar_benchmark_remote.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/run_trec_benchmark.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/save_to_notes.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/seo_analyzer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/setup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/static/js/d3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/test_graphrag.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/test_phase1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/test_phase2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/test_suite.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/test_trec_integration.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/trec_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/trec_retriever.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-hf-deploy/syscred/verification_system.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred-space" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/syscred_supabase_schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_Code/start_syscred.sh" beforeDir="false" afterPath="$PROJECT_DIR$/02_Code/start_syscred.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_Code/syscred/backend_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/02_Code/syscred/backend_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_Code/syscred/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/02_Code/syscred/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking" beforeDir="false" afterPath="$PROJECT_DIR$/99_Archive/systemFactChecking" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/Copie_de_Backend_Flask_(app_py).ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/DOCUMENTATION.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/Modeling and Hybrid System for Verification of sources credibility.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/Ontology_of_a_verification_system_for_liability_of_the_information_may15_2025.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/SysCRED_Documentation.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/api_clients.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/backend_app.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/benchmark_data.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/debug_factcheck.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/debug_graph_json.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/debug_local_server.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/eval_metrics.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/ir_engine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/ontology_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/run_benchmark.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/save_to_notes.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/seo_analyzer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/static/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/static/js/d3.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/test_phase1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/test_phase2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/test_suite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/SysCRED_v2.1_Update/verification_system.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/VF_Beamer_30avril25Système_d_évaluation_de_crédibilité_d_information__Une_Ontologie_projetfinal_dic9335.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/VF_Beamer_30avril25Système_d_évaluation_de_crédibilité_d_information__Une_Ontologie_projetfinal_dic9335.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/backend_flask.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/interface806.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/modelisationCred.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/presentation_2026/references.bib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/presentation_2026/syscred_presentation.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/presentation_2026/syscred_presentation.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/projetFinal_sysCred_Onto_28avril.ttl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/sys-cred-Python-27avril2025.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/Icon&#10;" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/SysCRED_Documentation.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/api_clients.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/backend_app.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/benchmark_data.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/benchmark_results.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/debug_factcheck.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/debug_graph_json.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/debug_local_server.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/eval_metrics.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/ir_engine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/kaggle_to_gdrive_backup.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/ontology_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/run_benchmark.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/save_to_notes.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/seo_analyzer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/static/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/static/js/d3.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/syscred_colab.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/syscred_kaggle.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/test_phase1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/test_phase2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/test_suite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/syscred_legacy/verification_system.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/api_clients.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/backend_app.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/eval_metrics.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/ir_engine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/ontology_manager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/seo_analyzer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/syscred_colab.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/syscred_kaggle.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/99_Archive/systemFactChecking/v2_syscred/verification_system.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy_huggingface.sh" beforeDir="false" afterPath="$PROJECT_DIR$/deploy_huggingface.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,9 +23,6 @@
       <entry key="agent-panel" value="GPT-5 mini" />
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
-  </component>
-  <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="26473" />
   </component>
   <component name="FlaskConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass">
     <envs>
@@ -238,14 +71,14 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "git-widget-placeholder": "gemini-recommendations",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/bk280625/Desktop/systemFactChecking",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -266,6 +99,7 @@
       <updated>1770319529359</updated>
       <workItem from="1770493028537" duration="823000" />
       <workItem from="1770498836732" duration="11072000" />
+      <workItem from="1770655781400" duration="703000" />
     </task>
     <servers />
   </component>
