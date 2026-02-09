@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy optimized requirements (distilled models, CPU-only torch)
-COPY requirements-distilled.txt /app/requirements.txt
+COPY syscred/requirements-distilled.txt /app/requirements.txt
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
