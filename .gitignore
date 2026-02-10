@@ -50,3 +50,6 @@ test_from_pypi/
 __pycache__/
 *.db
 
+venv_ml/
+venv/
+data/trec/
