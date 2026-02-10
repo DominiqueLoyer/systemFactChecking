@@ -931,6 +931,9 @@
         const REMOTE_API_URL = 'https://domloyer-syscred.hf.space';
         let API_URL = '';
         
+        // Initialize to local backend by default (Phase 1.1 fix)
+        API_URL = LOCAL_API_URL;
+        
         function toggleBackend() {
             const toggle = document.getElementById('backendToggle');
             const status = document.getElementById('backendStatus');
@@ -1398,7 +1401,7 @@
                 // FIX: Map backend data (label) to frontend expectations (name)
                 if (data.nodes) {
                     data.nodes = data.nodes.map(n => {
-                        n.name = n.name || n.label || 'Unknown';
+                        n.name = n.label || n.name || 'Unknown';
                         if (!n.group) {
                             if (n.type === 'Source') n.group = 1;
                             else if (n.type === 'Entity') n.group = 1;
