@@ -30,13 +30,16 @@ from dotenv import load_dotenv
 current_path = Path(__file__).resolve()
 env_path = current_path.parent.parent.parent / '.env'
 
-if not env_path.exists():
-    print(f"[Config] WARNING: .env not found at {env_path}")
-    # Try alternate location (sometimes CWD matters)
-    env_path = Path.cwd().parent / '.env'
-    
-load_dotenv(dotenv_path=env_path)
-print(f"[Config] Loading .env from {env_path}")
+try:
+    if not env_path.exists():
+        print(f"[Config] WARNING: .env not found at {env_path}")
+        # Try alternate location (sometimes CWD matters)
+        env_path = Path.cwd().parent / '.env'
+        
+    load_dotenv(dotenv_path=env_path)
+    print(f"[Config] Loading .env from {env_path}")
+except PermissionError:
+    print(f"[Config] Permission denied for .env, using system env vars")
 print(f"[Config] SYSCRED_GOOGLE_API_KEY loaded: {'Yes' if os.environ.get('SYSCRED_GOOGLE_API_KEY') else 'No'}")
 
 

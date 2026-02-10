@@ -23,11 +23,14 @@ from pathlib import Path
 try:
     from dotenv import load_dotenv
     env_path = Path(__file__).parent / '.env'
-    if env_path.exists():
-        load_dotenv(env_path)
-        print(f"[SysCRED Backend] Loaded .env from {env_path}")
-    else:
-        print(f"[SysCRED Backend] No .env file found at {env_path}")
+    try:
+        if env_path.exists():
+            load_dotenv(env_path)
+            print(f"[SysCRED Backend] Loaded .env from {env_path}")
+        else:
+            print(f"[SysCRED Backend] No .env file found at {env_path}")
+    except PermissionError:
+        print(f"[SysCRED Backend] Permission denied for {env_path}, using system env vars")
 except ImportError:
     print("[SysCRED Backend] python-dotenv not installed, using system env vars")
 
