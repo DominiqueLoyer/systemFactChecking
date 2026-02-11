@@ -931,8 +931,8 @@
         const REMOTE_API_URL = 'https://domloyer-syscred.hf.space';
         let API_URL = '';
         
-        // Initialize to local backend by default (Phase 1.1 fix)
-        API_URL = LOCAL_API_URL;
+        // API_URL est choisi plus tard par le toggle / la détection d’environnement
+        // API_URL = LOCAL_API_URL;
         
         function toggleBackend() {
             const toggle = document.getElementById('backendToggle');
