@@ -64,21 +64,39 @@ class Config:
     DATABASE_URL = os.getenv("DATABASE_URL") # [NEW] Read DB URL from env
     
     # === Modèles ML ===
-    LOAD_ML_MODELS = os.getenv("SYSCRED_LOAD_ML", "true").lower() == "true"
+    # Support both SYSCRED_LOAD_ML and SYSCRED_LOAD_ML_MODELS (for Render)
+    LOAD_ML_MODELS = os.getenv("SYSCRED_LOAD_ML_MODELS", os.getenv("SYSCRED_LOAD_ML", "true")).lower() == "true"
     SENTIMENT_MODEL = "distilbert-base-uncased-finetuned-sst-2-english"
     NER_MODEL = "dbmdz/bert-large-cased-finetuned-conll03-english"
     
     # === Timeouts ===
     WEB_FETCH_TIMEOUT = int(os.getenv("SYSCRED_TIMEOUT", "10"))
     
+    # === TREC IR Configuration (NEW - Feb 2026) ===
+    TREC_INDEX_PATH = os.getenv("SYSCRED_TREC_INDEX", None)  # Lucene/Pyserini index
+    TREC_CORPUS_PATH = os.getenv("SYSCRED_TREC_CORPUS", None)  # JSONL corpus
+    TREC_TOPICS_PATH = os.getenv("SYSCRED_TREC_TOPICS", None)  # Topics directory
+    TREC_QRELS_PATH = os.getenv("SYSCRED_TREC_QRELS", None)  # Qrels directory
+    
+    # BM25 Parameters (optimized on AP88-90)
+    BM25_K1 = float(os.getenv("SYSCRED_BM25_K1", "0.9"))
+    BM25_B = float(os.getenv("SYSCRED_BM25_B", "0.4"))
+    
+    # PRF (Pseudo-Relevance Feedback) settings
+    ENABLE_PRF = os.getenv("SYSCRED_ENABLE_PRF", "true").lower() == "true"
+    PRF_TOP_DOCS = int(os.getenv("SYSCRED_PRF_TOP_DOCS", "3"))
+    PRF_EXPANSION_TERMS = int(os.getenv("SYSCRED_PRF_TERMS", "10"))
+    
     # === Pondération des scores ===
+    # Note: Weights should sum to 1.0 for proper normalization
     SCORE_WEIGHTS = {
-        'source_reputation': 0.25,
-        'domain_age': 0.10,
-        'sentiment_neutrality': 0.15,
-        'entity_presence': 0.15,
-        'coherence': 0.15,
-        'fact_check': 0.20
+        'source_reputation': 0.22,    # Was 0.25, reduced for graph_context
+        'domain_age': 0.08,           # Was 0.10
+        'sentiment_neutrality': 0.13, # Was 0.15
+        'entity_presence': 0.13,      # Was 0.15
+        'coherence': 0.12,            # Was 0.15
+        'fact_check': 0.17,           # Was 0.20
+        'graph_context': 0.15         # NEW - Historical knowledge from GraphRAG
     }
     
     # === Seuils de crédibilité ===

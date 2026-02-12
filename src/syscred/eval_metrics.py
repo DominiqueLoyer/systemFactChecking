@@ -133,6 +133,15 @@ class EvaluationMetrics:
                 return 1.0 / (i + 1)
         return 0.0
     
+    @staticmethod
+    def mrr(retrieved: List[str], relevant: set) -> float:
+        """
+        Alias for reciprocal_rank (Mean Reciprocal Rank for single query).
+        
+        MRR = 1 / rank of first relevant document
+        """
+        return EvaluationMetrics.reciprocal_rank(retrieved, relevant)
+    
     # --- TREC-Style Evaluation ---
     
     def evaluate_run(
