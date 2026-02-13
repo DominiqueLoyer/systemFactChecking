@@ -235,16 +235,16 @@ hybrid-credibility-system/
     ├── start_services.sh             # Démarrage des conteneurs
     └── load_ontology.py              # Chargement ontologie dans triplestore
 ┌─────────────────────────────────────────────────────────────────┐
-│                        INPUT (User)                              │
-│                   URL ou Texte                                   │
+│                        INPUT (User)                             │
+│                   URL ou Texte                                  │
 └────────────────────────────┬────────────────────────────────────┘
                              ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│                   LAYER 1: Neural (S1)                           │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
-│  │   NER        │  │  Sentiment   │  │  Coherence   │          │
-│  │   (BERT)     │  │ (DistilBERT) │  │   Analysis   │          │
-│  └──────────────┘  └──────────────┘  └──────────────┘          │
+│                   LAYER 1: Neural (S1)                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐           │
+│  │   NER        │  │  Sentiment   │  │  Coherence   │           │
+│  │   (BERT)     │  │ (DistilBERT) │  │   Analysis   │           │
+│  └──────────────┘  └──────────────┘  └──────────────┘           │
 └────────────────────────────┬────────────────────────────────────┘
                              ↓
 ┌─────────────────────────────────────────────────────────────────┐
@@ -317,7 +317,7 @@ The system uses weighted factors to calculate credibility:
 
 - [Modeling and Hybrid System for Verification of Sources Credibility (PDF)](03_Docs/Modeling%20and%20Hybrid%20System%20for%20Verification%20of%20sources%20credibility.pdf)
 - [Ontology of a Verification System (PDF)](03_Docs/Ontology_of_a_verification_system_for_liability_of_the_information_may15_2025.pdf)
-- [Beamer Presentation - DIC9335 (PDF)](01_Presentations/syscred_presentation.pdf)
+- [Beamer Presentation - (PDF)](01_Presentations/syscred_presentation.pdf)
 
 ---
 
