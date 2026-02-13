@@ -13,7 +13,7 @@
 [![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-DominiqueLoyer-EA4AAA?logo=github-sponsors)](https://github.com/sponsors/DominiqueLoyer)
 
 **PhD Thesis Prototype** - Dominique S. Loyer  
-*Citation Key: loyerModelingHybridSystem2025*
+
 
 > [!NOTE]
 > **New in v2.2 (Jan 29, 2026)**:
