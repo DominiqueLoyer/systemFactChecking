@@ -14,6 +14,19 @@
 
 **PhD Thesis Prototype** - Dominique S. Loyer  
 
+## 🏷️ Citation
+
+```bibtex
+@software{loyer2025syscred,
+  author = {Loyer, Dominique S.},
+  title = {SysCRED: Neuro-Symbolic System for Information Credibility Verification},
+  year = {2026},
+  publisher = {GitHub},
+  url = {https://github.com/DominiqueLoyer/systemFactChecking}
+}
+```
+
+---
 
 > [!NOTE]
 > **New in v2.2 (Jan 29, 2026)**:
@@ -321,19 +334,8 @@ The system uses weighted factors to calculate credibility:
 
 ---
 
-## 🏷️ Citation
 
-```bibtex
-@software{loyer2025syscred,
-  author = {Loyer, Dominique S.},
-  title = {SysCRED: Neuro-Symbolic System for Information Credibility Verification},
-  year = {2026},
-  publisher = {GitHub},
-  url = {https://github.com/DominiqueLoyer/systemFactChecking}
-}
-```
 
----
 
 ## 📜 License
 
