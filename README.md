@@ -137,11 +137,139 @@ curl -X POST http://localhost:5000/api/verify \
 
 ## 📁 Project Structure
 
-```bash
-### ÉTAPE 1 : INPUT
-User entre: URL d’article ou texte
-### ÉTAPE 2 : EXTRACTION (S1 - Neural)
-├─ NER: Extrait entités (Reuters, vaccine, study) ├─ Relations: Extrait liens (Reuters PUBLISHED study) ├─ Sentiment: Analyse ton (neutral = bon) └─ Coherence: Évalue structure (0.85 = bien écrit)
+hybrid-credibility-system/
+├── README.md                           # Documentation principale
+├── docker-compose.yml                  # Orchestration des conteneurs
+├── .env.example                        # Variables d'environnement
+│
+├── ontology/
+│   ├── sysCRED_ontology.owl           # ⭐ Ontologie principale (OWL)
+│   ├── sysCRED_data.ttl               # Données RDF (Turtle)
+│   ├── swrl_rules.swrl                # Règles SWRL pour inférence
+│   └── individuals.ttl                # Instances (sources, domaines)
+│
+├── services/
+│   │
+│   ├── s1_neural/                     # 🧠 Couche Neurale (S1)
+│   │   ├── ner_service/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /extract/entities
+│   │   │   └── models/
+│   │   │       └── bert_ner/         # Modèle BERT fine-tuned
+│   │   │
+│   │   ├── sentiment_service/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /extract/sentiment
+│   │   │   └── models/
+│   │   │       └── distilbert/       # Modèle DistilBERT
+│   │   │
+│   │   └── coherence_service/
+│   │       ├── Dockerfile
+│   │       ├── requirements.txt
+│   │       └── app.py                # API: /extract/coherence
+│   │
+│   ├── bridge/                        # 🌉 Grounding Layer
+│   │   ├── Dockerfile
+│   │   ├── requirements.txt
+│   │   ├── grounding.py              # Neural → Symbolic mapping
+│   │   └── embeddings/
+│   │       └── entity_mapper.pkl     # Embeddings → OWL instances
+│   │
+│   ├── s2_symbolic/                   # 🔣 Couche Symbolique (S2)
+│   │   ├── knowledge_graph/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /graph/query
+│   │   │   └── neo4j/
+│   │   │       └── init.cypher       # Scripts d'initialisation
+│   │   │
+│   │   ├── reasoner_service/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /reason/infer
+│   │   │   └── lib/
+│   │   │       ├── hermit.jar        # Reasoner HermiT
+│   │   │       └── pellet.jar        # Reasoner Pellet
+│   │   │
+│   │   └── fact_check_service/
+│   │       ├── Dockerfile
+│   │       ├── requirements.txt
+│   │       ├── app.py                # API: /factcheck/verify
+│   │       └── config/
+│   │           └── api_keys.yml      # Google Fact-Check API
+│   │
+│   └── api_gateway/                   # 🚪 API Gateway (Orchestration)
+│       ├── Dockerfile
+│       ├── requirements.txt
+│       ├── gateway.py                # API: /verify (main endpoint)
+│       ├── pipeline.py               # Orchestration des 8 étapes
+│       └── schemas/
+│           ├── input_schema.json
+│           └── output_schema.json
+│
+├── data/
+│   ├── sources/
+│   │   └── trusted_sources.csv       # Liste sources fiables
+│   ├── blacklist/
+│   │   └── blacklisted_domains.csv   # Domaines bloqués
+│   └── training/
+│       ├── ner_dataset.json
+│       └── sentiment_dataset.json
+│
+├── tests/
+│   ├── test_s1_neural.py
+│   ├── test_s2_symbolic.py
+│   ├── test_bridge.py
+│   └── test_integration.py
+│
+├── docs/
+│   ├── architecture.md               # Architecture détaillée
+│   ├── api_documentation.md          # Documentation API
+│   ├── ontology_design.md            # Design de l'ontologie
+│   └── deployment.md                 # Guide de déploiement
+│
+└── scripts/
+    ├── setup.sh                      # Installation des dépendances
+    ├── start_services.sh             # Démarrage des conteneurs
+    └── load_ontology.py              # Chargement ontologie dans triplestore
+┌─────────────────────────────────────────────────────────────────┐
+│                        INPUT (User)                              │
+│                   URL ou Texte d'article                         │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                   LAYER 1: Neural (S1)                           │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │   NER        │  │  Sentiment   │  │  Coherence   │          │
+│  │   (BERT)     │  │ (DistilBERT) │  │   Analysis   │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                    BRIDGE: Grounding                             │
+│              Neural Embeddings → OWL Instances                   │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                  LAYER 2: Symbolic (S2)                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │  Knowledge   │  │  Reasoner    │  │  Fact-Check  │          │
+│  │  Graph       │  │ (HermiT)     │  │  API         │          │
+│  │  (Neo4j)     │  │              │  │              │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                    SCORING & EXPLANATION                         │
+│              Credibility Score + Reasoning Trace                 │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                      OUTPUT (JSON)                               │
+│          Score, Level, Explanation, Confidence                   │
+└─────────────────────────────────────────────────────────────────┘
 
 
 
