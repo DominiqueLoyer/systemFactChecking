@@ -236,7 +236,7 @@ hybrid-credibility-system/
     └── load_ontology.py              # Chargement ontologie dans triplestore
 ┌─────────────────────────────────────────────────────────────────┐
 │                        INPUT (User)                              │
-│                   URL ou Texte d'article                         │
+│                   URL ou Texte                                   │
 └────────────────────────────┬────────────────────────────────────┘
                              ↓
 ┌─────────────────────────────────────────────────────────────────┐
