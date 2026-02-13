@@ -138,16 +138,11 @@ curl -X POST http://localhost:5000/api/verify \
 ## 📁 Project Structure
 
 ```bash
-organisateur-GDRIVE/
-├── README.md                    # Ce fichier
-├── organisateur.html            # ⭐ Interface principale
-├── organisateur2.html           # Version alternative
-├── organisateur3.html           # Version améliorée
-├── docColab_0408.html           # Documentation Colab
-├── gdrive_090625.html           # Version juin 2025
-├── regulateur_0508.html         # Module régulateur
-├── Rapport_Analyse_Drive_*.txt  # Rapports générés
-└── Organisateur_*.pdf           # Archives PDF
+### ÉTAPE 1 : INPUT
+User entre: URL d’article ou texte
+### ÉTAPE 2 : EXTRACTION (S1 - Neural)
+├─ NER: Extrait entités (Reuters, vaccine, study) ├─ Relations: Extrait liens (Reuters PUBLISHED study) ├─ Sentiment: Analyse ton (neutral = bon) └─ Coherence: Évalue structure (0.85 = bien écrit)
+
 
 
 ---
