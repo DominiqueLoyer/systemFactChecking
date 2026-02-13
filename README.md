@@ -134,7 +134,7 @@ curl -X POST http://localhost:5000/api/verify \
 ```
 
 ---
-
+```bash
 ## 📁 Project Structure
 
 hybrid-credibility-system/
