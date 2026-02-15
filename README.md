@@ -286,8 +286,42 @@ hybrid-credibility-system/
 
 
 
----
+
 ```
+---
+🐳 Architecture des Conteneurs
+
+### Container 1: NER Service (S1)
+```
+├─ BERT model
+└─ API: /extract/entities
+```
+
+### Container 2: Sentiment Service (S1)
+```
+├─ DistilBERT
+└─ API: /extract/sentiment
+```
+
+### Container 3: Knowledge Graph Service (S2)
+```
+├─ Neo4j database
+├─ OWL ontology
+└─ API: /graph/query
+```
+
+### Container 4: Reasoner Service (S2)
+```
+├─ HermiT/Pellet
+└─ API: /reason/infer
+```
+
+### Container 5: API Gateway
+```
+├─ Orchestrates all services
+└─ API: /verify (main endpoint)
+```
+---
 
 ## 🔧 Configuration
 
