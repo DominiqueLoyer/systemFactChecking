@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/99_Archive/TREC_AP_88-90" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/99_Archive/systemFactChecking" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ontology" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/syscred-space" vcs="Git" />
   </component>
 </project>
