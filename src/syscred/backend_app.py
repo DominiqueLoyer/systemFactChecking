@@ -54,6 +54,17 @@ except ImportError as e:
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend
 
+# Allow iframe embedding on UQAM domains (for syscred.uqam.ca mirror)
+@app.after_request
+def add_security_headers(response):
+    # Allow UQAM WordPress to embed this app via iframe
+    response.headers['Content-Security-Policy'] = (
+        "frame-ancestors 'self' https://syscred.uqam.ca https://*.uqam.ca"
+    )
+    # Remove default X-Frame-Options to let CSP handle it
+    response.headers.pop('X-Frame-Options', None)
+    return response
+
 # Initialize Database
 try:
     init_db(app) # [NEW] Setup DB connection

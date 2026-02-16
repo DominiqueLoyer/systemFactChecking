@@ -393,7 +393,8 @@
     </div>
 
     <script>
-        const API_URL = 'http://localhost:5001';
+        // Auto-detect API URL: use current origin (works on localhost AND Render/production)
+        const API_URL = window.location.origin;
 
         async function analyzeUrl() {
             const urlInput = document.getElementById('urlInput');
