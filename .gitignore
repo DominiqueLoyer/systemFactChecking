@@ -1,55 +1,75 @@
-
-# Python packaging
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
 dist/
 build/
-*.egg-info/
 .eggs/
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-
-# Virtual environments
+# ===== Virtual Environments =====
 venv/
+venv_*/
+.venv/
 env/
 ENV/
 test_env/
+test_from_pypi/
+test_minimal/
 
-# LaTeX
+# ===== IDE =====
+.idea/
+.vscode/
+*.code-workspace
+
+# ===== System =====
+.DS_Store
+Icon?
+Thumbs.db
+
+# ===== LaTeX auxiliaries =====
 *.aux
 *.bbl
 *.blg
 *.fls
-*.log
-*.out
 *.synctex.gz
 *.toc
 *.fdb_latexmk
-*.pdf
+*.nav
+*.snm
+*.vrb
 
-# System
-.DS_Store
+# ===== Project-specific data (heavy) =====
+data/
+*.tar
+*.db
+liar_dataset.zip
+TREC_AP_88-90_complet.tar
 
-# IDE
-.vscode/
+# ===== Deployment =====
+syscred-space/
+syscred-hf-deploy/
 
-# Project specific
-*.zip
+# ===== Deprecated / Archive (local only) =====
+DEV/
+SysCRED_v2.1_Update/
+systemFactChecking_Work/
+v2_syscred/
+syscred_legacy/
+
+# ===== Logs and temp =====
 *.log
-# Credentials and Keys
-*.key
-*.txt
+server.log
+
+# ===== Credentials =====
 .env
 cle*
+*.key
 
-venv_demo/
-test_from_pypi/
-*.pyc
-__pycache__/
-*.db
-
-venv_ml/
-venv/
-data/trec/
+# ===== Testing =====
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
