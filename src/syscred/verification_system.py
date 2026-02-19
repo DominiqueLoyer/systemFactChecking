@@ -49,6 +49,20 @@ except ImportError:
     from trec_retriever import TRECRetriever, Evidence, RetrievalResult
     import config
 
+# [NER + E-E-A-T] Imports optionnels - n'interferent pas avec les imports principaux
+HAS_NER_EEAT = False
+try:
+    from syscred.ner_analyzer import NERAnalyzer
+    from syscred.eeat_calculator import EEATCalculator, EEATScore
+    HAS_NER_EEAT = True
+except ImportError:
+    try:
+        from ner_analyzer import NERAnalyzer
+        from eeat_calculator import EEATCalculator, EEATScore
+        HAS_NER_EEAT = True
+    except ImportError:
+        pass
+
 
 class CredibilityVerificationSystem:
     """
@@ -129,6 +143,18 @@ class CredibilityVerificationSystem:
         # Weights for score calculation (Loaded from Config)
         self.weights = config.Config.SCORE_WEIGHTS
         print(f"[SysCRED] Using weights: {self.weights}")
+
+        # [NER + E-E-A-T] Initialize analyzers
+        self.ner_analyzer = None
+        self.eeat_calculator = None
+        if HAS_NER_EEAT:
+            try:
+                self.ner_analyzer = NERAnalyzer()
+                self.eeat_calculator = EEATCalculator()
+                print("[SysCRED] NER analyzer initialized")
+                print("[SysCRED] E-E-A-T calculator initialized")
+            except Exception as e:
+                print(f"[SysCRED] NER/E-E-A-T init failed: {e}")
         
         print("[SysCRED] System ready!")
     
@@ -947,6 +973,37 @@ class CredibilityVerificationSystem:
         print("[SysCRED] Running NLP analysis...")
         nlp_results = self.nlp_analysis(cleaned_text)
         
+        # 6.5 [NER] Named Entity Recognition
+        ner_entities = {}
+        if self.ner_analyzer and cleaned_text:
+            try:
+                ner_entities = self.ner_analyzer.analyze(cleaned_text)
+                total = sum(len(v) for v in ner_entities.values() if isinstance(v, list))
+                print(f"[SysCRED] NER: {total} entites detectees")
+            except Exception as e:
+                print(f"[SysCRED] NER failed: {e}")
+
+        # 6.6 [E-E-A-T] Experience-Expertise-Authority-Trust scoring
+        eeat_scores = {}
+        if self.eeat_calculator:
+            try:
+                domain = ""
+                if is_url:
+                    from urllib.parse import urlparse as _urlparse
+                    domain = _urlparse(input_data).netloc
+                eeat_raw = self.eeat_calculator.calculate(
+                    domain=domain,
+                    text=cleaned_text,
+                    reputation=getattr(external_data, "source_reputation", "Unknown"),
+                    domain_age_days=getattr(external_data, "domain_age_days", None),
+                    is_https=input_data.startswith("https://") if is_url else False
+                )
+                eeat_scores = eeat_raw if isinstance(eeat_raw, dict) else vars(eeat_raw)
+                total_eeat = eeat_scores.get("total", eeat_scores.get("score", "N/A"))
+                print(f"[SysCRED] E-E-A-T score total: {total_eeat}")
+            except Exception as e:
+                print(f"[SysCRED] E-E-A-T failed: {e}")
+
         # 7. Calculate score (Now includes GraphRAG context)
         overall_score = self.calculate_overall_score(rule_results, nlp_results)
         print(f"[SysCRED] ✓ Credibility score: {overall_score:.2f}")
@@ -958,6 +1015,12 @@ class CredibilityVerificationSystem:
             graph_context=graph_context
         )
         
+        # [NER + E-E-A-T] Enrichir le rapport
+        if ner_entities:
+            report['ner_entities'] = ner_entities
+        if eeat_scores:
+            report['eeat_scores'] = eeat_scores
+
         # Add similar URIs to report for ontology linking
         if similar_uris:
             report['similar_claims_uris'] = similar_uris
