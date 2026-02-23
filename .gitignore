@@ -7,20 +7,45 @@ __pycache__/
 env/
 venv/
 .venv/
+*.egg-info/
 
 # Node.js
 node_modules/
 npm-debug.log*
 
-# Environment variables
+# Environment variables (contains secrets)
 .env
 .env.local
 
 # IDE
 .idea/
 .vscode/
+*.code-workspace
 
 # OS
 .DS_Store
 Thumbs.db
+Icon?
 
+# Large data files (TREC corpus)
+TREC_AP_88-90_complet.tar
+*.tar
+*.tar.gz
+
+# Build/Deploy artifacts
+liar_dataset.zip
+*.zip
+
+# Aider (AI coding assistant)
+.aider.*
+
+# Docker
+*.log
+
+# Database
+instance/
+*.db
+*.sqlite3
+
+# Misc
+generated_image-*.png
