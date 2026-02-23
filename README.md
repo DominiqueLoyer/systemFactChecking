@@ -12,13 +12,16 @@
 *Citation Key: loyerModelingHybridSystem2025*
 
 > [!NOTE]
-> **Version stable : v2.3 (8-9 février 2026)**
+> **Version stable : v2.4 (22 février 2026) — Restructuration consolidée**
+>
 > - **Fact-Checking** multi-sources (Google Fact Check API)
 > - **E-E-A-T** (Experience, Expertise, Authority, Trust)
 > - **NER** — Extraction d'entités nommées (spaCy)
 > - **GraphRAG** — Réseau Neuro-Symbolique (D3.js)
 > - **IR Engine** — BM25, TF-IDF, PageRank
+> - **TREC AP88-90** — 242,918 documents (corpus complet)
 > - **Métriques** — Precision, Recall, nDCG, MRR
+> - **Bias Analysis** — Détection de biais
 
 ---
 
@@ -38,44 +41,52 @@ The system provides explainable credibility scores (High/Medium/Low) with detail
 ## 📁 Project Structure
 
 ```
-systemFactChecking_Production/
+systemFactChecking/
 ├── README.md                       # This file
 ├── LICENSE
 ├── pyproject.toml                  # Python/PyPI config
-├── Dockerfile                      # Container deployment
+├── Dockerfile                      # Render deployment (Lite, <528MB)
+├── Dockerfile.huggingface          # HuggingFace Spaces (Full, with ML)
+├── requirements.txt                # Standard dependencies
+├── requirements-lite.txt           # Render (no ML models)
+├── requirements-full.txt           # HF/Local (PyTorch, spaCy, etc.)
+├── .env                            # Environment variables
 ├── .gitignore
 │
-├── src/                            # ⭐ SOURCE CODE (single source of truth)
-│   └── syscred/
-│       ├── __init__.py
-│       ├── backend_app.py          # Flask server (entry point)
-│       ├── verification_system.py  # Main verification pipeline
-│       ├── api_clients.py          # External API clients
-│       ├── config.py               # Configuration
-│       ├── database.py             # DB management (SQLAlchemy)
-│       ├── ir_engine.py            # IR engine (BM25, TF-IDF)
-│       ├── ontology_manager.py     # Ontology management
-│       ├── seo_analyzer.py         # SEO analysis
-│       ├── eval_metrics.py         # Evaluation metrics
-│       ├── graph_rag.py            # GraphRAG module
-│       ├── ner_analyzer.py         # NER (spaCy)
-│       ├── eeat_calculator.py      # E-E-A-T scoring
-│       └── static/
-│           └── index.html          # Frontend dashboard
+├── syscred/                        # ⭐ SOURCE CODE (single source of truth)
+│   ├── __init__.py
+│   ├── backend_app.py              # Flask server (entry point)
+│   ├── verification_system.py      # Main verification pipeline
+│   ├── api_clients.py              # External API clients
+│   ├── config.py                   # Configuration
+│   ├── database.py                 # DB management (Supabase/PostgreSQL)
+│   ├── db_store.py                 # Database storage layer
+│   ├── ir_engine.py                # IR engine (BM25, TF-IDF)
+│   ├── ontology_manager.py         # Ontology management (OWL/RDF)
+│   ├── seo_analyzer.py             # SEO analysis
+│   ├── eval_metrics.py             # Evaluation metrics (MAP, NDCG, etc.)
+│   ├── graph_rag.py                # GraphRAG module (D3.js)
+│   ├── ner_analyzer.py             # NER (spaCy)
+│   ├── eeat_calculator.py          # E-E-A-T scoring
+│   ├── trec_retriever.py           # TREC evidence retrieval
+│   ├── trec_dataset.py             # TREC AP88-90 corpus parser
+│   ├── liar_dataset.py             # LIAR benchmark dataset
+│   └── static/
+│       └── index.html              # Frontend dashboard
 │
-├── 02_Code/                        # Legacy code directory
-│   ├── syscred/                    # Older version of the package
-│   ├── v2_syscred/                 # v2 with Colab/Kaggle notebooks
-│   └── Dockerfile
+├── ontology/                       # OWL/RDF ontology files
+│   ├── sysCRED_onto26avrtil.ttl    # Base ontology schema
+│   └── sysCRED_data.ttl            # Ontology data (triplets)
+│
+├── huggingface_space/              # HuggingFace Space config
+│   ├── Dockerfile
+│   └── README.md
 │
 ├── tests/                          # Unit tests
 ├── 01_Presentations/               # PhD presentations (LaTeX)
 ├── 03_Docs/                        # Documentation & dev logs
 ├── 04_Bibliography/                # Research references
 ├── 99_Archive/                     # Archived older versions
-│
-├── ontology/                       # OWL/RDF ontology files
-├── syscred-space/                  # HuggingFace Space deployment
 └── assets/                         # Images and graphs
 ```
 
@@ -83,35 +94,29 @@ systemFactChecking_Production/
 
 ## 🚀 Quick Start
 
-### Installation via PyPI
-
-```bash
-# Minimal (lightweight, ~100 MB)
-pip install syscred
-
-# With ML models (complete, ~2.5 GB)
-pip install syscred[ml]
-
-# Full (all features + dev tools)
-pip install syscred[all]
-```
-
 ### Local Development
 
 ```bash
-cd systemFactChecking_Production
-python -m venv .venv
-source .venv/bin/activate
-pip install -r src/syscred/requirements.txt
-python src/syscred/backend_app.py
+cd systemFactChecking
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements-full.txt
+python -m syscred.backend_app
 # → Access at http://localhost:5001
 ```
 
-### Docker
+### Docker (Render — Lite)
 
 ```bash
-docker build -t syscred:latest .
-docker run -p 5000:5000 --env-file .env syscred:latest
+docker build -t syscred-lite -f Dockerfile .
+docker run -p 5000:5000 --env-file .env syscred-lite
+```
+
+### Docker (HuggingFace — Full)
+
+```bash
+docker build -t syscred-full -f Dockerfile.huggingface .
+docker run -p 7860:7860 --env-file .env syscred-full
 ```
 
 ---
@@ -124,6 +129,10 @@ docker run -p 5000:5000 --env-file .env syscred:latest
 | `/api/seo` | POST | SEO analysis only |
 | `/api/ontology/stats` | GET | Ontology statistics |
 | `/api/ontology/graph` | GET | D3.js graph data |
+| `/api/trec/search` | POST | TREC evidence retrieval |
+| `/api/trec/metrics` | POST | Calculate IR metrics |
+| `/api/trec/corpus` | GET | TREC corpus info |
+| `/api/trec/health` | GET | TREC module health |
 | `/api/health` | GET | Server health check |
 
 ### Example
@@ -148,6 +157,7 @@ curl -X POST http://localhost:5001/api/verify \
 | Fact Check | 20% | Google Fact Check API results |
 
 **E-E-A-T Score** (Google Quality Rater):
+
 - **Experience**: Domain age, content richness
 - **Expertise**: Technical vocabulary, citations
 - **Authority**: Estimated PageRank, backlinks
@@ -158,8 +168,14 @@ curl -X POST http://localhost:5001/api/verify \
 ## 🔧 Configuration
 
 ```bash
-# Optional: Google Fact Check API key
+# Google Fact Check API key
 export SYSCRED_GOOGLE_API_KEY=your_key_here
+
+# Supabase Database
+export SYSCRED_DATABASE_URL=postgresql://...
+
+# Base URL
+export SYSCRED_BASE_URL=https://syscred.uqam.ca
 
 # Server settings
 export SYSCRED_PORT=5001
@@ -169,11 +185,21 @@ export SYSCRED_ENV=production
 
 ---
 
+## 🌐 Deployments
+
+| Platform | URL | Type |
+|----------|-----|------|
+| **HuggingFace** | [DomLoyer/syscred](https://huggingface.co/spaces/DomLoyer/syscred) | Full (ML models) |
+| **Render** | [syscred-deploy-v2](https://syscred-deploy-v2.onrender.com) | Lite (no ML) |
+| **UQAM** | [syscred.uqam.ca](https://syscred.uqam.ca) | Mirror (iframe → HF) |
+
+---
+
 ## 📚 Documentation
 
-- [System Documentation](03_Docs/DOCUMENTATION.md)
-- [TREC Integration Guide](03_Docs/TREC_Integration_Documentation.md)
+- [System Documentation](03_Docs/TREC_Integration_Documentation.md)
 - [DevLog Feb 8, 2026](03_Docs/03_DevLog_2026-02-08.md)
+- [Publication Log](03_Docs/PUBLICATION_LOG_2026-01-30.md)
 
 ---
 
@@ -201,10 +227,8 @@ MIT License — See [LICENSE](LICENSE).
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v2.4 | Feb 22, 2026 | Consolidated restructuration, full TREC, bias analysis |
 | v2.3 | Feb 8-9, 2026 | NER, E-E-A-T, Google Fact Check API, GraphRAG, blue glow UI |
 | v2.2 | Jan 29, 2026 | GraphRAG, D3.js graph, Docker & Supabase integration |
 | v2.0 | Jan 2026 | Complete rewrite, modular architecture, REST API |
 | v1.0 | Apr 2025 | Initial prototype |
-
-![Graphe 2](assets/graphs/generated-image-2.png)
-![Graphe 3](assets/graphs/generated-image-3.png)

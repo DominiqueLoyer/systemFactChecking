@@ -1,75 +1,51 @@
-# ===== Python =====
+# Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg-info/
-*.egg
-dist/
-build/
-.eggs/
-
-# ===== Virtual Environments =====
-venv/
-venv_*/
-.venv/
+*.pyc
+*.pyo
+*.pyd
+.Python
 env/
-ENV/
-test_env/
-test_from_pypi/
-test_minimal/
+venv/
+.venv/
+*.egg-info/
 
-# ===== IDE =====
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Environment variables (contains secrets)
+.env
+.env.local
+
+# IDE
 .idea/
 .vscode/
 *.code-workspace
 
-# ===== System =====
+# OS
 .DS_Store
-Icon?
 Thumbs.db
+Icon?
 
-# ===== LaTeX auxiliaries =====
-*.aux
-*.bbl
-*.blg
-*.fls
-*.synctex.gz
-*.toc
-*.fdb_latexmk
-*.nav
-*.snm
-*.vrb
-
-# ===== Project-specific data (heavy) =====
-data/
-*.tar
-*.db
-liar_dataset.zip
+# Large data files (TREC corpus)
 TREC_AP_88-90_complet.tar
+*.tar
+*.tar.gz
 
-# ===== Deployment =====
-syscred-space/
-syscred-hf-deploy/
+# Build/Deploy artifacts
+liar_dataset.zip
+*.zip
 
-# ===== Deprecated / Archive (local only) =====
-DEV/
-SysCRED_v2.1_Update/
-systemFactChecking_Work/
-v2_syscred/
-syscred_legacy/
+# Aider (AI coding assistant)
+.aider.*
 
-# ===== Logs and temp =====
+# Docker
 *.log
-server.log
 
-# ===== Credentials =====
-.env
-cle*
-*.key
+# Database
+instance/
+*.db
+*.sqlite3
 
-# ===== Testing =====
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
+# Misc
+generated_image-*.png
