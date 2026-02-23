@@ -977,7 +977,7 @@ class CredibilityVerificationSystem:
         ner_entities = {}
         if self.ner_analyzer and cleaned_text:
             try:
-                ner_entities = self.ner_analyzer.analyze(cleaned_text)
+                ner_entities = self.ner_analyzer.extract_entities(cleaned_text)
                 total = sum(len(v) for v in ner_entities.values() if isinstance(v, list))
                 print(f"[SysCRED] NER: {total} entites detectees")
             except Exception as e:
@@ -987,20 +987,23 @@ class CredibilityVerificationSystem:
         eeat_scores = {}
         if self.eeat_calculator:
             try:
-                domain = ""
-                if is_url:
-                    from urllib.parse import urlparse as _urlparse
-                    domain = _urlparse(input_data).netloc
+                url_for_eeat = input_data if is_url else ""
+                domain_age_years = None
+                if external_data.domain_age_days:
+                    domain_age_years = external_data.domain_age_days / 365.0
+                
                 eeat_raw = self.eeat_calculator.calculate(
-                    domain=domain,
+                    url=url_for_eeat,
                     text=cleaned_text,
-                    reputation=getattr(external_data, "source_reputation", "Unknown"),
-                    domain_age_days=getattr(external_data, "domain_age_days", None),
-                    is_https=input_data.startswith("https://") if is_url else False
+                    nlp_analysis=nlp_results,
+                    fact_checks=rule_results.get('fact_checking', []),
+                    domain_age_years=domain_age_years,
+                    has_https=input_data.startswith("https://") if is_url else False
                 )
-                eeat_scores = eeat_raw if isinstance(eeat_raw, dict) else vars(eeat_raw)
-                total_eeat = eeat_scores.get("total", eeat_scores.get("score", "N/A"))
-                print(f"[SysCRED] E-E-A-T score total: {total_eeat}")
+                eeat_scores = eeat_raw.to_dict() if hasattr(eeat_raw, 'to_dict') else (
+                    eeat_raw if isinstance(eeat_raw, dict) else vars(eeat_raw)
+                )
+                print(f"[SysCRED] E-E-A-T score: {eeat_scores.get('overall', 'N/A')}")
             except Exception as e:
                 print(f"[SysCRED] E-E-A-T failed: {e}")
 
