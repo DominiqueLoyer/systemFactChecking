@@ -654,6 +654,20 @@ cred1:Report_20260223_140608_1 a cred1:RapportEvaluation ;
     cred1:isReportOf cred1:Request_20260223_140608_1 ;
     cred1:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
 
+cred1:Report_20260223_143602_1 a cred1:RapportEvaluation ;
+    cred1:assignsCredibilityLevel cred1:Niveau_Bas ;
+    cred1:basedOnEvidence cred1:Evidence_20260223_143602_1_0,
+        cred1:Evidence_20260223_143602_1_1,
+        cred1:Evidence_20260223_143602_1_2,
+        cred1:Evidence_20260223_143602_1_3,
+        cred1:Evidence_20260223_143602_1_4 ;
+    cred1:completionTimestamp "2026-02-23T14:36:02.858694"^^xsd:dateTime ;
+    cred1:credibilityScoreValue "0.29"^^xsd:float ;
+    cred1:includesNLPResult cred1:NLPResult_20260223_143602_1 ;
+    cred1:includesSourceAnalysis cred1:SourceAnalysis_20260223_143602_1 ;
+    cred1:isReportOf cred1:Request_20260223_143602_1 ;
+    cred1:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
+
 cred1:Evidence_20260129_173754_1_0 a cred1:Evidence,
         cred1:RefutingEvidence ;
     cred1:evidenceSnippet "\"If you take a look at those five or six tweets [on Jan. 6], you will see very beautiful, very heartwarming statements.\""^^xsd:string .
@@ -918,6 +932,36 @@ cred1:Evidence_20260223_134009_1_4 a cred1:PreuveFactuelle ;
     cred1:evidenceClaim "August temperature comparison shows CO2-driven global warming is a 'hoax'"^^xsd:string ;
     cred1:evidenceSource "USA Today"^^xsd:string ;
     cred1:evidenceURL "https://www.usatoday.com/story/news/factcheck/2024/09/13/hot-august-1983-climate-hoax-fact-check/75176844007/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False"^^xsd:string .
+
+cred1:Evidence_20260223_143602_1_0 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Past climate change shows modern climate change is not caused by humans"^^xsd:string ;
+    cred1:evidenceSource "USA Today"^^xsd:string ;
+    cred1:evidenceURL "https://www.usatoday.com/story/news/factcheck/2025/01/30/climate-change-caused-by-humans-fact-check/77959793007/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False"^^xsd:string .
+
+cred1:Evidence_20260223_143602_1_1 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "NASA admitted that climate change is due to the Earth’s orbit around the sun, not greenhouse gas emissions."^^xsd:string ;
+    cred1:evidenceSource "AP News"^^xsd:string ;
+    cred1:evidenceURL "https://apnews.com/article/fact-check-NASA-climate-change-547058505788"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False"^^xsd:string .
+
+cred1:Evidence_20260223_143602_1_2 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Climate change not caused by humans; sun, moon cause extreme heat events"^^xsd:string ;
+    cred1:evidenceSource "USA Today"^^xsd:string ;
+    cred1:evidenceURL "https://www.usatoday.com/story/news/factcheck/2022/12/22/fact-check-climate-change-caused-humans-and-worsens-heat-waves/10828425002/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False"^^xsd:string .
+
+cred1:Evidence_20260223_143602_1_3 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "August temperature comparison shows CO2-driven global warming is a 'hoax'"^^xsd:string ;
+    cred1:evidenceSource "USA Today"^^xsd:string ;
+    cred1:evidenceURL "https://www.usatoday.com/story/news/factcheck/2024/09/13/hot-august-1983-climate-hoax-fact-check/75176844007/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False"^^xsd:string .
+
+cred1:Evidence_20260223_143602_1_4 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Sea ice and temperature data show climate change is a hoax"^^xsd:string ;
+    cred1:evidenceSource "USA Today"^^xsd:string ;
+    cred1:evidenceURL "https://www.usatoday.com/story/news/factcheck/2025/02/14/global-temperature-sea-ice-fact-check/78389070007/"^^xsd:anyURI ;
     cred1:evidenceVerdict "False"^^xsd:string .
 
 cred1:Info_20260128_084225_1 a cred1:InformationMoyenneCredibilite,
@@ -1584,6 +1628,10 @@ cred1:Info_20260223_140608_1 a cred1:InformationMoyenneCredibilite,
         cred1:InformationSoumise ;
     cred1:informationContent "Scientists at NASA confirm that climate change is primarily caused by human activities and burning of fossil fuels."^^xsd:string .
 
+cred1:Info_20260223_143602_1 a cred1:InformationFaibleCredibilite,
+        cred1:InformationSoumise ;
+    cred1:informationContent "Climate change is caused by greenhouse gases from burning fossil fuels."^^xsd:string .
+
 cred1:NLPResult_20260128_084225_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "1.0"^^xsd:float .
 
@@ -2078,6 +2126,10 @@ cred1:NLPResult_20260223_134009_1 a cred1:ResultatNLP ;
 cred1:NLPResult_20260223_140608_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "0.7"^^xsd:float ;
     cred1:sentimentScore "0.9333357810974121"^^xsd:float .
+
+cred1:NLPResult_20260223_143602_1 a cred1:ResultatNLP ;
+    cred1:coherenceScore "0.7"^^xsd:float ;
+    cred1:sentimentScore "0.9517225027084351"^^xsd:float .
 
 cred1:Report_20260203_110508_1 a cred1:RapportEvaluation ;
     cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
@@ -3242,6 +3294,11 @@ cred1:Request_20260223_140608_1 a cred1:RequeteEvaluation ;
     cred1:requestStatus "Completed"^^xsd:string ;
     cred1:submissionTimestamp "2026-02-23T14:06:08.581199"^^xsd:dateTime .
 
+cred1:Request_20260223_143602_1 a cred1:RequeteEvaluation ;
+    cred1:concernsInformation cred1:Info_20260223_143602_1 ;
+    cred1:requestStatus "Completed"^^xsd:string ;
+    cred1:submissionTimestamp "2026-02-23T14:36:02.858694"^^xsd:dateTime .
+
 cred1:SourceAnalysis_20260128_084225_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "Unknown"^^xsd:string .
 
@@ -3732,6 +3789,9 @@ cred1:SourceAnalysis_20260223_134009_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
 
 cred1:SourceAnalysis_20260223_140608_1 a cred1:InfoSourceAnalyse ;
+    cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred1:SourceAnalysis_20260223_143602_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
 
 cred1:Report_20260130_142430_1 a cred1:RapportEvaluation ;
