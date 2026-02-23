@@ -22,12 +22,16 @@ import traceback
 from pathlib import Path
 try:
     from dotenv import load_dotenv
-    env_path = Path(__file__).parent / '.env'
+    # .env is at project root (parent of syscred/)
+    env_path = Path(__file__).resolve().parent.parent / '.env'
+    if not env_path.exists():
+        # Fallback: check syscred/ directory
+        env_path = Path(__file__).parent / '.env'
     if env_path.exists():
         load_dotenv(env_path)
         print(f"[SysCRED Backend] Loaded .env from {env_path}")
     else:
-        print(f"[SysCRED Backend] No .env file found at {env_path}")
+        print(f"[SysCRED Backend] No .env file found, using system env vars")
 except ImportError:
     print("[SysCRED Backend] python-dotenv not installed, using system env vars")
 
@@ -84,6 +88,16 @@ except ImportError as e:
 # --- Initialize Flask App ---
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend
+
+# Allow iframe embedding on UQAM domains (for syscred.uqam.ca mirror)
+@app.after_request
+def add_security_headers(response):
+    """Add security headers allowing UQAM iframe embedding."""
+    response.headers['X-Frame-Options'] = 'ALLOW-FROM https://syscred.uqam.ca'
+    response.headers['Content-Security-Policy'] = (
+        "frame-ancestors 'self' https://syscred.uqam.ca https://*.uqam.ca"
+    )
+    return response
 
 # Initialize Database
 try:
