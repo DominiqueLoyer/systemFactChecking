@@ -1040,32 +1040,27 @@
             const score = data.scoreCredibilite || 0;
             scoreValue.textContent = score.toFixed(2);
 
-            // Conditional Display: Hide Score Card if TEXT input, show if URL
+            // Always show Score Card (for both URL and text input)
             const isUrl = data.informationEntree && data.informationEntree.startsWith('http');
             const scoreCard = document.querySelector('.score-card');
+            scoreCard.style.display = 'block';
+            
+            // Color based on score
+            scoreValue.className = 'score-value';
+            credibilityBadge.className = 'credibility-badge';
 
-            if (isUrl) {
-                scoreCard.style.display = 'block';
-                // Color based on score
-                scoreValue.className = 'score-value';
-                credibilityBadge.className = 'credibility-badge';
-
-                if (score >= 0.7) {
-                    scoreValue.classList.add('score-high');
-                    credibilityBadge.classList.add('badge-high');
-                    credibilityBadge.textContent = '✓ Crédibilité Élevée';
-                } else if (score >= 0.4) {
-                    scoreValue.classList.add('score-medium');
-                    credibilityBadge.classList.add('badge-medium');
-                    credibilityBadge.textContent = '⚠ Crédibilité Moyenne';
-                } else {
-                    scoreValue.classList.add('score-low');
-                    credibilityBadge.classList.add('badge-low');
-                    credibilityBadge.textContent = '✗ Crédibilité Faible';
-                }
+            if (score >= 0.7) {
+                scoreValue.classList.add('score-high');
+                credibilityBadge.classList.add('badge-high');
+                credibilityBadge.textContent = '✓ Crédibilité Élevée';
+            } else if (score >= 0.4) {
+                scoreValue.classList.add('score-medium');
+                credibilityBadge.classList.add('badge-medium');
+                credibilityBadge.textContent = '⚠ Crédibilité Moyenne';
             } else {
-                // Hide score card for text queries as requested
-                scoreCard.style.display = 'none';
+                scoreValue.classList.add('score-low');
+                credibilityBadge.classList.add('badge-low');
+                credibilityBadge.textContent = '✗ Crédibilité Faible';
             }
 
             // Summary
@@ -1230,7 +1225,7 @@
             // DISPLAY E-E-A-T METRICS
             // ========================================
             const eeatSection = document.getElementById('eeatSection');
-            const eeatData = data.eeat_score || data.eeatMetrics || null;
+            const eeatData = data.eeat_scores || data.eeat_score || data.eeatMetrics || null;
             
             if (eeatData) {
                 eeatSection.style.display = 'block';
@@ -1885,6 +1880,127 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeExplainer();
         });
+        
+        // === TREC EXPLAINER ===
+        function showTRECExplainer() {
+            const modal = document.getElementById('explainerModal');
+            const body = document.getElementById('explainerBody');
+            
+            const trecData = lastAnalysisData ? (lastAnalysisData.trec_metrics || {}) : {};
+            
+            body.innerHTML = `
+                <div class="metric-explain" style="border-left-color: #8b5cf6;">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">📈</span>
+                        <span class="metric-explain-name">Métriques IR (TREC)</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        Ces métriques évaluent la qualité de la <strong>recherche d'information</strong> pour vérifier vos affirmations.
+                        Elles sont inspirées du protocole <strong>TREC (Text REtrieval Conference)</strong> du NIST.
+                    </div>
+                </div>
+                
+                <div class="metric-explain">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">🎯</span>
+                        <span class="metric-explain-name">Precision (P@K)</span>
+                        <span class="metric-explain-value">${trecData.precision ? (trecData.precision * 100).toFixed(1) + '%' : '--'}</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        Parmi les documents retrouvés, combien sont <strong>pertinents</strong> ?<br>
+                        100% = tous les documents trouvés sont pertinents.
+                    </div>
+                    <div class="metric-explain-detail">
+                        P@K = |pertinents ∩ retrouvés| / K
+                    </div>
+                </div>
+                
+                <div class="metric-explain">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">📊</span>
+                        <span class="metric-explain-name">Recall (R@K)</span>
+                        <span class="metric-explain-value">${trecData.recall ? (trecData.recall * 100).toFixed(1) + '%' : '--'}</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        Parmi <strong>tous</strong> les documents pertinents du corpus, combien avons-nous retrouvé ?<br>
+                        100% = nous avons trouvé tous les documents pertinents.
+                    </div>
+                    <div class="metric-explain-detail">
+                        R@K = |pertinents ∩ retrouvés| / |pertinents|
+                    </div>
+                </div>
+                
+                <div class="metric-explain">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">📐</span>
+                        <span class="metric-explain-name">MAP (Mean Average Precision)</span>
+                        <span class="metric-explain-value">${trecData.map ? trecData.map.toFixed(3) : '--'}</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        Mesure la <strong>qualité globale</strong> du classement des résultats.<br>
+                        Plus le MAP est élevé, plus les documents pertinents apparaissent en haut.
+                    </div>
+                    <div class="metric-explain-detail">
+                        MAP = moyenne des précisions à chaque rang où un document pertinent est trouvé.
+                    </div>
+                </div>
+                
+                <div class="metric-explain">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">📉</span>
+                        <span class="metric-explain-name">NDCG (Normalized DCG)</span>
+                        <span class="metric-explain-value">${trecData.ndcg ? trecData.ndcg.toFixed(3) : '--'}</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        Évalue si les <strong>meilleurs résultats</strong> sont en haut de la liste.<br>
+                        Pénalise les documents pertinents qui apparaissent trop bas.
+                    </div>
+                    <div class="metric-explain-detail">
+                        NDCG = DCG@K / IDCG@K (gain cumulatif normalisé avec décroissance logarithmique).
+                    </div>
+                </div>
+                
+                <div class="metric-explain">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">🔢</span>
+                        <span class="metric-explain-name">TF-IDF Score</span>
+                        <span class="metric-explain-value">${trecData.tfidf_score ? trecData.tfidf_score.toFixed(3) : '--'}</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        Score de <strong>pertinence textuelle</strong> du meilleur document trouvé.<br>
+                        Plus le score est élevé, plus le document correspond à votre requête.
+                    </div>
+                    <div class="metric-explain-detail">
+                        TF-IDF = Term Frequency × Inverse Document Frequency (importance du terme dans le corpus).
+                    </div>
+                </div>
+                
+                <div class="metric-explain">
+                    <div class="metric-explain-header">
+                        <span class="metric-explain-icon">🥇</span>
+                        <span class="metric-explain-name">MRR (Mean Reciprocal Rank)</span>
+                        <span class="metric-explain-value">${trecData.mrr ? trecData.mrr.toFixed(3) : '--'}</span>
+                    </div>
+                    <div class="metric-explain-simple">
+                        À quel <strong>rang</strong> apparaît le premier document pertinent ?<br>
+                        1.0 = le premier résultat est pertinent, 0.5 = le deuxième, etc.
+                    </div>
+                    <div class="metric-explain-detail">
+                        MRR = 1 / rang du premier document pertinent trouvé.
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(139, 92, 246, 0.1); border-radius: 12px; border: 1px dashed rgba(139, 92, 246, 0.3);">
+                    <strong style="color: #a78bfa;">📚 Corpus utilisé</strong>
+                    <p style="margin-top: 0.5rem; color: #8b8ba7; font-size: 0.9rem;">
+                        Actuellement: corpus de démonstration (7 documents).<br>
+                        En développement: corpus TREC AP88-90 (243 000 documents).
+                    </p>
+                </div>
+            `;
+            
+            modal.classList.add('visible');
+        }
     </script>
 </body>
 
