@@ -3,6 +3,7 @@
 Database Manager for SysCRED
 ===========================
 Handles connection to Supabase (PostgreSQL) and defines models.
+Falls back to SQLite if PostgreSQL is unavailable.
 """
 
 import os
@@ -32,23 +33,38 @@ class AnalysisResult(db.Model):
             'url': self.url,
             'score': self.credibility_score,
             'summary': self.summary,
-            'created_at': self.created_at.isoformat(),
+            'created_at': self.created_at.isoformat() if self.created_at else None,
             'source_reputation': self.source_reputation
         }
 
 def init_db(app):
     """Initialize the database with the Flask app."""
-    # Fallback to sqlite for local dev if no DATABASE_URL
-    db_url = os.environ.get('DATABASE_URL')
+    # Use SYSCRED_DATABASE_URL first (from .env), fallback to DATABASE_URL (from Render/HF)
+    db_url = os.environ.get('SYSCRED_DATABASE_URL') or os.environ.get('DATABASE_URL')
     if db_url and db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
+    
+    # Test PostgreSQL reachability before committing to it
+    if db_url and 'postgresql' in db_url:
+        try:
+            import socket
+            from urllib.parse import urlparse
+            parsed = urlparse(db_url)
+            socket.getaddrinfo(parsed.hostname, parsed.port or 5432)
+        except (socket.gaierror, Exception) as e:
+            print(f"[SysCRED-DB] PostgreSQL host unreachable ({parsed.hostname}): {e}")
+            print("[SysCRED-DB] Falling back to SQLite...")
+            db_url = None  # Force SQLite fallback
     
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url or 'sqlite:///syscred.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     db.init_app(app)
     
-    # Create tables if they don't exist (basic migration)
     with app.app_context():
-        db.create_all()
-        print("[SysCRED-DB] Database tables initialized.")
+        try:
+            db.create_all()
+            db_type = 'PostgreSQL (Supabase)' if db_url else 'SQLite (local)'
+            print(f"[SysCRED-DB] Database initialized: {db_type}")
+        except Exception as e:
+            print(f"[SysCRED-DB] Database init error: {e}")

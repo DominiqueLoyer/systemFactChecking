@@ -1,198 +1,283 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-NER Analyzer Module - SysCRED
-==============================
-Named Entity Recognition for fact-checking enhancement.
+Named Entity Recognition (NER) Analyzer for SysCRED
+====================================================
+Extracts named entities from text using spaCy.
 
-Extracts: PERSON, ORG, GPE, DATE, MISC entities
-
-(c) Dominique S. Loyer - PhD Thesis Prototype
+Entities detected:
+- PER: Persons (Donald Trump, Emmanuel Macron)
+- ORG: Organizations (FBI, UN, Google)
+- LOC: Locations (Paris, Capitol)
+- DATE: Dates (January 6, 2021)
+- MONEY: Amounts ($10 million)
+- EVENT: Events (insurrection, election)
 """
 
-import os
+from typing import Dict, List, Any, Optional
+import logging
 
-# Check for spaCy
+# Try to import spaCy
 try:
     import spacy
+    from spacy.language import Language
     HAS_SPACY = True
 except ImportError:
     HAS_SPACY = False
-    print("[NER] spaCy not installed. NER disabled.")
+    spacy = None
+
+logger = logging.getLogger(__name__)
 
 
 class NERAnalyzer:
     """
-    Named Entity Recognition using spaCy.
+    Named Entity Recognition analyzer using spaCy.
     
-    Supports:
-    - French (fr_core_news_md)
-    - English (en_core_web_sm)
+    Supports French (fr_core_news_md) and English (en_core_web_md).
+    Falls back to heuristic extraction if spaCy is not available.
     """
     
-    # Entity type mapping with icons
-    ENTITY_ICONS = {
-        'PERSON': '👤',
-        'PER': '👤',
-        'ORG': '🏢',
-        'GPE': '📍',
-        'LOC': '📍',
-        'DATE': '📅',
-        'TIME': '🕐',
-        'MONEY': '💰',
-        'MISC': '🏷️',
-        'NORP': '👥',
-        'FAC': '🏛️',
-        'PRODUCT': '📦',
-        'EVENT': '🎉',
-        'WORK_OF_ART': '🎨',
-        'LAW': '⚖️',
-        'LANGUAGE': '🗣️',
+    # Entity type mappings for display
+    ENTITY_LABELS = {
+        'PER': {'fr': 'Personne', 'en': 'Person', 'emoji': '👤'},
+        'PERSON': {'fr': 'Personne', 'en': 'Person', 'emoji': '👤'},
+        'ORG': {'fr': 'Organisation', 'en': 'Organization', 'emoji': '🏢'},
+        'LOC': {'fr': 'Lieu', 'en': 'Location', 'emoji': '📍'},
+        'GPE': {'fr': 'Lieu géopolitique', 'en': 'Geopolitical', 'emoji': '🌍'},
+        'DATE': {'fr': 'Date', 'en': 'Date', 'emoji': '📅'},
+        'TIME': {'fr': 'Heure', 'en': 'Time', 'emoji': '⏰'},
+        'MONEY': {'fr': 'Montant', 'en': 'Money', 'emoji': '💰'},
+        'PERCENT': {'fr': 'Pourcentage', 'en': 'Percent', 'emoji': '📊'},
+        'EVENT': {'fr': 'Événement', 'en': 'Event', 'emoji': '📰'},
+        'PRODUCT': {'fr': 'Produit', 'en': 'Product', 'emoji': '📦'},
+        'LAW': {'fr': 'Loi', 'en': 'Law', 'emoji': '⚖️'},
+        'NORP': {'fr': 'Groupe', 'en': 'Group', 'emoji': '👥'},
+        'MISC': {'fr': 'Divers', 'en': 'Miscellaneous', 'emoji': '🔖'},
     }
     
-    def __init__(self, language: str = 'en'):
+    def __init__(self, model_name: str = "fr_core_news_md", fallback: bool = True):
         """
         Initialize NER analyzer.
         
         Args:
-            language: 'en' or 'fr'
+            model_name: spaCy model to load (fr_core_news_md, en_core_web_md)
+            fallback: If True, use heuristics when spaCy unavailable
         """
-        self.language = language
+        self.model_name = model_name
+        self.fallback = fallback
         self.nlp = None
-        self.enabled = False
+        self.use_heuristics = False
         
         if HAS_SPACY:
-            self._load_model()
-    
-    def _load_model(self):
-        """Load the appropriate spaCy model."""
-        models = {
-            'en': ['en_core_web_sm', 'en_core_web_md'],
-            'fr': ['fr_core_news_md', 'fr_core_news_sm']
-        }
-        
-        for model_name in models.get(self.language, models['en']):
             try:
                 self.nlp = spacy.load(model_name)
-                self.enabled = True
-                print(f"[NER] Loaded model: {model_name}")
-                break
-            except OSError:
-                continue
-        
-        if not self.enabled:
-            print(f"[NER] No model found for language: {self.language}")
+                logger.info(f"[NER] Loaded spaCy model: {model_name}")
+            except OSError as e:
+                logger.warning(f"[NER] Could not load model {model_name}: {e}")
+                if fallback:
+                    self.use_heuristics = True
+                    logger.info("[NER] Using heuristic entity extraction")
+        else:
+            if fallback:
+                self.use_heuristics = True
+                logger.info("[NER] spaCy not installed. Using heuristic extraction")
     
-    def extract_entities(self, text: str) -> dict:
+    def extract_entities(self, text: str) -> Dict[str, List[Dict[str, Any]]]:
         """
         Extract named entities from text.
         
+        Args:
+            text: Input text to analyze
+            
         Returns:
-            {
-                'entities': [
-                    {'text': 'Emmanuel Macron', 'type': 'PERSON', 'icon': '👤'},
-                    ...
-                ],
-                'summary': {
-                    'PERSON': ['Emmanuel Macron'],
-                    'ORG': ['UQAM', 'Google'],
-                    ...
-                }
-            }
+            Dictionary mapping entity types to lists of entities
+            Each entity has: text, start, end, label, label_display, emoji, confidence
         """
-        if not self.enabled or not text:
-            return {'entities': [], 'summary': {}}
+        if not text or len(text.strip()) == 0:
+            return {}
         
+        if self.nlp:
+            return self._extract_with_spacy(text)
+        elif self.use_heuristics:
+            return self._extract_with_heuristics(text)
+        else:
+            return {}
+    
+    def _extract_with_spacy(self, text: str) -> Dict[str, List[Dict[str, Any]]]:
+        """Extract entities using spaCy NLP."""
         doc = self.nlp(text)
-        
-        entities = []
-        summary = {}
-        seen = set()
+        entities: Dict[str, List[Dict[str, Any]]] = {}
         
         for ent in doc.ents:
-            # Avoid duplicates
-            key = (ent.text.lower(), ent.label_)
-            if key in seen:
-                continue
-            seen.add(key)
+            label = ent.label_
             
-            entity = {
+            # Get display info
+            label_info = self.ENTITY_LABELS.get(label, {
+                'fr': label, 
+                'en': label, 
+                'emoji': '🔖'
+            })
+            
+            entity_data = {
                 'text': ent.text,
-                'type': ent.label_,
-                'icon': self.ENTITY_ICONS.get(ent.label_, '🏷️'),
                 'start': ent.start_char,
-                'end': ent.end_char
+                'end': ent.end_char,
+                'label': label,
+                'label_display': label_info.get('fr', label),
+                'emoji': label_info.get('emoji', '🔖'),
+                'confidence': 0.85  # spaCy doesn't provide confidence by default
             }
-            entities.append(entity)
             
-            # Group by type
-            if ent.label_ not in summary:
-                summary[ent.label_] = []
-            summary[ent.label_].append(ent.text)
+            if label not in entities:
+                entities[label] = []
+            
+            # Avoid duplicates
+            if not any(e['text'].lower() == entity_data['text'].lower() for e in entities[label]):
+                entities[label].append(entity_data)
         
-        return {
-            'entities': entities,
-            'summary': summary,
-            'count': len(entities)
-        }
+        return entities
     
-    def analyze_for_factcheck(self, text: str) -> dict:
+    def _extract_with_heuristics(self, text: str) -> Dict[str, List[Dict[str, Any]]]:
         """
-        Analyze text for fact-checking relevance.
-        
-        Returns entities with credibility hints.
+        Fallback heuristic entity extraction.
+        Uses pattern matching for common entities.
         """
-        result = self.extract_entities(text)
+        import re
+        entities: Dict[str, List[Dict[str, Any]]] = {}
         
-        # Add fact-checking hints
-        hints = []
+        # Common patterns
+        patterns = {
+            'PER': [
+                # Known political figures
+                r'\b(Donald Trump|Joe Biden|Emmanuel Macron|Hillary Clinton|Barack Obama|'
+                r'Vladimir Putin|Angela Merkel|Justin Trudeau|Boris Johnson)\b',
+            ],
+            'ORG': [
+                r'\b(FBI|CIA|NSA|ONU|NATO|OTAN|Google|Facebook|Twitter|Meta|'
+                r'Amazon|Microsoft|Apple|CNN|BBC|Le Monde|New York Times|'
+                r'Parti Républicain|Parti Démocrate|Republican Party|Democratic Party)\b',
+            ],
+            'LOC': [
+                r'\b(Capitol|White House|Maison Blanche|Kremlin|Élysée|Pentagon|'
+                r'New York|Washington|Paris|Londres|Moscou|Berlin|Beijing)\b',
+            ],
+            'DATE': [
+                r'\b(\d{1,2}\s+(janvier|février|mars|avril|mai|juin|juillet|août|'
+                r'septembre|octobre|novembre|décembre)\s+\d{4})\b',
+                r'\b(\d{1,2}[-/]\d{1,2}[-/]\d{2,4})\b',
+                r'\b(January|February|March|April|May|June|July|August|'
+                r'September|October|November|December)\s+\d{1,2},?\s+\d{4}\b',
+            ],
+            'MONEY': [
+                r'\$[\d,]+(?:\.\d{2})?(?:\s*(?:million|billion|trillion))?',
+                r'[\d,]+(?:\.\d{2})?\s*(?:dollars?|euros?|€|\$)',
+                r'[\d,]+\s*(?:million|milliard)s?\s*(?:de\s+)?(?:dollars?|euros?)',
+            ],
+            'PERCENT': [
+                r'\b\d+(?:\.\d+)?%',
+                r'\b\d+(?:\.\d+)?\s*pour\s*cent',
+                r'\b\d+(?:\.\d+)?\s*percent',
+            ],
+        }
         
-        for ent in result.get('entities', []):
-            if ent['type'] in ['PERSON', 'PER']:
-                hints.append(f"Verify claims about {ent['text']}")
-            elif ent['type'] == 'ORG':
-                hints.append(f"Check {ent['text']} official sources")
-            elif ent['type'] in ['GPE', 'LOC']:
-                hints.append(f"Verify location: {ent['text']}")
-            elif ent['type'] == 'DATE':
-                hints.append(f"Confirm date: {ent['text']}")
+        for label, pattern_list in patterns.items():
+            label_info = self.ENTITY_LABELS.get(label, {'fr': label, 'emoji': '🔖'})
+            
+            for pattern in pattern_list:
+                for match in re.finditer(pattern, text, re.IGNORECASE):
+                    entity_data = {
+                        'text': match.group(),
+                        'start': match.start(),
+                        'end': match.end(),
+                        'label': label,
+                        'label_display': label_info.get('fr', label),
+                        'emoji': label_info.get('emoji', '🔖'),
+                        'confidence': 0.70  # Lower confidence for heuristics
+                    }
+                    
+                    if label not in entities:
+                        entities[label] = []
+                    
+                    # Avoid duplicates
+                    if not any(e['text'].lower() == entity_data['text'].lower() 
+                              for e in entities[label]):
+                        entities[label].append(entity_data)
         
-        result['fact_check_hints'] = hints[:5]  # Top 5 hints
+        return entities
+    
+    def get_entity_summary(self, entities: Dict[str, List[Dict[str, Any]]]) -> str:
+        """
+        Generate a human-readable summary of extracted entities.
+        
+        Args:
+            entities: Dictionary of entities from extract_entities()
+            
+        Returns:
+            Formatted string summary
+        """
+        if not entities:
+            return "Aucune entité nommée détectée."
+        
+        lines = []
+        for label, ent_list in entities.items():
+            label_info = self.ENTITY_LABELS.get(label, {'fr': label, 'emoji': '🔖'})
+            emoji = label_info.get('emoji', '🔖')
+            label_display = label_info.get('fr', label)
+            
+            entity_texts = [e['text'] for e in ent_list[:5]]  # Limit to 5
+            lines.append(f"{emoji} {label_display}: {', '.join(entity_texts)}")
+        
+        return "\n".join(lines)
+    
+    def to_frontend_format(self, entities: Dict[str, List[Dict[str, Any]]]) -> List[Dict]:
+        """
+        Convert entities to frontend-friendly format.
+        
+        Returns:
+            List of entities with all info for display
+        """
+        result = []
+        for label, ent_list in entities.items():
+            for ent in ent_list:
+                result.append({
+                    'text': ent['text'],
+                    'type': ent['label'],
+                    'type_display': ent.get('label_display', ent['label']),
+                    'emoji': ent.get('emoji', '🔖'),
+                    'confidence': ent.get('confidence', 0.5),
+                    'confidence_pct': f"{int(ent.get('confidence', 0.5) * 100)}%"
+                })
+        
+        # Sort by confidence
+        result.sort(key=lambda x: x['confidence'], reverse=True)
         return result
 
 
-# Singleton instance
-_analyzer = None
-
-def get_analyzer(language: str = 'en') -> NERAnalyzer:
-    """Get or create the NER analyzer singleton."""
-    global _analyzer
-    if _analyzer is None:
-        _analyzer = NERAnalyzer(language)
-    return _analyzer
+# Singleton instance for easy import
+_ner_analyzer: Optional[NERAnalyzer] = None
 
 
-# --- Testing ---
+def get_ner_analyzer(model_name: str = "fr_core_news_md") -> NERAnalyzer:
+    """Get or create singleton NER analyzer instance."""
+    global _ner_analyzer
+    if _ner_analyzer is None:
+        _ner_analyzer = NERAnalyzer(model_name=model_name, fallback=True)
+    return _ner_analyzer
+
+
+# Quick test
 if __name__ == "__main__":
-    print("=" * 60)
-    print("SysCRED NER Analyzer - Test")
-    print("=" * 60)
-    
-    analyzer = NERAnalyzer('en')
+    analyzer = NERAnalyzer(fallback=True)
     
     test_text = """
-    Emmanuel Macron announced today that France will invest €500 million 
-    in AI research. The announcement was made at the UQAM in Montreal, Canada 
-    on February 8, 2026. Google and Microsoft also confirmed their participation.
+    Donald Trump a affirmé que l'insurrection du 6 janvier 2021 au Capitol n'est jamais arrivée.
+    Le FBI enquête sur les événements. Le président Joe Biden a condamné ces déclarations à Washington.
+    Les dégâts sont estimés à 30 millions de dollars.
     """
     
-    result = analyzer.analyze_for_factcheck(test_text)
-    
-    print("\n--- Entities Found ---")
-    for ent in result['entities']:
-        print(f"  {ent['icon']} {ent['text']} ({ent['type']})")
-    
-    print("\n--- Fact-Check Hints ---")
-    for hint in result.get('fact_check_hints', []):
-        print(f"  • {hint}")
-    
-    print("\n" + "=" * 60)
+    entities = analyzer.extract_entities(test_text)
+    print("=== Entités détectées ===")
+    print(analyzer.get_entity_summary(entities))
+    print("\n=== Format Frontend ===")
+    for e in analyzer.to_frontend_format(entities):
+        print(f"  {e['emoji']} {e['text']} ({e['type_display']}, {e['confidence_pct']})")

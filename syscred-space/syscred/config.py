@@ -23,23 +23,22 @@ from pathlib import Path
 from typing import Dict, Optional
 from dotenv import load_dotenv
 
-# Charger les variables depuis .env
 # Charger les variables depuis .env (Project Root)
-# Path: .../systemFactChecking/02_Code/syscred/config.py
-# Root .env is at .../systemFactChecking/.env (3 levels up)
+# Path: .../systemFactChecking/syscred/config.py
+# Root .env is at .../systemFactChecking/.env (1 level up from syscred/)
 current_path = Path(__file__).resolve()
-env_path = current_path.parent.parent.parent / '.env'
+env_path = current_path.parent.parent / '.env'
 
-try:
-    if not env_path.exists():
-        print(f"[Config] WARNING: .env not found at {env_path}")
-        # Try alternate location (sometimes CWD matters)
-        env_path = Path.cwd().parent / '.env'
-        
-    load_dotenv(dotenv_path=env_path)
-    print(f"[Config] Loading .env from {env_path}")
-except PermissionError:
-    print(f"[Config] Permission denied for .env, using system env vars")
+if not env_path.exists():
+    print(f"[Config] WARNING: .env not found at {env_path}")
+    # Try alternate locations
+    for alt in [Path.cwd() / '.env', Path.cwd().parent / '.env']:
+        if alt.exists():
+            env_path = alt
+            break
+    
+load_dotenv(dotenv_path=env_path)
+print(f"[Config] Loading .env from {env_path}")
 print(f"[Config] SYSCRED_GOOGLE_API_KEY loaded: {'Yes' if os.environ.get('SYSCRED_GOOGLE_API_KEY') else 'No'}")
 
 
@@ -53,8 +52,9 @@ class Config:
     """
     
     # === Chemins ===
+    # BASE_DIR = project root (parent of syscred/)
     BASE_DIR = Path(__file__).parent.parent
-    ONTOLOGY_BASE_PATH = BASE_DIR / "sysCRED_onto26avrtil.ttl"
+    ONTOLOGY_BASE_PATH = BASE_DIR / "ontology" / "sysCRED_onto26avrtil.ttl"
     ONTOLOGY_DATA_PATH = BASE_DIR / "ontology" / "sysCRED_data.ttl"
     
     # === Serveur Flask ===
@@ -64,7 +64,7 @@ class Config:
     
     # === API Keys ===
     GOOGLE_FACT_CHECK_API_KEY = os.getenv("SYSCRED_GOOGLE_API_KEY")
-    DATABASE_URL = os.getenv("DATABASE_URL") # [NEW] Read DB URL from env
+    DATABASE_URL = os.getenv("SYSCRED_DATABASE_URL", os.getenv("DATABASE_URL"))  # Standardized env var
     
     # === Modèles ML ===
     # Support both SYSCRED_LOAD_ML and SYSCRED_LOAD_ML_MODELS (for Render)

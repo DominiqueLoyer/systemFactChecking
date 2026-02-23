@@ -22,15 +22,16 @@ import traceback
 from pathlib import Path
 try:
     from dotenv import load_dotenv
-    env_path = Path(__file__).parent / '.env'
-    try:
-        if env_path.exists():
-            load_dotenv(env_path)
-            print(f"[SysCRED Backend] Loaded .env from {env_path}")
-        else:
-            print(f"[SysCRED Backend] No .env file found at {env_path}")
-    except PermissionError:
-        print(f"[SysCRED Backend] Permission denied for {env_path}, using system env vars")
+    # .env is at project root (parent of syscred/)
+    env_path = Path(__file__).resolve().parent.parent / '.env'
+    if not env_path.exists():
+        # Fallback: check syscred/ directory
+        env_path = Path(__file__).parent / '.env'
+    if env_path.exists():
+        load_dotenv(env_path)
+        print(f"[SysCRED Backend] Loaded .env from {env_path}")
+    else:
+        print(f"[SysCRED Backend] No .env file found, using system env vars")
 except ImportError:
     print("[SysCRED Backend] python-dotenv not installed, using system env vars")
 
@@ -87,6 +88,16 @@ except ImportError as e:
 # --- Initialize Flask App ---
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend
+
+# Allow iframe embedding on UQAM domains (for syscred.uqam.ca mirror)
+@app.after_request
+def add_security_headers(response):
+    """Add security headers allowing UQAM iframe embedding."""
+    response.headers['X-Frame-Options'] = 'ALLOW-FROM https://syscred.uqam.ca'
+    response.headers['Content-Security-Policy'] = (
+        "frame-ancestors 'self' https://syscred.uqam.ca https://*.uqam.ca"
+    )
+    return response
 
 # Initialize Database
 try:
@@ -269,6 +280,62 @@ def verify_endpoint():
                 result['pageRankEstimation'] = {'error': str(e)}
         
         print(f"[SysCRED Backend] Score: {result.get('scoreCredibilite', 'N/A')}")
+        
+        # [NEW] TREC Evidence Search + IR Metrics
+        try:
+            global trec_retriever, eval_metrics
+            
+            # Initialize TREC if needed
+            if trec_retriever is None and TREC_AVAILABLE:
+                trec_retriever = TRECRetriever(use_stemming=True, enable_prf=False)
+                trec_retriever.corpus = TREC_DEMO_CORPUS
+                eval_metrics = EvaluationMetrics()
+                print("[SysCRED Backend] TREC Retriever initialized with demo corpus")
+            
+            if trec_retriever and eval_metrics:
+                import time
+                start_time = time.time()
+                
+                # Use the input text as query
+                query_text = input_data[:200] if not credibility_system.is_url(input_data) else result.get('informationEntree', input_data)[:200]
+                
+                trec_result = trec_retriever.retrieve_evidence(query_text, k=5, model='bm25')
+                search_time = (time.time() - start_time) * 1000
+                
+                retrieved_ids = [e.doc_id for e in trec_result.evidences]
+                
+                # Use climate-related docs as "relevant" for demo evaluation
+                # In production, this would come from qrels files
+                relevant_ids = set(TREC_DEMO_CORPUS.keys())  # All docs as relevant pool
+                
+                # Compute IR metrics
+                k = len(retrieved_ids) if retrieved_ids else 1
+                precision = eval_metrics.precision_at_k(retrieved_ids, relevant_ids, k) if retrieved_ids else 0
+                recall = eval_metrics.recall_at_k(retrieved_ids, relevant_ids, k) if retrieved_ids else 0
+                ap = eval_metrics.average_precision(retrieved_ids, relevant_ids) if retrieved_ids else 0
+                mrr = eval_metrics.mrr(retrieved_ids, relevant_ids) if retrieved_ids else 0
+                
+                relevance_dict = {doc: 1 for doc in relevant_ids}
+                ndcg = eval_metrics.ndcg_at_k(retrieved_ids, relevance_dict, k) if retrieved_ids else 0
+                
+                # TF-IDF score from top result
+                tfidf_score = trec_result.evidences[0].score if trec_result.evidences else 0
+                
+                result['trec_metrics'] = {
+                    'precision': round(precision, 4),
+                    'recall': round(recall, 4),
+                    'map': round(ap, 4),
+                    'ndcg': round(ndcg, 4),
+                    'tfidf_score': round(tfidf_score, 4),
+                    'mrr': round(mrr, 4),
+                    'retrieved_count': len(retrieved_ids),
+                    'corpus_size': len(TREC_DEMO_CORPUS),
+                    'search_time_ms': round(search_time, 2)
+                }
+                print(f"[SysCRED Backend] TREC: P={precision:.3f} R={recall:.3f} MAP={ap:.3f} NDCG={ndcg:.3f} MRR={mrr:.3f}")
+        except Exception as e:
+            print(f"[SysCRED Backend] TREC metrics error: {e}")
+            result['trec_metrics'] = {'error': str(e)}
         
         # [NEW] Persist to Database
         try:

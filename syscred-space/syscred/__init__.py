@@ -9,17 +9,19 @@ Citation Key: loyerModelingHybridSystem2025
 Modules:
 - api_clients: Web scraping, WHOIS, Fact Check APIs
 - ir_engine: BM25, QLD, TF-IDF, PRF (from TREC)
-- trec_retriever: Evidence retrieval for fact-checking (NEW v2.3)
-- trec_dataset: TREC AP88-90 data loader (NEW v2.3)
-- liar_dataset: LIAR benchmark dataset loader (NEW v2.3)
+- trec_retriever: Evidence retrieval for fact-checking (v2.3)
+- trec_dataset: TREC AP88-90 data loader (v2.3)
+- liar_dataset: LIAR benchmark dataset loader (v2.3)
 - seo_analyzer: SEO analysis, PageRank estimation
 - eval_metrics: MAP, NDCG, P@K, Recall, MRR
 - ontology_manager: RDFLib integration
 - verification_system: Main credibility pipeline
-- graph_rag: GraphRAG for contextual memory (enhanced v2.3)
+- graph_rag: GraphRAG for contextual memory (v2.3)
+- ner_analyzer: Named Entity Recognition with spaCy (v2.4)
+- eeat_calculator: Google E-E-A-T metrics (v2.4)
 """
 
-__version__ = "2.3.1"
+__version__ = "2.4.0"
 __author__ = "Dominique S. Loyer"
 __citation__ = "loyerModelingHybridSystem2025"
 
@@ -32,11 +34,15 @@ from syscred.ir_engine import IREngine
 from syscred.eval_metrics import EvaluationMetrics
 from syscred.graph_rag import GraphRAG
 
-# TREC Integration (NEW - Feb 2026)
+# NER and E-E-A-T (NEW - v2.4)
+from syscred.ner_analyzer import NERAnalyzer
+from syscred.eeat_calculator import EEATCalculator, EEATScore
+
+# TREC Integration (v2.3)
 from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
 from syscred.trec_dataset import TRECDataset, TRECTopic
 
-# LIAR Benchmark (NEW - Feb 2026)
+# LIAR Benchmark (v2.3)
 from syscred.liar_dataset import LIARDataset, LiarStatement, LiarLabel
 
 # Convenience alias
@@ -52,13 +58,17 @@ __all__ = [
     'IREngine',
     'EvaluationMetrics',
     'GraphRAG',
-    # TREC (NEW)
+    # NER & E-E-A-T (NEW v2.4)
+    'NERAnalyzer',
+    'EEATCalculator',
+    'EEATScore',
+    # TREC (v2.3)
     'TRECRetriever',
     'TRECDataset',
     'TRECTopic',
     'Evidence',
     'RetrievalResult',
-    # LIAR Benchmark (NEW)
+    # LIAR Benchmark (v2.3)
     'LIARDataset',
     'LiarStatement',
     'LiarLabel',

@@ -33,28 +33,35 @@ except ImportError:
     HAS_SBERT = False
     print("Warning: sentence-transformers not installed. Semantic coherence will use heuristics.")
 
-# Local imports
-from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
-from syscred.ontology_manager import OntologyManager
-from syscred.seo_analyzer import SEOAnalyzer
-from syscred.graph_rag import GraphRAG  # [NEW] GraphRAG
-from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult  # [NEW] TREC Integration
-from syscred import config
-
-# [NEW] NER and E-E-A-T modules
+# Local imports - Support both syscred.module and relative imports
 try:
-    from syscred.ner_analyzer import NERAnalyzer, get_ner_analyzer
-    HAS_NER = True
+    from syscred.api_clients import ExternalAPIClients, WebContent, ExternalData
+    from syscred.ontology_manager import OntologyManager
+    from syscred.seo_analyzer import SEOAnalyzer
+    from syscred.graph_rag import GraphRAG
+    from syscred.trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    from syscred import config
 except ImportError:
-    HAS_NER = False
-    print("[SysCRED] Warning: NER module not available")
+    from api_clients import ExternalAPIClients, WebContent, ExternalData
+    from ontology_manager import OntologyManager
+    from seo_analyzer import SEOAnalyzer
+    from graph_rag import GraphRAG
+    from trec_retriever import TRECRetriever, Evidence, RetrievalResult
+    import config
 
+# [NER + E-E-A-T] Imports optionnels - n'interferent pas avec les imports principaux
+HAS_NER_EEAT = False
 try:
+    from syscred.ner_analyzer import NERAnalyzer
     from syscred.eeat_calculator import EEATCalculator, EEATScore
-    HAS_EEAT = True
+    HAS_NER_EEAT = True
 except ImportError:
-    HAS_EEAT = False
-    print("[SysCRED] Warning: E-E-A-T module not available")
+    try:
+        from ner_analyzer import NERAnalyzer
+        from eeat_calculator import EEATCalculator, EEATScore
+        HAS_NER_EEAT = True
+    except ImportError:
+        pass
 
 
 class CredibilityVerificationSystem:
@@ -136,6 +143,18 @@ class CredibilityVerificationSystem:
         # Weights for score calculation (Loaded from Config)
         self.weights = config.Config.SCORE_WEIGHTS
         print(f"[SysCRED] Using weights: {self.weights}")
+
+        # [NER + E-E-A-T] Initialize analyzers
+        self.ner_analyzer = None
+        self.eeat_calculator = None
+        if HAS_NER_EEAT:
+            try:
+                self.ner_analyzer = NERAnalyzer()
+                self.eeat_calculator = EEATCalculator()
+                print("[SysCRED] NER analyzer initialized")
+                print("[SysCRED] E-E-A-T calculator initialized")
+            except Exception as e:
+                print(f"[SysCRED] NER/E-E-A-T init failed: {e}")
         
         print("[SysCRED] System ready!")
     
@@ -144,40 +163,47 @@ class CredibilityVerificationSystem:
         print("[SysCRED] Loading ML models (this may take a moment)...")
         
         try:
-            # Sentiment analysis
+            # Sentiment analysis - modèle ultra-léger
             self.sentiment_pipeline = pipeline(
-                "sentiment-analysis", 
-                model="distilbert-base-uncased-finetuned-sst-2-english"
+                "sentiment-analysis",
+                model="distilbert-base-uncased-finetuned-sst-2-english",
+                device=-1,
+                model_kwargs={"low_cpu_mem_usage": True}
             )
-            print("[SysCRED] ✓ Sentiment model loaded")
+            print("[SysCRED] ✓ Sentiment model loaded (distilbert-base)")
         except Exception as e:
             print(f"[SysCRED] ✗ Sentiment model failed: {e}")
-        
+
         try:
-            # NER pipeline
-            self.ner_pipeline = pipeline("ner", grouped_entities=True)
-            print("[SysCRED] ✓ NER model loaded")
+            # NER pipeline - modèle plus léger
+            self.ner_pipeline = pipeline(
+                "ner",
+                model="dslim/bert-base-NER",
+                grouped_entities=True,
+                device=-1,
+                model_kwargs={"low_cpu_mem_usage": True}
+            )
+            print("[SysCRED] ✓ NER model loaded (dslim/bert-base-NER)")
         except Exception as e:
             print(f"[SysCRED] ✗ NER model failed: {e}")
-        
+
         try:
-            # Bias detection - Specialized model
-            # Using 'd4data/bias-detection-model' or fallback to generic
-            bias_model_name = "d4data/bias-detection-model"
+            # Bias detection - modèle plus léger si possible
+            bias_model_name = "typeform/distilbert-base-uncased-mnli"
             self.bias_tokenizer = AutoTokenizer.from_pretrained(bias_model_name)
             self.bias_model = AutoModelForSequenceClassification.from_pretrained(bias_model_name)
-            print("[SysCRED] ✓ Bias model loaded (d4data)")
+            print("[SysCRED] ✓ Bias model loaded (distilbert-mnli)")
         except Exception as e:
             print(f"[SysCRED] ✗ Bias model failed: {e}. Using heuristics.")
 
         try:
-            # Semantic Coherence
+            # Semantic Coherence - modèle MiniLM (déjà léger)
             if HAS_SBERT:
                 self.coherence_model = SentenceTransformer('all-MiniLM-L6-v2')
-                print("[SysCRED] ✓ Coherence model loaded (SBERT)")
+                print("[SysCRED] ✓ Coherence model loaded (SBERT MiniLM)")
         except Exception as e:
             print(f"[SysCRED] ✗ Coherence model failed: {e}")
-        
+
         try:
             # LIME explainer
             self.explainer = LimeTextExplainer(class_names=['NEGATIVE', 'POSITIVE'])
@@ -501,6 +527,26 @@ class CredibilityVerificationSystem:
             adjustment_factor = (graph_score - 0.5) * w_graph * confidence
             adjustments += adjustment_factor
             total_weight_used += w_graph * confidence  # Partial weight based on confidence
+        
+        # 8. [NEW] Linguistic Markers Analysis (sensationalism penalty)
+        # Penalize sensational language heavily, reward doubt markers (critical thinking)
+        linguistic = rule_results.get('linguistic_markers', {})
+        sensationalism_count = linguistic.get('sensationalism', 0)
+        doubt_count = linguistic.get('doubt', 0)
+        certainty_count = linguistic.get('certainty', 0)
+        
+        # Sensationalism is a strong negative signal
+        if sensationalism_count > 0:
+            penalty = min(0.20, sensationalism_count * 0.05)  # Max 20% penalty
+            adjustments -= penalty
+        
+        # Excessive certainty without sources is suspicious
+        if certainty_count > 2 and not fact_checks:
+            adjustments -= 0.05
+        
+        # Doubt markers indicate critical/questioning tone (slight positive)
+        if doubt_count > 0:
+            adjustments += min(0.05, doubt_count * 0.02)
             
         # Final calculation
         # Base 0.5 + sum of weighted adjustments
@@ -657,11 +703,24 @@ class CredibilityVerificationSystem:
     ) -> Dict[str, Any]:
         """Generate the final evaluation report."""
         
+        # Determine credibility level
+        if overall_score >= 0.75:
+            niveau = "Élevée"
+        elif overall_score >= 0.55:
+            niveau = "Moyenne-Élevée"
+        elif overall_score >= 0.45:
+            niveau = "Moyenne"
+        elif overall_score >= 0.25:
+            niveau = "Faible-Moyenne"
+        else:
+            niveau = "Faible"
+        
         report = {
             'idRapport': f"report_{int(datetime.datetime.now().timestamp())}",
             'informationEntree': input_data,
             'dateGeneration': datetime.datetime.now().isoformat(),
             'scoreCredibilite': round(overall_score, 2),
+            'niveauCredibilite': niveau,
             'resumeAnalyse': "",
             'detailsScore': {
                 'base': 0.5,
@@ -688,8 +747,6 @@ class CredibilityVerificationSystem:
             },
             # [NEW] TREC Evidence section
             'evidences': evidences or [],
-            # [NEW] TREC IR Metrics for dashboard
-            'trec_metrics': self._calculate_trec_metrics(cleaned_text, evidences),
             'metadonnees': {}
         }
         
@@ -755,99 +812,6 @@ class CredibilityVerificationSystem:
             })
         
         return report
-    
-    def _calculate_trec_metrics(self, text: str, evidences: List[Dict[str, Any]] = None) -> Dict[str, float]:
-        """
-        Calculate TREC-style IR metrics for display on dashboard.
-        
-        Computes:
-        - Precision: Ratio of relevant retrieved documents
-        - Recall: Ratio of relevant documents retrieved
-        - MAP: Mean Average Precision
-        - NDCG: Normalized Discounted Cumulative Gain
-        - TF-IDF: Term Frequency-Inverse Document Frequency score
-        - MRR: Mean Reciprocal Rank
-        """
-        import math
-        
-        metrics = {
-            'precision': 0.0,
-            'recall': 0.0,
-            'map': 0.0,
-            'ndcg': 0.0,
-            'tfidf': 0.0,
-            'mrr': 0.0
-        }
-        
-        if not text:
-            return metrics
-        
-        # TF-IDF based on text analysis
-        words = text.lower().split()
-        if words:
-            # Simple TF calculation
-            word_counts = {}
-            for word in words:
-                word_counts[word] = word_counts.get(word, 0) + 1
-            
-            # Calculate TF-IDF score (simplified)
-            total_words = len(words)
-            unique_words = len(word_counts)
-            
-            # Term frequency normalized
-            tf_scores = [count / total_words for count in word_counts.values()]
-            # IDF approximation based on word distribution
-            idf_approx = math.log((unique_words + 1) / 2)
-            
-            tfidf_sum = sum(tf * idf_approx for tf in tf_scores)
-            metrics['tfidf'] = min(1.0, tfidf_sum / max(1, unique_words) * 10)
-        
-        # If we have evidences, calculate retrieval metrics
-        if evidences and len(evidences) > 0:
-            k = len(evidences)
-            
-            # For now, assume all retrieved evidences have some relevance
-            # based on their retrieval scores
-            scores = [e.get('score', 0) for e in evidences]
-            
-            if scores:
-                avg_score = sum(scores) / len(scores)
-                max_score = max(scores)
-                
-                # Precision at K (proxy: avg relevance score)
-                metrics['precision'] = min(1.0, avg_score if avg_score <= 1.0 else avg_score / max(1, max_score))
-                
-                # Recall (proxy: coverage based on number of evidences)
-                metrics['recall'] = min(1.0, len(evidences) / 10)  # Assuming 10 is target
-                
-                # MAP (proxy using score ranking)
-                ap_sum = 0.0
-                for i, score in enumerate(sorted(scores, reverse=True)):
-                    ap_sum += (i + 1) / (i + 2) * score if score <= 1.0 else (i + 1) / (i + 2)
-                metrics['map'] = ap_sum / len(scores) if scores else 0.0
-                
-                # NDCG (simplified)
-                dcg = sum(
-                    (2 ** (score if score <= 1.0 else 1.0) - 1) / math.log2(i + 2)
-                    for i, score in enumerate(scores[:k])
-                )
-                ideal_scores = sorted(scores, reverse=True)
-                idcg = sum(
-                    (2 ** (score if score <= 1.0 else 1.0) - 1) / math.log2(i + 2)
-                    for i, score in enumerate(ideal_scores[:k])
-                )
-                metrics['ndcg'] = dcg / idcg if idcg > 0 else 0.0
-                
-                # MRR (first relevant result)
-                for i, score in enumerate(scores):
-                    if (score > 0.5 if score <= 1.0 else score > max_score / 2):
-                        metrics['mrr'] = 1.0 / (i + 1)
-                        break
-                if metrics['mrr'] == 0 and len(scores) > 0:
-                    metrics['mrr'] = 1.0  # First result
-        
-        # Round all values
-        return {k: round(v, 4) for k, v in metrics.items()}
     
     def _get_score_factors(self, rule_results: Dict, nlp_results: Dict) -> List[Dict]:
         """Get list of factors that influenced the score (For UI)."""
@@ -1009,6 +973,40 @@ class CredibilityVerificationSystem:
         print("[SysCRED] Running NLP analysis...")
         nlp_results = self.nlp_analysis(cleaned_text)
         
+        # 6.5 [NER] Named Entity Recognition
+        ner_entities = {}
+        if self.ner_analyzer and cleaned_text:
+            try:
+                ner_entities = self.ner_analyzer.extract_entities(cleaned_text)
+                total = sum(len(v) for v in ner_entities.values() if isinstance(v, list))
+                print(f"[SysCRED] NER: {total} entites detectees")
+            except Exception as e:
+                print(f"[SysCRED] NER failed: {e}")
+
+        # 6.6 [E-E-A-T] Experience-Expertise-Authority-Trust scoring
+        eeat_scores = {}
+        if self.eeat_calculator:
+            try:
+                url_for_eeat = input_data if is_url else ""
+                domain_age_years = None
+                if external_data.domain_age_days:
+                    domain_age_years = external_data.domain_age_days / 365.0
+                
+                eeat_raw = self.eeat_calculator.calculate(
+                    url=url_for_eeat,
+                    text=cleaned_text,
+                    nlp_analysis=nlp_results,
+                    fact_checks=rule_results.get('fact_checking', []),
+                    domain_age_years=domain_age_years,
+                    has_https=input_data.startswith("https://") if is_url else False
+                )
+                eeat_scores = eeat_raw.to_dict() if hasattr(eeat_raw, 'to_dict') else (
+                    eeat_raw if isinstance(eeat_raw, dict) else vars(eeat_raw)
+                )
+                print(f"[SysCRED] E-E-A-T score: {eeat_scores.get('overall', 'N/A')}")
+            except Exception as e:
+                print(f"[SysCRED] E-E-A-T failed: {e}")
+
         # 7. Calculate score (Now includes GraphRAG context)
         overall_score = self.calculate_overall_score(rule_results, nlp_results)
         print(f"[SysCRED] ✓ Credibility score: {overall_score:.2f}")
@@ -1020,6 +1018,10 @@ class CredibilityVerificationSystem:
             graph_context=graph_context
         )
         
+        # [NER + E-E-A-T] Always include in report (even if empty)
+        report['ner_entities'] = ner_entities
+        report['eeat_scores'] = eeat_scores
+
         # Add similar URIs to report for ontology linking
         if similar_uris:
             report['similar_claims_uris'] = similar_uris
