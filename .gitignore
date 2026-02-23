@@ -73,3 +73,5 @@ cle*
 .coverage
 htmlcov/
 .tox/
+.aider/
+.aider.*
