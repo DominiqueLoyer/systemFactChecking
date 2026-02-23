@@ -645,6 +645,15 @@ cred1:Report_20260223_134009_1 a cred1:RapportEvaluation ;
     cred1:isReportOf cred1:Request_20260223_134009_1 ;
     cred1:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
 
+cred1:Report_20260223_140608_1 a cred1:RapportEvaluation ;
+    cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
+    cred1:completionTimestamp "2026-02-23T14:06:08.581199"^^xsd:dateTime ;
+    cred1:credibilityScoreValue "0.46"^^xsd:float ;
+    cred1:includesNLPResult cred1:NLPResult_20260223_140608_1 ;
+    cred1:includesSourceAnalysis cred1:SourceAnalysis_20260223_140608_1 ;
+    cred1:isReportOf cred1:Request_20260223_140608_1 ;
+    cred1:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input)."^^xsd:string .
+
 cred1:Evidence_20260129_173754_1_0 a cred1:Evidence,
         cred1:RefutingEvidence ;
     cred1:evidenceSnippet "\"If you take a look at those five or six tweets [on Jan. 6], you will see very beautiful, very heartwarming statements.\""^^xsd:string .
@@ -1571,6 +1580,10 @@ cred1:Info_20260223_134009_1 a cred1:InformationFaibleCredibilite,
         cred1:InformationSoumise ;
     cred1:informationContent "Climate change is real and confirmed by NASA scientists."^^xsd:string .
 
+cred1:Info_20260223_140608_1 a cred1:InformationMoyenneCredibilite,
+        cred1:InformationSoumise ;
+    cred1:informationContent "Scientists at NASA confirm that climate change is primarily caused by human activities and burning of fossil fuels."^^xsd:string .
+
 cred1:NLPResult_20260128_084225_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "1.0"^^xsd:float .
 
@@ -2061,6 +2074,10 @@ cred1:NLPResult_20260223_133636_1 a cred1:ResultatNLP ;
 cred1:NLPResult_20260223_134009_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "0.7"^^xsd:float ;
     cred1:sentimentScore "0.9997156262397766"^^xsd:float .
+
+cred1:NLPResult_20260223_140608_1 a cred1:ResultatNLP ;
+    cred1:coherenceScore "0.7"^^xsd:float ;
+    cred1:sentimentScore "0.9333357810974121"^^xsd:float .
 
 cred1:Report_20260203_110508_1 a cred1:RapportEvaluation ;
     cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
@@ -3220,6 +3237,11 @@ cred1:Request_20260223_134009_1 a cred1:RequeteEvaluation ;
     cred1:requestStatus "Completed"^^xsd:string ;
     cred1:submissionTimestamp "2026-02-23T13:40:09.040073"^^xsd:dateTime .
 
+cred1:Request_20260223_140608_1 a cred1:RequeteEvaluation ;
+    cred1:concernsInformation cred1:Info_20260223_140608_1 ;
+    cred1:requestStatus "Completed"^^xsd:string ;
+    cred1:submissionTimestamp "2026-02-23T14:06:08.581199"^^xsd:dateTime .
+
 cred1:SourceAnalysis_20260128_084225_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "Unknown"^^xsd:string .
 
@@ -3707,6 +3729,9 @@ cred1:SourceAnalysis_20260223_133636_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
 
 cred1:SourceAnalysis_20260223_134009_1 a cred1:InfoSourceAnalyse ;
+    cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred1:SourceAnalysis_20260223_140608_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
 
 cred1:Report_20260130_142430_1 a cred1:RapportEvaluation ;
