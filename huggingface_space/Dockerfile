@@ -8,9 +8,10 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
 ENV SYSCRED_LOAD_ML_MODELS=true
+ENV SYSCRED_ENV=production
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,8 +21,13 @@ COPY requirements.txt /app/requirements.txt
 # Install dependencies (includes PyTorch, Transformers)
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Download spaCy models for NER
+RUN python -m spacy download en_core_web_md || true
+RUN python -m spacy download fr_core_news_md || true
+
 # Copy application code
 COPY syscred/ /app/syscred/
+COPY ontology/ /app/ontology/
 
 # Create user for HF Spaces (required)
 RUN useradd -m -u 1000 user
