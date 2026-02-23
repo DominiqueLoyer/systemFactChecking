@@ -253,6 +253,41 @@ export SYSCRED_ENV=production
 
 ---
 
+# test
+**Paramètres clés:**
+
+| Paramètre | Description | Valeur par défaut |
+|-----------|-------------|-------------------|
+| `HOST` | Adresse du serveur | `0.0.0.0` |
+| `PORT` | Port du serveur | `5000` |
+| `DEBUG` | Mode debug | `true` |
+| `LOAD_ML_MODELS` | Charger les modèles ML | `true` |
+| `WEB_FETCH_TIMEOUT` | Timeout HTTP (sec) | `10` |
+
+**Pondérations des scores:**
+
+```python
+SCORE_WEIGHTS = {
+    'source_reputation': 0.25,  # Réputation de la source
+    'domain_age': 0.10,         # Âge du domaine
+    'sentiment_neutrality': 0.15, # Neutralité du ton
+    'entity_presence': 0.15,    # Présence d'entités vérifiables
+    'coherence': 0.15,          # Cohérence textuelle
+    'fact_check': 0.20          # Résultats fact-check
+}
+```
+
+**Variables d'environnement:**
+
+```bash
+export SYSCRED_ENV=production      # Environnement (dev/prod/testing)
+export SYSCRED_PORT=8080           # Port personnalisé
+export SYSCRED_GOOGLE_API_KEY=xxx  # Clé Google Fact Check
+export SYSCRED_LOAD_ML=false       # Désactiver ML
+```
+
+
+
 ## 📜 License
 
 MIT License — See [LICENSE](LICENSE).
