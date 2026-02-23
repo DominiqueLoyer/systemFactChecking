@@ -47,7 +47,7 @@ class OntologyManager:
     """
     
     # Namespace for the credibility ontology
-    CRED_NS = "https://github.com/DominiqueLoyer/systemFactChecking#"
+    CRED_NS = "https://syscred.uqam.ca/ontology#"
     
     def __init__(self, base_ontology_path: Optional[str] = None, data_path: Optional[str] = None):
         """
@@ -254,7 +254,7 @@ class OntologyManager:
         
         # SPARQL query to find all evaluations for this URL
         query = """
-        PREFIX cred: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#>
+        PREFIX cred: <https://syscred.uqam.ca/ontology#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         
         SELECT ?report ?score ?level ?timestamp ?content
@@ -298,7 +298,7 @@ class OntologyManager:
         
         # Count evaluations
         query = """
-        PREFIX cred: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#>
+        PREFIX cred: <https://syscred.uqam.ca/ontology#>
         SELECT (COUNT(?report) as ?count) WHERE {
             ?report a cred:RapportEvaluation .
         }
@@ -321,7 +321,7 @@ class OntologyManager:
         
         # Get the latest report ID
         latest_query = """
-        PREFIX cred: <https://github.com/DominiqueLoyer/systemFactChecking#>
+        PREFIX cred: <https://syscred.uqam.ca/ontology#>
         SELECT ?report ?timestamp WHERE {
             ?report a cred:RapportEvaluation .
             ?report cred:completionTimestamp ?timestamp .
@@ -355,7 +355,7 @@ class OntologyManager:
         
         # Query triples related to this report (Level 1)
         related_query = """
-        PREFIX cred: <https://github.com/DominiqueLoyer/systemFactChecking#>
+        PREFIX cred: <https://syscred.uqam.ca/ontology#>
         SELECT ?p ?o ?oType ?oLabel WHERE {
             <%s> ?p ?o .
             OPTIONAL { ?o a ?oType } .
@@ -463,8 +463,8 @@ if __name__ == "__main__":
     print("=== Testing OntologyManager ===\n")
     
     # Test with base ontology
-    base_path = "/Users/bk280625/documents041025/MonCode/sysCRED_onto26avrtil.ttl"
-    data_path = "/Users/bk280625/documents041025/MonCode/ontology/sysCRED_data.ttl"
+    base_path = os.path.join(os.path.dirname(__file__), '..', 'ontology', 'sysCRED_onto26avrtil.ttl')
+    data_path = os.path.join(os.path.dirname(__file__), '..', 'ontology', 'sysCRED_data.ttl')
     
     manager = OntologyManager(base_ontology_path=base_path, data_path=None)
     

@@ -1,5 +1,5 @@
-@prefix cred: <https://github.com/DominiqueLoyer/systemFactChecking#> .
-@prefix cred1: <http://www.dic9335.uqam.ca/ontologies/credibility-verification#> .
+@prefix cred: <https://syscred.uqam.ca/ontology#> .
+@prefix cred1: <https://syscred.uqam.ca/ontology#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
