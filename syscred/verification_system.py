@@ -1018,11 +1018,9 @@ class CredibilityVerificationSystem:
             graph_context=graph_context
         )
         
-        # [NER + E-E-A-T] Enrichir le rapport
-        if ner_entities:
-            report['ner_entities'] = ner_entities
-        if eeat_scores:
-            report['eeat_scores'] = eeat_scores
+        # [NER + E-E-A-T] Always include in report (even if empty)
+        report['ner_entities'] = ner_entities
+        report['eeat_scores'] = eeat_scores
 
         # Add similar URIs to report for ontology linking
         if similar_uris:
