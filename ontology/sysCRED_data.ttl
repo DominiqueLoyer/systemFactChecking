@@ -668,6 +668,29 @@ cred1:Report_20260223_143602_1 a cred1:RapportEvaluation ;
     cred1:isReportOf cred1:Request_20260223_143602_1 ;
     cred1:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
 
+cred1:Report_20260223_152859_1 a cred1:RapportEvaluation ;
+    cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
+    cred1:basedOnEvidence cred1:Evidence_20260223_152859_1_0,
+        cred1:Evidence_20260223_152859_1_1,
+        cred1:Evidence_20260223_152859_1_2,
+        cred1:Evidence_20260223_152859_1_3,
+        cred1:Evidence_20260223_152859_1_4 ;
+    cred1:completionTimestamp "2026-02-23T15:28:59.937950"^^xsd:dateTime ;
+    cred1:credibilityScoreValue "0.46"^^xsd:float ;
+    cred1:includesNLPResult cred1:NLPResult_20260223_152859_1 ;
+    cred1:includesSourceAnalysis cred1:SourceAnalysis_20260223_152859_1 ;
+    cred1:isReportOf cred1:Request_20260223_152859_1 ;
+    cred1:reportSummary "L'analyse suggère une crédibilité MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred1:Report_20260223_183540_2 a cred1:RapportEvaluation ;
+    cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
+    cred1:completionTimestamp "2026-02-23T18:35:40.844268"^^xsd:dateTime ;
+    cred1:credibilityScoreValue "0.62"^^xsd:float ;
+    cred1:includesNLPResult cred1:NLPResult_20260223_183540_2 ;
+    cred1:includesSourceAnalysis cred1:SourceAnalysis_20260223_183540_2 ;
+    cred1:isReportOf cred1:Request_20260223_183540_2 ;
+    cred1:reportSummary "L'analyse suggère une crédibilité MOYENNE à ÉLEVÉE. Réputation source : High."^^xsd:string .
+
 cred1:Evidence_20260129_173754_1_0 a cred1:Evidence,
         cred1:RefutingEvidence ;
     cred1:evidenceSnippet "\"If you take a look at those five or six tweets [on Jan. 6], you will see very beautiful, very heartwarming statements.\""^^xsd:string .
@@ -963,6 +986,36 @@ cred1:Evidence_20260223_143602_1_4 a cred1:PreuveFactuelle ;
     cred1:evidenceSource "USA Today"^^xsd:string ;
     cred1:evidenceURL "https://www.usatoday.com/story/news/factcheck/2025/02/14/global-temperature-sea-ice-fact-check/78389070007/"^^xsd:anyURI ;
     cred1:evidenceVerdict "False"^^xsd:string .
+
+cred1:Evidence_20260223_152859_1_0 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Hillary Clinton ar fi confirmat că Pământul este plat"^^xsd:string ;
+    cred1:evidenceSource "Factual.ro"^^xsd:string ;
+    cred1:evidenceURL "https://www.factual.ro/dezinformari-rs/fals-hillary-clinton-ar-fi-confirmat-ca-pamantul-este-plat/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "FALS"^^xsd:string .
+
+cred1:Evidence_20260223_152859_1_1 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Ravna Zemlja se zasniva na zdravom razumu"^^xsd:string ;
+    cred1:evidenceSource "Faktograf"^^xsd:string ;
+    cred1:evidenceURL "https://faktograf.hr/2026/01/27/znanost-je-dokazala-da-zemlja-nije-ravna-ploca/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "Zemlja nije ravna ploha, već je okrugla što dokazuju brojni fizikalni zakoni kao i fotografije snimljene iz svemira."^^xsd:string .
+
+cred1:Evidence_20260223_152859_1_2 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "NASA has admitted the earth is flat in several documents."^^xsd:string ;
+    cred1:evidenceSource "AAP"^^xsd:string ;
+    cred1:evidenceURL "https://www.aap.com.au/factcheck/no-nasa-didnt-admit-the-earth-is-flat/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False. The post misinterprets common aeronautical flight calculation methodologies."^^xsd:string .
+
+cred1:Evidence_20260223_152859_1_3 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "НЕПРАВДА: Земля пласка, а не куляста"^^xsd:string ;
+    cred1:evidenceSource "Вокс Україна"^^xsd:string ;
+    cred1:evidenceURL "https://voxukraine.org/nepravda-zemlya-plaska-a-ne-kulyasta"^^xsd:anyURI ;
+    cred1:evidenceVerdict "Неправда"^^xsd:string .
+
+cred1:Evidence_20260223_152859_1_4 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Flights from New Zealand to Argentina connect through the U.S., which only makes sense if the Earth is flat."^^xsd:string ;
+    cred1:evidenceSource "Science"^^xsd:string ;
+    cred1:evidenceURL "https://science.feedback.org/review/flight-paths-not-evidence-for-flat-earth/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "Inaccurate"^^xsd:string .
 
 cred1:Info_20260128_084225_1 a cred1:InformationMoyenneCredibilite,
         cred1:InformationSoumise ;
@@ -1632,6 +1685,15 @@ cred1:Info_20260223_143602_1 a cred1:InformationFaibleCredibilite,
         cred1:InformationSoumise ;
     cred1:informationContent "Climate change is caused by greenhouse gases from burning fossil fuels."^^xsd:string .
 
+cred1:Info_20260223_152859_1 a cred1:InformationMoyenneCredibilite,
+        cred1:InformationSoumise ;
+    cred1:informationContent "earth is flat"^^xsd:string .
+
+cred1:Info_20260223_183540_2 a cred1:InformationMoyenneCredibilite,
+        cred1:InformationSoumise ;
+    cred1:informationContent "https://lemonde.fr"^^xsd:string ;
+    cred1:informationURL "https://lemonde.fr"^^xsd:anyURI .
+
 cred1:NLPResult_20260128_084225_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "1.0"^^xsd:float .
 
@@ -2130,6 +2192,14 @@ cred1:NLPResult_20260223_140608_1 a cred1:ResultatNLP ;
 cred1:NLPResult_20260223_143602_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "0.7"^^xsd:float ;
     cred1:sentimentScore "0.9517225027084351"^^xsd:float .
+
+cred1:NLPResult_20260223_152859_1 a cred1:ResultatNLP ;
+    cred1:coherenceScore "0.7"^^xsd:float ;
+    cred1:sentimentScore "0.9997609257698059"^^xsd:float .
+
+cred1:NLPResult_20260223_183540_2 a cred1:ResultatNLP ;
+    cred1:coherenceScore "0.21190788058771026"^^xsd:float ;
+    cred1:sentimentScore "0.9990990161895752"^^xsd:float .
 
 cred1:Report_20260203_110508_1 a cred1:RapportEvaluation ;
     cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
@@ -3299,6 +3369,16 @@ cred1:Request_20260223_143602_1 a cred1:RequeteEvaluation ;
     cred1:requestStatus "Completed"^^xsd:string ;
     cred1:submissionTimestamp "2026-02-23T14:36:02.858694"^^xsd:dateTime .
 
+cred1:Request_20260223_152859_1 a cred1:RequeteEvaluation ;
+    cred1:concernsInformation cred1:Info_20260223_152859_1 ;
+    cred1:requestStatus "Completed"^^xsd:string ;
+    cred1:submissionTimestamp "2026-02-23T15:28:59.937950"^^xsd:dateTime .
+
+cred1:Request_20260223_183540_2 a cred1:RequeteEvaluation ;
+    cred1:concernsInformation cred1:Info_20260223_183540_2 ;
+    cred1:requestStatus "Completed"^^xsd:string ;
+    cred1:submissionTimestamp "2026-02-23T18:35:40.844268"^^xsd:dateTime .
+
 cred1:SourceAnalysis_20260128_084225_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "Unknown"^^xsd:string .
 
@@ -3793,6 +3873,12 @@ cred1:SourceAnalysis_20260223_140608_1 a cred1:InfoSourceAnalyse ;
 
 cred1:SourceAnalysis_20260223_143602_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred1:SourceAnalysis_20260223_152859_1 a cred1:InfoSourceAnalyse ;
+    cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred1:SourceAnalysis_20260223_183540_2 a cred1:InfoSourceAnalyse ;
+    cred1:sourceAnalyzedReputation "High"^^xsd:string .
 
 cred1:Report_20260130_142430_1 a cred1:RapportEvaluation ;
     rdfs:seeAlso cred1:Report_20260130_141312_1 ;
