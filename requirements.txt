@@ -15,6 +15,7 @@ transformers>=4.30.0
 torch>=2.0.0
 numpy>=1.24.0
 sentence-transformers>=2.2.0
+accelerate>=0.20.0
 
 # === Explainability ===
 lime>=0.2.0
