@@ -213,10 +213,17 @@ curl -X POST http://localhost:5001/api/verify \
 - **Trust**: HTTPS, unbiased sentiment
 
 ```
-NewDomain ⊓HighSentiment ⊓NoExternalVerifi-
-cation ⊑LowCredibilityIndicator
-WidelyShared ⊓FactChecked ⊑HighCredibilityIndi-
-cator
+
+
+$$\mathit{NewDomain} \sqcap \mathit{HighSentiment} \sqcap \mathit{NoExternalVerification} \sqsubseteq \mathit{LowCredibilityIndicator}$$
+$$\mathit{WidelyShared} \sqcap \mathit{FactChecked} \sqsubseteq \mathit{HighCredibilityIndicator}$$
+
+
+$$\mathit{NewDomain} \sqcap \mathit{HighSentiment} \sqcap \mathit{NoExternalVerification} \sqsubseteq \mathit{LowCredibilityIndicator}$$
+
+
+$$\mathit{WidelyShared} \sqcap \mathit{FactChecked} \sqsubseteq \mathit{HighCredibilityIndicator}$$
+
 ```
 
 
