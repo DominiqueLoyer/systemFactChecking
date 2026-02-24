@@ -212,8 +212,7 @@ curl -X POST http://localhost:5001/api/verify \
 - **Authority**: Estimated PageRank, backlinks
 - **Trust**: HTTPS, unbiased sentiment
 
-```
-
+## Ontology Reasoning
 
 $$\mathit{NewDomain} \sqcap \mathit{HighSentiment} \sqcap \mathit{NoExternalVerification} \sqsubseteq \mathit{LowCredibilityIndicator}$$
 $$\mathit{WidelyShared} \sqcap \mathit{FactChecked} \sqsubseteq \mathit{HighCredibilityIndicator}$$
@@ -224,7 +223,7 @@ $$\mathit{NewDomain} \sqcap \mathit{HighSentiment} \sqcap \mathit{NoExternalVeri
 
 $$\mathit{WidelyShared} \sqcap \mathit{FactChecked} \sqsubseteq \mathit{HighCredibilityIndicator}$$
 
-```
+
 
 
 
