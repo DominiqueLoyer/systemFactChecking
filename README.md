@@ -212,6 +212,14 @@ curl -X POST http://localhost:5001/api/verify \
 - **Authority**: Estimated PageRank, backlinks
 - **Trust**: HTTPS, unbiased sentiment
 
+```
+NewDomain ⊓HighSentiment ⊓NoExternalVerifi-
+cation ⊑LowCredibilityIndicator
+WidelyShared ⊓FactChecked ⊑HighCredibilityIndi-
+cator
+```
+
+
 
 **Pondérations des scores:**
 
