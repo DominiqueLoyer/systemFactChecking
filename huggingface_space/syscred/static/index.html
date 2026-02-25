@@ -1184,9 +1184,23 @@
             // ========================================
             const nerSection = document.getElementById('nerSection');
             const nerEntities = document.getElementById('nerEntities');
-            const entities = nlpAnalysis.entities || data.ner_entities || [];
+            let nerData = data.ner_entities || nlpAnalysis.entities || {};
             
-            if (entities && entities.length > 0) {
+            // Convert dict format to array if needed
+            let entities = [];
+            if (Array.isArray(nerData)) {
+                entities = nerData;
+            } else if (typeof nerData === 'object' && nerData !== null) {
+                for (const [label, items] of Object.entries(nerData)) {
+                    if (Array.isArray(items)) {
+                        items.forEach(item => {
+                            entities.push({...item, label: label});
+                        });
+                    }
+                }
+            }
+            
+            if (entities.length > 0) {
                 nerSection.style.display = 'block';
                 let nerHTML = '';
                 
@@ -1230,7 +1244,7 @@
             // DISPLAY E-E-A-T METRICS
             // ========================================
             const eeatSection = document.getElementById('eeatSection');
-            const eeatData = data.eeat_score || data.eeatMetrics || null;
+            const eeatData = data.eeat_scores || data.eeat_scores || null;
             
             if (eeatData) {
                 eeatSection.style.display = 'block';
