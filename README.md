@@ -13,7 +13,20 @@
 [![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-DominiqueLoyer-EA4AAA?logo=github-sponsors)](https://github.com/sponsors/DominiqueLoyer)
 
 **PhD Thesis Prototype** - Dominique S. Loyer  
-*Citation Key: loyerModelingHybridSystem2025*
+
+## 🏷️ Citation
+
+```bibtex
+@software{loyer2025syscred,
+  author = {Loyer, Dominique S.},
+  title = {SysCRED: Neuro-Symbolic System for Information Credibility Verification},
+  year = {2026},
+  publisher = {GitHub},
+  url = {https://github.com/DominiqueLoyer/systemFactChecking}
+}
+```
+
+---
 
 > [!NOTE]
 > **New in v2.2 (Jan 29, 2026)**:
@@ -134,23 +147,147 @@ curl -X POST http://localhost:5000/api/verify \
 ```
 
 ---
-
+```bash
 ## 📁 Project Structure
 
-```bash
-organisateur-GDRIVE/
-├── README.md                    # Ce fichier
-├── organisateur.html            # ⭐ Interface principale
-├── organisateur2.html           # Version alternative
-├── organisateur3.html           # Version améliorée
-├── docColab_0408.html           # Documentation Colab
-├── gdrive_090625.html           # Version juin 2025
-├── regulateur_0508.html         # Module régulateur
-├── Rapport_Analyse_Drive_*.txt  # Rapports générés
-└── Organisateur_*.pdf           # Archives PDF
+hybrid-credibility-system/
+├── README.md                           # Documentation principale
+├── docker-compose.yml                  # Orchestration des conteneurs
+├── .env.example                        # Variables d'environnement
+│
+├── ontology/
+│   ├── sysCRED_ontology.owl           # ⭐ Ontologie principale (OWL)
+│   ├── sysCRED_data.ttl               # Données RDF (Turtle)
+│   ├── swrl_rules.swrl                # Règles SWRL pour inférence
+│   └── individuals.ttl                # Instances (sources, domaines)
+│
+├── services/
+│   │
+│   ├── s1_neural/                     # 🧠 Couche Neurale (S1)
+│   │   ├── ner_service/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /extract/entities
+│   │   │   └── models/
+│   │   │       └── bert_ner/         # Modèle BERT fine-tuned
+│   │   │
+│   │   ├── sentiment_service/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /extract/sentiment
+│   │   │   └── models/
+│   │   │       └── distilbert/       # Modèle DistilBERT
+│   │   │
+│   │   └── coherence_service/
+│   │       ├── Dockerfile
+│   │       ├── requirements.txt
+│   │       └── app.py                # API: /extract/coherence
+│   │
+│   ├── bridge/                        # 🌉 Grounding Layer
+│   │   ├── Dockerfile
+│   │   ├── requirements.txt
+│   │   ├── grounding.py              # Neural → Symbolic mapping
+│   │   └── embeddings/
+│   │       └── entity_mapper.pkl     # Embeddings → OWL instances
+│   │
+│   ├── s2_symbolic/                   # 🔣 Couche Symbolique (S2)
+│   │   ├── knowledge_graph/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /graph/query
+│   │   │   └── neo4j/
+│   │   │       └── init.cypher       # Scripts d'initialisation
+│   │   │
+│   │   ├── reasoner_service/
+│   │   │   ├── Dockerfile
+│   │   │   ├── requirements.txt
+│   │   │   ├── app.py                # API: /reason/infer
+│   │   │   └── lib/
+│   │   │       ├── hermit.jar        # Reasoner HermiT
+│   │   │       └── pellet.jar        # Reasoner Pellet
+│   │   │
+│   │   └── fact_check_service/
+│   │       ├── Dockerfile
+│   │       ├── requirements.txt
+│   │       ├── app.py                # API: /factcheck/verify
+│   │       └── config/
+│   │           └── api_keys.yml      # Google Fact-Check API
+│   │
+│   └── api_gateway/                   # 🚪 API Gateway (Orchestration)
+│       ├── Dockerfile
+│       ├── requirements.txt
+│       ├── gateway.py                # API: /verify (main endpoint)
+│       ├── pipeline.py               # Orchestration des 8 étapes
+│       └── schemas/
+│           ├── input_schema.json
+│           └── output_schema.json
+│
+├── data/
+│   ├── sources/
+│   │   └── trusted_sources.csv       # Liste sources fiables
+│   ├── blacklist/
+│   │   └── blacklisted_domains.csv   # Domaines bloqués
+│   └── training/
+│       ├── ner_dataset.json
+│       └── sentiment_dataset.json
+│
+├── tests/
+│   ├── test_s1_neural.py
+│   ├── test_s2_symbolic.py
+│   ├── test_bridge.py
+│   └── test_integration.py
+│
+├── docs/
+│   ├── architecture.md               # Architecture détaillée
+│   ├── api_documentation.md          # Documentation API
+│   ├── ontology_design.md            # Design de l'ontologie
+│   └── deployment.md                 # Guide de déploiement
+│
+└── scripts/
+    ├── setup.sh                      # Installation des dépendances
+    ├── start_services.sh             # Démarrage des conteneurs
+    └── load_ontology.py              # Chargement ontologie dans triplestore
+┌─────────────────────────────────────────────────────────────────┐
+│                        INPUT (User)                             │
+│                   URL ou Texte                                  │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                   LAYER 1: Neural (S1)                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐           │
+│  │   NER        │  │  Sentiment   │  │  Coherence   │           │
+│  │   (BERT)     │  │ (DistilBERT) │  │   Analysis   │           │
+│  └──────────────┘  └──────────────┘  └──────────────┘           │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                    BRIDGE: Grounding                            │
+│              Neural Embeddings → OWL Instances                  │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                  LAYER 2: Symbolic (S2)                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐           │
+│  │  Knowledge   │  │  Reasoner    │  │  Fact-Check  │           │
+│  │  Graph       │  │ (HermiT)     │  │  API         │           │
+│  │  (Neo4j)     │  │              │  │              │           │
+│  └──────────────┘  └──────────────┘  └──────────────┘           │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                    SCORING & EXPLANATION                        │
+│              Credibility Score + Reasoning Trace                │
+└────────────────────────────┬────────────────────────────────────┘
+                             ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                      OUTPUT (JSON)                              │
+│          Score, Level, Explanation, Confidence                  │
+└─────────────────────────────────────────────────────────────────┘
+
 
 
 ---
+```
 
 ## 🔧 Configuration
 
@@ -193,23 +330,12 @@ The system uses weighted factors to calculate credibility:
 
 - [Modeling and Hybrid System for Verification of Sources Credibility (PDF)](03_Docs/Modeling%20and%20Hybrid%20System%20for%20Verification%20of%20sources%20credibility.pdf)
 - [Ontology of a Verification System (PDF)](03_Docs/Ontology_of_a_verification_system_for_liability_of_the_information_may15_2025.pdf)
-- [Beamer Presentation - DIC9335 (PDF)](01_Presentations/syscred_presentation.pdf)
+- [Beamer Presentation - (PDF)](01_Presentations/syscred_presentation.pdf)
 
 ---
 
-## 🏷️ Citation
 
-```bibtex
-@software{loyer2025syscred,
-  author = {Loyer, Dominique S.},
-  title = {SysCRED: Neuro-Symbolic System for Information Credibility Verification},
-  year = {2026},
-  publisher = {GitHub},
-  url = {https://github.com/DominiqueLoyer/systemFactChecking}
-}
-```
 
----
 
 ## 📜 License
 
@@ -225,7 +351,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 | v1.0 | Apr 2025 | Initial prototype with basic credibility scoring |
 
 ___
-## Présentation des graphes (Generated By Perplexity AI)
+## Présentation des graphes (Generated By Perplexity AI) (-_-) Funny!
 
 
 

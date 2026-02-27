@@ -9,7 +9,7 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
-ENV SYSCRED_LOAD_ML_MODELS=false
+ENV SYSCRED_LOAD_ML_MODELS=true
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
