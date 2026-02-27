@@ -1,0 +1,3 @@
+[console_scripts]
+syscred-server = syscred.backend_app:main
+syscred-verify = syscred.cli:verify_command

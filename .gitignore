@@ -1,52 +1,23 @@
-
-# Python packaging
-dist/
-build/
-*.egg-info/
-.eggs/
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-
-# Virtual environments
+# Environnements Virtuels
 venv/
-env/
-ENV/
-test_env/
-
-# LaTeX
-*.aux
-*.bbl
-*.blg
-*.fls
-*.log
-*.out
-*.synctex.gz
-*.toc
-*.fdb_latexmk
-*.pdf
-
-# System
-.DS_Store
-
-# IDE
-.vscode/
-
-# Project specific
-*.zip
-*.log
-# Credentials and Keys
-*.key
-*.txt
-.env
-cle*
-
+venv_ml/
 venv_demo/
-test_from_pypi/
-*.pyc
-__pycache__/
-*.db
+.venv/
+env/
 
+# Caches et Logs
+__pycache__/
+*.pyc
+*.log
+
+# Données Massives (TREC, Modèles ML)
+data/
+*.tar.gz
+*.csv
+
+# Secrets
+.env
+.env.local
+*.tar
+*.zip
+TREC_AP_88-90_complet*

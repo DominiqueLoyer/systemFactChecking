@@ -1,0 +1,77 @@
+
+# 2026-02-17 16:02:33.499714
++Y
+
+# 2026-02-17 16:02:48.581608
++N
+
+# 2026-02-17 16:03:29.463233
++Peux-tu m'aider à mettre de l'ordre et de la structure dans mon code pour mon systemFactChecking? J'ai travaillé avec plusieurs agents AI différents et il existe plusieurs versions de backend et même plusieurs dossiers pour le même projet (parfois sous sysCRED, ou systemFactChecking, etc.)
++Avant de continuer le développement j,aimerais mettre de l'ordre. Lis bien la documentation et le readme https://github.com/DominiqueLoyer/systemFactChecking/
++
++Peux-tu regarder l'historique des GIT, Regarder la documention (principalement dans 03_DOCS) et lire le readme . Dis-moi ce que tu comprends de la struture et ce que tu me recommande au niveau de quels dossiers mettres et quels fichiers à l'intérieurs. Le constat actuel est que mon sytème était mieux avant le 8 ou février,, après lça s'est considrablement déterioré.
++Regarde les walktrough de Antivaty est les workspace aussi. 
++mon dossier local est /Users/bk280625/documents041025/systemFactChecking_Production
++(il était sur mon bureau avant et s'appellait systemFactChecking seulement que j'ai du changer de place par manque d'espace)
++
++Prend le contrôle et fais les commit et push à chaque itération et non seulement à la fin de la session car je ne sais jamais quand mon essaie temporaire va arrêter avec toi. Documente tout ce que tu fais. 
++
++
++Ce qui ne fonctionnait plus bien. Le render qui dépasse le quota de 528mo, le HF qui n'est pas bien synchonisé avec tous les changements comme le full TREC de plus de 200mo et non seulement 7 catégories en exemples, le NER qui ne s'affichent pas, le fact Cheching de Google , les Uri du graph qui devraient pointer vers https://syscred.uqam.ca . Les triplets de mon ontologie qui peuple ma BD postGRE ne semblent plus fonctionner non plus. L'aspect Bias n'a jamais été implémenté non plus et je souhaite l'avoir. 
+
+# 2026-02-17 16:03:37.245520
++Y
+
+# 2026-02-17 16:04:15.121283
++N
+
+# 2026-02-17 16:04:53.237436
++Y
+
+# 2026-02-17 16:05:29.919162
++YESY
+
+# 2026-02-17 16:05:34.978187
++YEES
+
+# 2026-02-17 16:05:39.047091
++YES
+
+# 2026-02-17 16:06:45.929601
++/EXIT
+
+# 2026-02-17 16:06:52.524427
++/exit
+
+# 2026-02-17 16:09:21.663983
++Peux-tu m'aider à mettre de l'ordre et de la structure dans mon code pour mon systemFactChecking? J'ai travaillé avec plusieurs agents AI différents et il existe plusieurs versions de backend et même plusieurs dossiers pour le même projet (parfois sous sysCRED, ou systemFactChecking, etc.)
++Avant de continuer le développement j,aimerais mettre de l'ordre. Lis bien la documentation et le readme https://github.com/DominiqueLoyer/systemFactChecking/
++
++Peux-tu regarder l'historique des GIT, Regarder la documention (principalement dans 03_DOCS) et lire le readme . Dis-moi ce que tu comprends de la struture et ce que tu me recommande au niveau de quels dossiers mettres et quels fichiers à l'intérieurs. Le constat actuel est que mon sytème était mieux avant le 8 ou février,, après lça s'est considrablement déterioré.
++Regarde les walktrough de Antivaty est les workspace aussi. 
++mon dossier local est /Users/bk280625/documents041025/systemFactChecking_Production
++(il était sur mon bureau avant et s'appellait systemFactChecking seulement que j'ai du changer de place par manque d'espace)
++
++Prend le contrôle et fais les commit et push à chaque itération et non seulement à la fin de la session car je ne sais jamais quand mon essaie temporaire va arrêter avec toi. Documente tout ce que tu fais. 
++
++
++Ce qui ne fonctionnait plus bien. Le render qui dépasse le quota de 528mo, le HF qui n'est pas bien synchonisé avec tous les changements comme le full TREC de plus de 200mo et non seulement 7 catégories en exemples, le NER qui ne s'affichent pas, le fact Cheching de Google , les Uri du graph qui devraient pointer vers https://syscred.uqam.ca . Les triplets de mon ontologie qui peuple ma BD postGRE ne semblent plus fonctionner non plus. L'aspect Bias n'a jamais été implémenté non plus et je souhaite l'avoir. 
++
+
+# 2026-02-17 16:09:59.233623
++N
+
+# 2026-02-17 16:11:03.792193
++D
+
+# 2026-02-17 16:13:26.474594
++N
+
+# 2026-02-17 16:13:31.835839
++/exit
+
+# 2026-02-26 21:37:42.821379
++Yes
+
+# 2026-02-27 14:49:16.150925
++Quel est l'état de l'art sur l'IA neuro-symbolique en 2026?

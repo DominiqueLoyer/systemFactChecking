@@ -1,0 +1,10 @@
+\babel@toc {french}{}\relax 
+\beamer@sectionintoc {1}{Introduction et problématique}{3}{0}{1}
+\beamer@sectionintoc {2}{Hypothèse et objectifs}{6}{0}{2}
+\beamer@sectionintoc {3}{Fondements théoriques}{8}{0}{3}
+\beamer@sectionintoc {4}{État de l'art (2024-2025)}{10}{0}{4}
+\beamer@sectionintoc {5}{Méthodologie}{14}{0}{5}
+\beamer@sectionintoc {6}{Architecture sysCRED}{15}{0}{6}
+\beamer@sectionintoc {7}{Résultats préliminaires}{18}{0}{7}
+\beamer@sectionintoc {8}{Plan de recherche}{19}{0}{8}
+\beamer@sectionintoc {9}{Conclusion}{21}{0}{9}

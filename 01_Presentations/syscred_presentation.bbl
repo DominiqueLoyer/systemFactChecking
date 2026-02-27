@@ -1,0 +1,61 @@
+\begin{thebibliography}{}
+
+\bibitem[d'Avila Garcez and Lamb, 2023]{Garcez2023ThirdWave}
+d'Avila Garcez, A.~S. and Lamb, L.~C. (2023).
+\newblock Neurosymbolic ai: The 3rd wave.
+\newblock {\em Artificial Intelligence Review}, 56.
+
+\bibitem[Hakim et~al., 2025]{Hakim2025Cybersecurity}
+Hakim, S.~B., Adil, M., Velasquez, A., Xu, S., and Song, H.~H. (2025).
+\newblock Neuro-symbolic ai for cybersecurity: A survey.
+\newblock {\em arXiv preprint arXiv:2509.06921}.
+
+\bibitem[Hevner et~al., 2004]{Hevner2004Design}
+Hevner, A.~R., March, S.~T., Park, J., and Ram, S. (2004).
+\newblock Design science in information systems research.
+\newblock {\em MIS Quarterly}, 28(1):75--105.
+
+\bibitem[Hitzler et~al., 2025]{Hitzler2025DeepReasoning}
+Hitzler, P., Rayan, R., Zalewski, J., Norouzi, S.~S., Eberhart, A., and
+  Vasserman, E.~Y. (2025).
+\newblock Deep deductive reasoning is a hard deep learning problem.
+\newblock In {\em Neurosymbolic Artificial Intelligence: The State of the Art},
+  pages 1--13. IOS Press.
+\newblock Argues for the necessity of symbolic rigour in deep learning systems.
+
+\bibitem[Marconato et~al., 2025]{Marconato2025ReasoningShortcuts}
+Marconato, E. et~al. (2025).
+\newblock Symbol grounding in neuro-symbolic ai: A gentle introduction to
+  reasoning shortcuts.
+\newblock {\em arXiv preprint arXiv:2510.14538}.
+
+\bibitem[Pan et~al., 2025]{Pan2025LLMKG}
+Pan, J.~Z. et~al. (2025).
+\newblock Large language models and knowledge graphs: Opportunities and
+  challenges.
+\newblock {\em arXiv preprint arXiv:2504.07640}.
+
+\bibitem[Peffers et~al., 2007]{Peffers2007DSRM}
+Peffers, K., Tuunanen, T., Rothenberger, M.~A., and Chatterjee, S. (2007).
+\newblock A design science research methodology for information systems
+  research.
+\newblock {\em Journal of Management Information Systems}, 24(3):45--77.
+
+\bibitem[Sarker et~al., 2023]{Sarker2023Trustworthy}
+Sarker, M.~K. et~al. (2023).
+\newblock Neuro-symbolic methods for trustworthy ai: a systematic review.
+\newblock {\em Journal of Neuro-Symbolic AI}.
+
+\bibitem[Yang et~al., 2025]{Yang2025Reasoning}
+Yang, X.-W. et~al. (2025).
+\newblock Neuro-symbolic artificial intelligence: Towards improving the
+  reasoning abilities of large language models.
+\newblock {\em arXiv preprint arXiv:2508.13678}.
+
+\bibitem[Zhang et~al., 2025]{GraphRAG2025Survey}
+Zhang, Y. et~al. (2025).
+\newblock A survey of graph retrieval-augmented generation for customized large
+  language models.
+\newblock {\em arXiv preprint arXiv:2501.13958}.
+
+\end{thebibliography}
