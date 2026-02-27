@@ -977,7 +977,7 @@
             btn.disabled = true;
 
             try {
-                const response = await fetch(`${API_URL}/api/verify`, {
+                const response = await fetch(`/api/verify`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1392,7 +1392,7 @@
                 container.innerHTML = '<div class="spinner"></div>'; // Loading state
                 logDebug("Fetching graph data...");
 
-                const response = await fetch(`${API_URL}/api/ontology/graph`);
+                const response = await fetch(`/api/ontology/graph`);
                 const data = await response.json();
 
                 container.innerHTML = ''; // Clear loading
