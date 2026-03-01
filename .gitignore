@@ -50,3 +50,10 @@ test_from_pypi/
 __pycache__/
 *.db
 
+# Fichiers binaires exclus du HF Space
+04_Bibliography/
+assets/graphs/
+*.pdf
+presentation_2026/
+modelisationCred.pdf
+VF_Beamer_*.pdf
