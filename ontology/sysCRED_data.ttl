@@ -691,6 +691,29 @@ cred1:Report_20260223_183540_2 a cred1:RapportEvaluation ;
     cred1:isReportOf cred1:Request_20260223_183540_2 ;
     cred1:reportSummary "L'analyse suggère une crédibilité MOYENNE à ÉLEVÉE. Réputation source : High."^^xsd:string .
 
+cred1:Report_20260306_113852_1 a cred1:RapportEvaluation ;
+    cred1:assignsCredibilityLevel cred1:Niveau_Bas ;
+    cred1:basedOnEvidence cred1:Evidence_20260306_113852_1_0,
+        cred1:Evidence_20260306_113852_1_1,
+        cred1:Evidence_20260306_113852_1_2,
+        cred1:Evidence_20260306_113852_1_3,
+        cred1:Evidence_20260306_113852_1_4 ;
+    cred1:completionTimestamp "2026-03-06T11:38:52.768891"^^xsd:dateTime ;
+    cred1:credibilityScoreValue "0.29"^^xsd:float ;
+    cred1:includesNLPResult cred1:NLPResult_20260306_113852_1 ;
+    cred1:includesSourceAnalysis cred1:SourceAnalysis_20260306_113852_1 ;
+    cred1:isReportOf cred1:Request_20260306_113852_1 ;
+    cred1:reportSummary "L'analyse suggère une crédibilité FAIBLE à MOYENNE. Réputation source : N/A (User Input). 5 vérification(s) de faits trouvée(s)."^^xsd:string .
+
+cred1:Report_20260306_114514_2 a cred1:RapportEvaluation ;
+    cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
+    cred1:completionTimestamp "2026-03-06T11:45:14.300635"^^xsd:dateTime ;
+    cred1:credibilityScoreValue "0.61"^^xsd:float ;
+    cred1:includesNLPResult cred1:NLPResult_20260306_114514_2 ;
+    cred1:includesSourceAnalysis cred1:SourceAnalysis_20260306_114514_2 ;
+    cred1:isReportOf cred1:Request_20260306_114514_2 ;
+    cred1:reportSummary "L'analyse suggère une crédibilité MOYENNE à ÉLEVÉE. Réputation source : High."^^xsd:string .
+
 cred1:Evidence_20260129_173754_1_0 a cred1:Evidence,
         cred1:RefutingEvidence ;
     cred1:evidenceSnippet "\"If you take a look at those five or six tweets [on Jan. 6], you will see very beautiful, very heartwarming statements.\""^^xsd:string .
@@ -1016,6 +1039,36 @@ cred1:Evidence_20260223_152859_1_4 a cred1:PreuveFactuelle ;
     cred1:evidenceSource "Science"^^xsd:string ;
     cred1:evidenceURL "https://science.feedback.org/review/flight-paths-not-evidence-for-flat-earth/"^^xsd:anyURI ;
     cred1:evidenceVerdict "Inaccurate"^^xsd:string .
+
+cred1:Evidence_20260306_113852_1_0 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Hillary Clinton ar fi confirmat că Pământul este plat"^^xsd:string ;
+    cred1:evidenceSource "Factual.ro"^^xsd:string ;
+    cred1:evidenceURL "https://www.factual.ro/dezinformari-rs/fals-hillary-clinton-ar-fi-confirmat-ca-pamantul-este-plat/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "FALS"^^xsd:string .
+
+cred1:Evidence_20260306_113852_1_1 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Ravna Zemlja se zasniva na zdravom razumu"^^xsd:string ;
+    cred1:evidenceSource "Faktograf.hr"^^xsd:string ;
+    cred1:evidenceURL "https://faktograf.hr/2026/01/27/znanost-je-dokazala-da-zemlja-nije-ravna-ploca/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "Zemlja nije ravna ploha, već je okrugla što dokazuju brojni fizikalni zakoni kao i fotografije snimljene iz svemira."^^xsd:string .
+
+cred1:Evidence_20260306_113852_1_2 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "NASA has admitted the earth is flat in several documents."^^xsd:string ;
+    cred1:evidenceSource "AAP"^^xsd:string ;
+    cred1:evidenceURL "https://www.aap.com.au/factcheck/no-nasa-didnt-admit-the-earth-is-flat/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "False. The post misinterprets common aeronautical flight calculation methodologies."^^xsd:string .
+
+cred1:Evidence_20260306_113852_1_3 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Flights from New Zealand to Argentina connect through the U.S., which only makes sense if the Earth is flat."^^xsd:string ;
+    cred1:evidenceSource "Science Feedback"^^xsd:string ;
+    cred1:evidenceURL "https://science.feedback.org/review/flight-paths-not-evidence-for-flat-earth/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "Inaccurate"^^xsd:string .
+
+cred1:Evidence_20260306_113852_1_4 a cred1:PreuveFactuelle ;
+    cred1:evidenceClaim "Antarctica’s perimeter is larger than Earth’s circumference which should not be possible, proving Antarctica is an ice wall and we live on a flat Earth."^^xsd:string ;
+    cred1:evidenceSource "Science"^^xsd:string ;
+    cred1:evidenceURL "https://science.feedback.org/review/viral-flat-earth-videos-miss-basic-geometry-when-comparing-antarcticas-perimeter-to-earths-circumference/"^^xsd:anyURI ;
+    cred1:evidenceVerdict "Incorrect"^^xsd:string .
 
 cred1:Info_20260128_084225_1 a cred1:InformationMoyenneCredibilite,
         cred1:InformationSoumise ;
@@ -1694,6 +1747,15 @@ cred1:Info_20260223_183540_2 a cred1:InformationMoyenneCredibilite,
     cred1:informationContent "https://lemonde.fr"^^xsd:string ;
     cred1:informationURL "https://lemonde.fr"^^xsd:anyURI .
 
+cred1:Info_20260306_113852_1 a cred1:InformationFaibleCredibilite,
+        cred1:InformationSoumise ;
+    cred1:informationContent "eart is flat"^^xsd:string .
+
+cred1:Info_20260306_114514_2 a cred1:InformationMoyenneCredibilite,
+        cred1:InformationSoumise ;
+    cred1:informationContent "https://lemonde.fr"^^xsd:string ;
+    cred1:informationURL "https://lemonde.fr"^^xsd:anyURI .
+
 cred1:NLPResult_20260128_084225_1 a cred1:ResultatNLP ;
     cred1:coherenceScore "1.0"^^xsd:float .
 
@@ -2200,6 +2262,14 @@ cred1:NLPResult_20260223_152859_1 a cred1:ResultatNLP ;
 cred1:NLPResult_20260223_183540_2 a cred1:ResultatNLP ;
     cred1:coherenceScore "0.21190788058771026"^^xsd:float ;
     cred1:sentimentScore "0.9990990161895752"^^xsd:float .
+
+cred1:NLPResult_20260306_113852_1 a cred1:ResultatNLP ;
+    cred1:coherenceScore "0.7"^^xsd:float ;
+    cred1:sentimentScore "0.9994534850120544"^^xsd:float .
+
+cred1:NLPResult_20260306_114514_2 a cred1:ResultatNLP ;
+    cred1:coherenceScore "0.2863904995222886"^^xsd:float ;
+    cred1:sentimentScore "0.9991752505302429"^^xsd:float .
 
 cred1:Report_20260203_110508_1 a cred1:RapportEvaluation ;
     cred1:assignsCredibilityLevel cred1:Niveau_Moyen ;
@@ -3379,6 +3449,16 @@ cred1:Request_20260223_183540_2 a cred1:RequeteEvaluation ;
     cred1:requestStatus "Completed"^^xsd:string ;
     cred1:submissionTimestamp "2026-02-23T18:35:40.844268"^^xsd:dateTime .
 
+cred1:Request_20260306_113852_1 a cred1:RequeteEvaluation ;
+    cred1:concernsInformation cred1:Info_20260306_113852_1 ;
+    cred1:requestStatus "Completed"^^xsd:string ;
+    cred1:submissionTimestamp "2026-03-06T11:38:52.768891"^^xsd:dateTime .
+
+cred1:Request_20260306_114514_2 a cred1:RequeteEvaluation ;
+    cred1:concernsInformation cred1:Info_20260306_114514_2 ;
+    cred1:requestStatus "Completed"^^xsd:string ;
+    cred1:submissionTimestamp "2026-03-06T11:45:14.300635"^^xsd:dateTime .
+
 cred1:SourceAnalysis_20260128_084225_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "Unknown"^^xsd:string .
 
@@ -3878,6 +3958,12 @@ cred1:SourceAnalysis_20260223_152859_1 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
 
 cred1:SourceAnalysis_20260223_183540_2 a cred1:InfoSourceAnalyse ;
+    cred1:sourceAnalyzedReputation "High"^^xsd:string .
+
+cred1:SourceAnalysis_20260306_113852_1 a cred1:InfoSourceAnalyse ;
+    cred1:sourceAnalyzedReputation "N/A (User Input)"^^xsd:string .
+
+cred1:SourceAnalysis_20260306_114514_2 a cred1:InfoSourceAnalyse ;
     cred1:sourceAnalyzedReputation "High"^^xsd:string .
 
 cred1:Report_20260130_142430_1 a cred1:RapportEvaluation ;
