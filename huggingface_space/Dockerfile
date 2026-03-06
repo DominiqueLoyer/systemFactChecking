@@ -28,6 +28,8 @@ RUN python -m spacy download fr_core_news_md || true
 # Copy application code
 COPY syscred/ /app/syscred/
 COPY ontology/ /app/ontology/
+# Crée le dossier instance et donne les droits
+RUN mkdir -p /app/instance && chmod 777 /app/instance
 
 # Create user for HF Spaces (required)
 RUN useradd -m -u 1000 user
