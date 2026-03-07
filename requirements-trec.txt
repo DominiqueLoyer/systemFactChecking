@@ -1,7 +1,6 @@
-# SysCRED - Requirements (Full version with ML models)
+# SysCRED - Full Requirements (HF Space + TREC 243K documents)
 # Système Hybride de Vérification de Crédibilité
-# (c) Dominique S. Loyer
-# Version complète pour HuggingFace Spaces et développement local
+# Includes: IR metrics, TREC AP88-90 dataset, full functionality
 
 # === Core Dependencies ===
 requests>=2.28.0
@@ -12,7 +11,7 @@ lxml>=4.9.0
 # === RDF/Ontology ===
 rdflib>=6.0.0
 
-# === Machine Learning ===
+# === Machine Learning (for NER, embeddings) ===
 transformers>=4.30.0
 torch>=2.0.0
 numpy>=1.24.0
@@ -28,12 +27,18 @@ flask>=2.3.0
 flask-cors>=4.0.0
 python-dotenv>=1.0.0
 pandas>=2.0.0
-huggingface_hub>=0.19.0
 
 # === Production/Database ===
 gunicorn>=20.1.0
 psycopg2-binary>=2.9.0
 flask-sqlalchemy>=3.0.0
+
+# === IR Evaluation (TREC metrics) ===
+# Built-in metrics: Precision, Recall, BM25, TF-IDF, MAP, NDCG, MRR
+pytrec_eval>=0.5
+
+# === IR/NLP Tools ===
+nltk>=3.8.0
 
 # === Development/Testing ===
 pytest>=7.0.0

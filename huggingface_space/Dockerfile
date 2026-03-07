@@ -26,8 +26,10 @@ RUN python -m spacy download en_core_web_md || true
 RUN python -m spacy download fr_core_news_md || true
 
 # Copy application code
+COPY app.py /app/
 COPY syscred/ /app/syscred/
 COPY ontology/ /app/ontology/
+COPY trec_corpus.jsonl /app/trec_corpus.jsonl
 # Crée le dossier instance et donne les droits
 RUN mkdir -p /app/instance && chmod 777 /app/instance
 
@@ -42,4 +44,4 @@ WORKDIR /app
 EXPOSE 7860
 
 # Run with HF Spaces port (7860)
-CMD ["gunicorn", "--bind", "0.0.0.0:7860", "--workers", "2", "--timeout", "300", "syscred.backend_app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:7860", "--workers", "2", "--timeout", "300", "app:app"]

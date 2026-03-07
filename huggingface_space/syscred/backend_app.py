@@ -16,6 +16,7 @@ Endpoints:
 
 import sys
 import os
+import json
 import traceback
 
 # Load environment variables from .env file
@@ -142,6 +143,40 @@ TREC_DEMO_CORPUS = {
         "title": "Tech Industry Update"
     },
 }
+
+# Full TREC corpus (loaded from JSONL)
+TREC_CORPUS = {}
+
+def load_trec_corpus():
+    """Load TREC AP88-90 corpus from JSONL file."""
+    global TREC_CORPUS
+    
+    # Try different paths
+    possible_paths = [
+        '/app/trec_corpus.jsonl',  # HF Space path
+        'trec_corpus.jsonl',       # Relative path
+        '/Users/bk280625/documents041025/systemFactChecking_Sandbox/trec_corpus.jsonl',
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            print(f"[SysCRED Backend] Loading TREC corpus from {path}")
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        doc = json.loads(line.strip())
+                        doc_id = doc.get('id', '')
+                        text = doc.get('contents', doc.get('text', ''))
+                        title = doc.get('title', '')
+                        if doc_id:
+                            TREC_CORPUS[doc_id] = {'text': text, 'title': title}
+                print(f"[SysCRED Backend] Loaded {len(TREC_CORPUS)} documents from TREC corpus")
+                return True
+            except Exception as e:
+                print(f"[SysCRED Backend] Error loading corpus: {e}")
+    
+    print("[SysCRED Backend] TREC corpus not found, using demo corpus")
+    return False
 
 def initialize_system():
     """Initialize the credibility system (lazy loading)."""
@@ -288,9 +323,11 @@ def verify_endpoint():
             # Initialize TREC if needed
             if trec_retriever is None and TREC_AVAILABLE:
                 trec_retriever = TRECRetriever(use_stemming=True, enable_prf=False)
-                trec_retriever.corpus = TREC_DEMO_CORPUS
+                # Use full corpus if loaded, otherwise demo
+                corpus = TREC_CORPUS if TREC_CORPUS else TREC_DEMO_CORPUS
+                trec_retriever.corpus = corpus
                 eval_metrics = EvaluationMetrics()
-                print("[SysCRED Backend] TREC Retriever initialized with demo corpus")
+                print(f"[SysCRED Backend] TREC Retriever initialized with {len(corpus)} documents")
             
             if trec_retriever and eval_metrics:
                 import time
@@ -676,6 +713,10 @@ if __name__ == '__main__':
     print("(c) Dominique S. Loyer - PhD Thesis Prototype")
     print("=" * 60)
     print()
+    
+    # Load TREC corpus at startup
+    print("[SysCRED Backend] Loading TREC corpus...")
+    load_trec_corpus()
     
     # Initialize system at startup
     print("[SysCRED Backend] Pre-initializing system...")

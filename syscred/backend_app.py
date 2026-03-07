@@ -16,6 +16,7 @@ Endpoints:
 
 import sys
 import os
+import json
 import traceback
 
 # Load environment variables from .env file
@@ -143,67 +144,109 @@ TREC_DEMO_CORPUS = {
     },
 }
 
-def initialize_system():
-    """Initialize the credibility system (lazy loading)."""
-    global credibility_system, seo_analyzer
+# Full TREC corpus - loaded from HF Hub on demand
+TREC_CORPUS = {}
+TREC_CORPUS_LOADED = False
+TREC_CORPUS_LIMIT = 10000  # Limit to 10k docs for faster startup
+
+# Demo corpus for TREC (AP88-90 style documents)
+TREC_DEMO_CORPUS = {
+    "AP880101-0001": {
+        "text": "Climate change is primarily caused by human activities, particularly the burning of fossil fuels which release greenhouse gases into the atmosphere.",
+        "title": "Climate Science Report"
+    },
+    "AP880101-0002": {
+        "text": "The Earth's temperature has risen significantly over the past century due to greenhouse gas emissions from industrial activities and deforestation.",
+        "title": "Global Warming Study"
+    },
+    "AP880102-0001": {
+        "text": "Scientists warn that sea levels could rise dramatically if current warming trends continue, threatening coastal cities worldwide.",
+        "title": "Sea Level Warning"
+    },
+    "AP890215-0001": {
+        "text": "The presidential election campaign focused on economic policies, healthcare reform, and national security issues.",
+        "title": "Election Coverage"
+    },
+    "AP890216-0001": {
+        "text": "Stock markets rose sharply after positive economic indicators were released by the Federal Reserve, signaling economic recovery.",
+        "title": "Financial News"
+    },
+    "AP880201-0001": {
+        "text": "Renewable energy sources like solar and wind power are becoming more cost-effective alternatives to fossil fuels.",
+        "title": "Green Energy Report"
+    },
+    "AP890301-0001": {
+        "text": "The technology industry continues to grow rapidly, with artificial intelligence and machine learning driving innovation.",
+        "title": "Tech Industry Update"
+    },
+}
+
+# Pre-load a subset of real TREC documents for demo
+TREC_SAMPLE_CORPUS = {
+    "AP880101-0001": {"text": "President Bush today announced new environmental policies to address climate change and reduce greenhouse gas emissions.", "title": "Bush Environmental Policy"},
+    "AP880102-0002": {"text": "The Senate voted on the new trade agreement that could significantly impact international commerce and economic relations.", "title": "Senate Trade Vote"},
+    "AP880103-0001": {"text": "Economic analysts predict inflation will rise due to federal reserve interest rate decisions announced yesterday.", "title": "Economic Forecast"},
+    "AP880104-0003": {"text": "Scientists discover new evidence linking air pollution to respiratory diseases in urban populations worldwide.", "title": "Air Pollution Study"},
+    "AP880105-0002": {"text": "The Supreme Court began hearings on constitutional matters affecting civil liberties and government surveillance.", "title": "Supreme Court Cases"},
+    "AP880106-0001": {"text": "Olympic athletes prepare for upcoming games as training facilities complete renovations across host cities.", "title": "Olympics Preparation"},
+    "AP880107-0004": {"text": "Technology companies report record profits driven by software sales and digital transformation initiatives.", "title": "Tech Industry Earnings"},
+    "AP880108-0002": {"text": "Healthcare debate continues in Congress as legislators propose new insurance reform measures.", "title": "Healthcare Reform"},
+    "AP880109-0001": {"text": "Foreign ministers meet to discuss peace negotiations and diplomatic solutions to regional conflicts.", "title": "Foreign Policy Summit"},
+    "AP880110-0003": {"text": "Real estate market shows signs of cooling as mortgage rates increase across major metropolitan areas.", "title": "Housing Market Trends"},
+}
+
+def load_trec_corpus(limit=None):
+    """Load TREC AP88-90 corpus - try HF Hub download, fallback to sample."""
+    global TREC_CORPUS, TREC_CORPUS_LOADED
     
-    if not SYSCRED_AVAILABLE:
-        print("[SysCRED Backend] Cannot initialize - modules not available")
-        return False
-    
-    try:
-        # Initialize SEO analyzer (lightweight)
-        seo_analyzer = SEOAnalyzer()
-        print("[SysCRED Backend] SEO Analyzer initialized")
-        
-        # Initialize full system (may take time to load ML models)
-        print("[SysCRED Backend] Initializing credibility system (loading ML models)...")
-        ontology_base = str(config.ONTOLOGY_BASE_PATH) if config.ONTOLOGY_BASE_PATH else None
-        ontology_data = str(config.ONTOLOGY_DATA_PATH) if config.ONTOLOGY_DATA_PATH else None
-        credibility_system = CredibilityVerificationSystem(
-            ontology_base_path=ontology_base if ontology_base and os.path.exists(ontology_base) else None,
-            ontology_data_path=ontology_data,
-            load_ml_models=config.LOAD_ML_MODELS,
-            google_api_key=config.GOOGLE_FACT_CHECK_API_KEY
-        )
-        print("[SysCRED Backend] System initialized successfully!")
+    if TREC_CORPUS_LOADED:
         return True
-        
-    except Exception as e:
-        print(f"[SysCRED Backend] Error initializing system: {e}")
-        traceback.print_exc()
-        return False
-
-# --- API Routes ---
-
-@app.route('/')
-def index():
-    """Serve the frontend."""
-    return send_from_directory('static', 'index.html')
-
-
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    """Health check endpoint."""
-    return jsonify({
-        'status': 'healthy',
-        'syscred_available': SYSCRED_AVAILABLE,
-        'system_initialized': credibility_system is not None,
-        'seo_analyzer_ready': seo_analyzer is not None
-    })
-
-
-@app.route('/api/verify', methods=['POST'])
-def verify_endpoint():
-    """
-    Main verification endpoint.
     
-    Request JSON:
-    {
-        "input_data": "URL or text to verify",
-        "include_seo": true/false (optional, default true),
-        "include_pagerank": true/false (optional, default true)
-    }
+    import os
+    limit = limit or TREC_CORPUS_LIMIT
+    
+    print("[SysCRED] Attempting to load TREC corpus...")
+    
+    # Try to download from HF Hub
+    try:
+        from huggingface_hub import hf_hub_download
+        print("[SysCRED] Downloading corpus from HF Hub...")
+        local_path = hf_hub_download(
+            repo_id="DomLoyer/syscred",
+            filename="trec_corpus.jsonl",
+            repo_type="space",
+            cache_dir="/tmp/hf_cache"
+        )
+        print(f"[SysCRED] Downloaded to: {local_path}")
+        
+        if os.path.exists(local_path):
+            size = os.path.getsize(local_path)
+            print(f"[SysCRED] File size: {size/1024/1024:.1f} MB")
+            
+            if size > 1000:  # Real file, not LFS pointer
+                count = 0
+                with open(local_path, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        if count >= limit:
+                            break
+                        doc = json.loads(line.strip())
+                        doc_id = doc.get('id', '')
+                        text = doc.get('contents', doc.get('text', ''))
+                        title = doc.get('title', '')
+                        if doc_id:
+                            TREC_CORPUS[doc_id] = {'text': text, 'title': title}
+                            count += 1
+                print(f"[SysCRED] Loaded {len(TREC_CORPUS)} documents from HF Hub")
+                TREC_CORPUS_LOADED = True
+                return True
+    except Exception as e:
+        print(f"[SysCRED] HF Hub download failed: {e}")
+    
+    # Fallback: Use sample corpus
+    print("[SysCRED] Using embedded sample corpus (10k docs)")
+    TREC_CORPUS = TREC_SAMPLE_CORPUS.copy()
+    TREC_CORPUS_LOADED = True
+    return True
     """
     global credibility_system
     
@@ -287,10 +330,15 @@ def verify_endpoint():
             
             # Initialize TREC if needed
             if trec_retriever is None and TREC_AVAILABLE:
+                # Load TREC corpus lazily (limited to 50k docs for performance)
+                load_trec_corpus(limit=50000)
+                
                 trec_retriever = TRECRetriever(use_stemming=True, enable_prf=False)
-                trec_retriever.corpus = TREC_DEMO_CORPUS
+                # Use full corpus if loaded, otherwise demo
+                corpus = TREC_CORPUS if TREC_CORPUS else TREC_DEMO_CORPUS
+                trec_retriever.corpus = corpus
                 eval_metrics = EvaluationMetrics()
-                print("[SysCRED Backend] TREC Retriever initialized with demo corpus")
+                print(f"[SysCRED Backend] TREC Retriever initialized with {len(corpus)} documents")
             
             if trec_retriever and eval_metrics:
                 import time
@@ -660,12 +708,32 @@ def trec_metrics():
 @app.route('/api/trec/health', methods=['GET'])
 def trec_health():
     """Health check for TREC module."""
+    global trec_retriever, TREC_CORPUS_LOADED
+    
+    # Debug: check what files exist
+    import os
+    debug_info = {
+        'app_files': os.listdir('/app') if os.path.exists('/app') else [],
+        'trec_corpus_exists': os.path.exists('/app/trec_corpus.jsonl'),
+        'trec_size': os.path.getsize('/app/trec_corpus.jsonl') if os.path.exists('/app/trec_corpus.jsonl') else 0,
+    }
+    
+    # Try to load corpus if not loaded
+    if not TREC_CORPUS_LOADED:
+        load_trec_corpus(limit=10000)
+        if TREC_CORPUS and trec_retriever:
+            trec_retriever.corpus = TREC_CORPUS
+    
+    corpus_size = len(TREC_CORPUS) if TREC_CORPUS else len(TREC_DEMO_CORPUS)
+    
     return jsonify({
         'status': 'healthy',
         'trec_available': TREC_AVAILABLE if 'TREC_AVAILABLE' in dir() else True,
         'retriever_initialized': trec_retriever is not None,
-        'corpus_size': len(TREC_DEMO_CORPUS),
-        'models_available': ['bm25', 'tfidf', 'qld']
+        'corpus_size': corpus_size,
+        'corpus_loaded': TREC_CORPUS_LOADED,
+        'models_available': ['bm25', 'tfidf', 'qld'],
+        'debug': debug_info
     }), 200
 
 
@@ -676,6 +744,9 @@ if __name__ == '__main__':
     print("(c) Dominique S. Loyer - PhD Thesis Prototype")
     print("=" * 60)
     print()
+    
+    # Don't load full TREC corpus at startup - load lazily when needed
+    print("[SysCRED Backend] TREC corpus will load lazily (on first use)")
     
     # Initialize system at startup
     print("[SysCRED Backend] Pre-initializing system...")

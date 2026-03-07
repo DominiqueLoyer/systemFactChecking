@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from syscred.backend_app import app as syscred_app
 import sys
-sys.path.append('/home/user/systemFactChecking_Sandbox')
+sys.path.insert(0, '/app')
 
 app = Flask(__name__)
 
