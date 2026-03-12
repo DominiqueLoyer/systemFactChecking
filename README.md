@@ -12,14 +12,13 @@
 *Citation Key: loyerModelingHybridSystem2025*
 
 > [!NOTE]
-> **Version stable : v2.4 (22 février 2026) — Restructuration consolidée**
+
+> **Version stable : v2.4.1 (12 mars 2026) — (dashboard explainers, TREC metrics, GraphRAG)**
 >
 > - **Fact-Checking** multi-sources (Google Fact Check API)
 > - **E-E-A-T** (Experience, Expertise, Authority, Trust)
 > - **NER** — Extraction d'entités nommées (spaCy)
 > - **GraphRAG** — Réseau Neuro-Symbolique (D3.js)
-> - **IR Engine** — BM25, TF-IDF, PageRank
-> - **TREC AP88-90** — 242,918 documents (corpus complet)
 > - **Métriques** — Precision, Recall, nDCG, MRR
 > - **Bias Analysis** — Détection de biais
 
@@ -32,9 +31,9 @@ systemFactChecking_Sandbox/
 │   ├── backend_app.py          # API Flask
 │   ├── verification_system.py  # Système principal
 │   ├── config.py
-│   ├── ner_analyzer.py         # ← À restaurer
-│   ├── eeat_calculator.py      # ← À restaurer
-│   ├── graph_rag.py
+│   ├── ner_analyzer.py         # ← restauré
+│   ├── eeat_calculator.py      # ← restauré
+│   ├── graph_rag.py            # ← URI pointent vers sysCRED
 │   ├── ontology_manager.py
 │   ├── api_clients.py
 │   ├── seo_analyzer.py
