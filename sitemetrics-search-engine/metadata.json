@@ -1,0 +1,5 @@
+{
+  "name": "SiteMetrics Search Engine",
+  "description": "A sophisticated search analysis tool that uses Gemini's search grounding to retrieve web results and calculates SEO/relevance metrics like Precision, Recall, and TF-IDF proxies.",
+  "requestFramePermissions": []
+}

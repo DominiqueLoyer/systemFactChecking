@@ -1,0 +1,63 @@
+cff-version: 1.2.0
+message: "If you use SysCRED, please cite it as below."
+type: software
+
+authors:
+  - family-names: Loyer
+    given-names: Dominique S.
+    orcid: "https://orcid.org/0009-0003-9713-7109"
+    affiliation: "Université du Québec à Montréal (UQAM),
+                  Institut des Sciences Cognitives"
+
+title: "SysCRED: Système Hybride d'Évaluation de la Crédibilité
+        de l'Information"
+date-released: "2026-02-28"
+year: 2026
+
+url: "https://huggingface.co/spaces/DomLoyer/syscred"
+repository-code: "https://huggingface.co/spaces/DomLoyer/syscred"
+
+license: "CC-BY-4.0"
+
+keywords:
+  - credibility evaluation
+  - fact-checking
+  - neuro-symbolic AI
+  - ontology
+  - knowledge graph
+  - information retrieval
+  - E-E-A-T
+  - hybrid system
+  - NLP
+  - transformers
+  - RDFLib
+  - BM25
+  - TREC
+
+references:
+  - type: article
+    authors:
+      - family-names: Loyer
+        given-names: Dominique S.
+    title: "Modeling a Hybrid System for Verifying Information Credibility"
+    year: 2025
+    doi: "10.13140/RG.2.2.36348.24961"
+  - type: article
+    authors:
+      - family-names: Loyer
+        given-names: Dominique S.
+    title: "Hybrid System Ontology for Information Source Verification"
+    year: 2025
+    doi: "10.13140/RG.2.2.22926.47680"
+
+preferred-citation:
+  type: software
+  authors:
+    - family-names: Loyer
+      given-names: Dominique S.
+      orcid: "https://orcid.org/0009-0003-9713-7109"
+  title: "SysCRED: Système Hybride d'Évaluation de la Crédibilité
+          de l'Information"
+  year: 2026
+  url: "https://huggingface.co/spaces/DomLoyer/syscred"
+  publisher: "Hugging Face"
