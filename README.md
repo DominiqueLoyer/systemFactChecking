@@ -25,37 +25,87 @@
 # Restructuration de sysCRED 210226
 
 ```bash
-systemFactChecking_Sandbox/
-├── syscred/                    # ← Package Python unique et propre
-│   ├── __init__.py
-│   ├── backend_app.py          # API Flask
-│   ├── verification_system.py  # Système principal
-│   ├── config.py
-│   ├── ner_analyzer.py         # ← restauré
-│   ├── eeat_calculator.py      # ← restauré
-│   ├── graph_rag.py            # ← URI pointent vers sysCRED
-│   ├── ontology_manager.py
-│   ├── api_clients.py
-│   ├── seo_analyzer.py
-│   ├── ir_engine.py
-│   ├── eval_metrics.py
-│   ├── trec_retriever.py
-│   ├── trec_dataset.py
-│   ├── liar_dataset.py
-│   ├── database.py
-│   └── static/
-│       └── index.html
-├── huggingface_space/
-│   ├── Dockerfile              # ← Mis à jour
-│   └── README.md
-├── requirements.txt            # ← Allégé pour Render
-├── requirements-full.txt       # ← Version complète pour HF/local
-├── Dockerfile                  # Pour Render
-├── .env
-├── README.md
-├── 03_Docs/
-├── 99_Archive/                 # ← Anciennes versions archivées
-└── ...
+systemFactChecking_Production/
+├── src/
+│   └── syscred/                    ← Package Python principal
+│       ├── __init__.py
+│       ├── core/                   ← Cœur du système
+│       │   ├── config.py           ← Configuration centralisée
+│       │   ├── verification_system.py
+│       │   └── scoring.py
+│       ├── api/                    ← Interface web
+│       │   ├── backend_app.py      ← Flask app
+│       │   ├── routes/
+│       │   └── middleware/
+│       ├── ml/                     ← Modèles ML
+│       │   ├── sentiment.py
+│       │   ├── ner_analyzer.py     ← À fusionner depuis HF
+│       │   └── eeat_calculator.py  ← À fusionner depuis HF
+│       ├── graph/                  ← GraphRAG & Ontologie
+│       │   ├── graph_rag.py
+│       │   ├── ontology_manager.py
+│       │   └── queries.py
+│       ├── ir/                     ← TREC & Information Retrieval
+│       │   ├── ir_engine.py
+│       │   ├── trec_retriever.py
+│       │   └── eval_metrics.py
+│       ├── datasets/               ← Gestion datasets
+│       │   └── liar_dataset.py
+│       └── utils/                  ← Utilitaires
+│           ├── api_clients.py
+│           ├── database.py
+│           └── helpers.py
+│
+├── data/                           ← Données (hors git pour gros fichiers)
+│   ├── ontology/
+│   │   ├── sysCRED_onto26avrtil.ttl
+│   │   └── sysCRED_data.ttl
+│   └── datasets/
+│       ├── liar/                   ← Dataset LIAR
+│       └── trec/                   ← Corpus TREC AP88-90 (276MB)
+│
+├── docs/                           ← Documentation
+│   ├── DEV_LOGS/                   ← Journaux de développement
+│   ├── PUBLICATIONS/               ← Papers et présentations
+│   └── API.md
+│
+├── tests/                          ← Tests
+│   ├── unit/
+│   ├── integration/
+│   └── benchmarks/
+│
+├── notebooks/                      ← Jupyter notebooks
+│   └── exploration/
+│
+├── deploy/                         ← Configurations déploiement
+│   ├── huggingface/                ← Spécifique HF Space
+│   │   ├── Dockerfile.hf
+│   │   ├── requirements-hf.txt
+│   │   └── static/                 ← Assets HF
+│   └── docker/                     ← Docker générique
+│       ├── Dockerfile
+│       └── docker-compose.yml
+│
+├── scripts/                        ← Scripts utilitaires
+│   ├── start_syscred.sh
+│   ├── deploy_huggingface.sh
+│   └── run_benchmarks.py
+│
+├── 99_Archive/                     ← ARCHIVES (jamais supprimées)
+│   └── 2026-03-14_restructuration/
+│       ├── systemFactChecking-1/   ← Copie complète préservée
+│       ├── syscred-space_backup/   ← Version HF préservée
+│       ├── v2_syscred/             ← Ancienne version
+│       ├── syscred_legacy/
+│       └── SysCRED_v2.1_Update/
+│       └── README.md               ← Documentation des archives
+│
+├── pyproject.toml                  ← Configuration package Python
+├── requirements.txt
+├── requirements-dev.txt
+├── .env.example
+├── .gitignore                      ← Mis à jour avec data/large
+└── README.md                       ← Mis à jour
 ```
 
 ---
