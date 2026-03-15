@@ -11,7 +11,7 @@
 **PhD Thesis Prototype** — Dominique S. Loyer (UQAM)  
 *Citation Key: loyerModelingHybridSystem2025*
 
-[!NOTE] **Version stable : v2.4.1 (12 mars 2026) — (dashboard explainers, TREC metrics, GraphRAG)**
+[!NOTE] > **Version stable : v2.4.1 (12 mars 2026) — (dashboard explainers, TREC metrics, GraphRAG)**
 
 > - **Fact-Checking** multi-sources (Google Fact Check API)
 > - **E-E-A-T** (Experience, Expertise, Authority, Trust)
