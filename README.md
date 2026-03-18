@@ -7,6 +7,7 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_colab.ipynb)
 [![OWL](https://img.shields.io/badge/OWL-2.0-orange.svg)](https://www.w3.org/OWL/)
 [![RDF](https://img.shields.io/badge/RDF-Turtle-blue.svg)](https://www.w3.org/TR/turtle/)
+[![sysCRED](https://img.shields.io/badge/sysCRED-syscred.uqam.ca-7B2D8B)](https://syscred.uqam.ca)
 
 **PhD Thesis Prototype** — Dominique S. Loyer (UQAM)  
 *Citation Key: loyerModelingHybridSystem2025*
