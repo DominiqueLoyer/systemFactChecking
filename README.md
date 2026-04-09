@@ -5,7 +5,6 @@
 [![PyPI version](https://badge.fury.io/py/syscred.svg)](https://badge.fury.io/py/syscred)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17943226.svg)](https://doi.org/10.5281/zenodo.17943226)
 ![Python](https://img.shields.io/badge/Python-72.4%25-3776AB?logo=python&logoColor=white)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DominiqueLoyer/systemFactChecking/blob/main/02_Code/v2_syscred/syscred_colab.ipynb)
 [![OWL](https://img.shields.io/badge/OWL-2.0-orange.svg)](https://www.w3.org/OWL/)
 [![RDF](https://img.shields.io/badge/RDF-Turtle-blue.svg)](https://www.w3.org/TR/turtle/)
