@@ -18,6 +18,10 @@
 [![Render](https://img.shields.io/badge/Deployed%20on-Render-46E3B7?logo=render)](https://isc-video-platform.onrender.com)
 [![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E?logo=supabase)](https://supabase.com)
 ![License](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97-Dataset-yellow)](https://huggingface.co/datasets/DomLoyer/trec-ap88-90-corpus)
+[![TREC AP88-90 Corpus](https://img.shields.io/badge/Corpus-TREC%20AP88--90-blue)](https://huggingface.co/datasets/DomLoyer/trec-ap88-90-corpus)
+[![English](https://img.shields.io/badge/Language-English-green)](https://huggingface.co/datasets/DomLoyer/trec-ap88-90-corpus)
+
 
 **PhD Thesis Prototype** — Dominique S. Loyer (UQAM)  
 *Citation Key: loyerModelingHybridSystem2025*
