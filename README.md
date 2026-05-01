@@ -353,13 +353,43 @@ export SYSCRED_LOAD_ML=false       # Désactiver ML
 ## 🏷️ Citation
 
 ```bibtex
-@software{loyer2026syscred,
-  author = {Loyer, Dominique S.},
-  title = {SysCRED: Neuro-Symbolic System for Information Credibility Verification},
-  year = {2026},
-  publisher = {GitHub},
-  url = {https://github.com/DominiqueLoyer/systemFactChecking}
-}
+cff-version: 1.2.0
+title: "systemFactChecking: v2.4.1 --- Neuro-Symbolic AI Credibility System"
+message: |
+  To cite this software, please use the following entry:
+  @software{Loyer2026sysCREDv241,
+    author       = {Loyer, Dominique},
+    title        = {DominiqueLoyer/systemFactChecking: v2.4.1 --- Neuro-Symbolic AI Credibility System},
+    year         = {2026},
+    month        = mar,
+    doi          = {10.5281/zenodo.18436691},
+    orcid        = {0009-0003-9713-7109},
+    url          = {https://github.com/DominiqueLoyer/systemFactChecking/releases/tag/v2.4.1},
+    publisher    = {Zenodo},
+    license      = {CC-BY-4.0},
+    repository   = {https://github.com/DominiqueLoyer/systemFactChecking},
+    version      = {2.4.1}
+  }
+type: software
+abstract: |
+  SysCRED is a hybrid neuro-symbolic system for assessing information credibility,
+  combining ontological rules, symbolic reasoning and neural methods to evaluate
+  the reliability and trustworthiness of digital content.
+authors:
+  - family-names: Loyer
+    given-names: Dominique
+    orcid: "https://orcid.org/0009-0003-9713-7109"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.18436691"
+keywords:
+  - credibility
+  - fact-checking
+  - neuro-symbolic AI
+  - knowledge graph
+  - information verification
+license: CC-BY-4.0
+version: 2.4. embeddings: 1
 ```
 
 ---
